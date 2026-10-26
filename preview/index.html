@@ -438,10 +438,12 @@ body:not([data-ds-dark-theme]) .aw-scene { background: var(--aw-paper-bg); }
 .aw-photo {
   position: absolute;
   inset: 0;
-  background: url("../src/client/assets/hall.webp") center 42% / cover no-repeat;
-  filter: brightness(.66) contrast(1.14) sepia(.30) saturate(.82) hue-rotate(-8deg);
+  background: url("../src/client/assets/dusk.webp") 58% 34% / cover no-repeat;
+  filter: brightness(.95) contrast(1.03) saturate(1.02) hue-rotate(-3deg);
 }
 body:not([data-ds-dark-theme]) .aw-photo {
+  background-image: url("../src/client/assets/hall.webp");
+  background-position: center 42%;
   filter: brightness(1.12) contrast(.90) sepia(.42) saturate(.72);
   opacity: .86;
 }
