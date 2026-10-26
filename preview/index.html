@@ -1,0 +1,1649 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AETHERWORKS · 以太工造 — DSH theme preview</title>
+<style>
+/* ============================================================
+   AETHERWORKS / 以太工造
+   A retro-futurist megastructure survey terminal for DeepSeek Harness.
+   Design preview — all scenery is CSS/SVG, no external assets.
+   ============================================================ */
+
+/* ---------- tokens ---------- */
+body[data-dsh-sector-07] {
+  --aw-font-display: "Bodoni 72", "Didot", "Playfair Display", "Georgia", "Songti SC", serif;
+  --aw-font-ui: "Avenir Next", "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Segoe UI", sans-serif;
+  --aw-font-mono: "SF Mono", "IBM Plex Mono", "Menlo", "Consolas", "PingFang SC", monospace;
+  --aw-font-cn: "Songti SC", "STSong", "SimSun", "Noto Serif SC", serif;
+
+  --aw-bg: #0b0806;
+  --aw-bg-2: #15100c;
+  --aw-bg-3: #1e1711;
+  --aw-panel: rgba(22, 17, 12, .84);
+  --aw-panel-solid: #16110c;
+  --aw-panel-raised: #211912;
+  --aw-ink: #eadfc8;
+  --aw-dim: #b9a98e;
+  --aw-mute: #8b7b64;
+  --aw-faint: #7a6a54;
+  --aw-line: rgba(234, 223, 200, .12);
+  --aw-line-strong: rgba(234, 223, 200, .24);
+  --aw-brass: #c79a4b;
+  --aw-brass-hi: #e8c57c;
+  --aw-brass-lo: #7a5a28;
+  --aw-patina: #5f8f7c;
+  --aw-patina-dim: #35564b;
+  --aw-rust: #a85435;
+  --aw-amber: #f0b45e;
+  --aw-ember: #ff8a3d;
+  --aw-glass: #0a0806;
+  --aw-glass-ink: #eadfc8;
+  --aw-glass-mute: #9b8a70;
+  --aw-titlebar: #1a130e;
+  --aw-titlebar-ink: #e8d9bc;
+  --aw-shadow: 0 24px 70px rgba(0, 0, 0, .58);
+  --aw-scrim: rgba(11, 8, 6, .62);
+  --aw-paper-bg: #ded2b9;
+}
+
+body[data-dsh-sector-07]:not([data-ds-dark-theme]) {
+  --aw-bg: #ded2b9;
+  --aw-bg-2: #d2c4a8;
+  --aw-bg-3: #c6b696;
+  --aw-panel: rgba(246, 239, 224, .86);
+  --aw-panel-solid: #f2ead8;
+  --aw-panel-raised: #faf4e6;
+  --aw-ink: #241c13;
+  --aw-dim: #4e4030;
+  --aw-mute: #5e4c36;
+  --aw-faint: #6f5b43;
+  --aw-line: rgba(36, 28, 19, .16);
+  --aw-line-strong: rgba(36, 28, 19, .30);
+  --aw-brass: #8b6426;
+  --aw-brass-hi: #b88a3e;
+  --aw-brass-lo: #5a3f17;
+  --aw-patina: #2f5d4e;
+  --aw-patina-dim: #6e8f82;
+  --aw-rust: #8e3b22;
+  --aw-amber: #b46a1e;
+  --aw-ember: #c85a24;
+  --aw-glass: #14110d;
+  --aw-glass-ink: #f2e8d3;
+  --aw-glass-mute: #a08e74;
+  --aw-titlebar: #1c1510;
+  --aw-titlebar-ink: #e8d9bc;
+  --aw-shadow: 0 24px 50px rgba(70, 48, 28, .18);
+  --aw-scrim: rgba(222, 210, 185, .42);
+}
+
+/* ---------- reset ---------- */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--aw-font-ui);
+  color: var(--aw-ink);
+  background: var(--aw-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+button { font: inherit; color: inherit; border: 0; background: none; padding: 0; cursor: pointer; }
+::selection { background: var(--aw-brass); color: #1a120d; }
+:focus-visible { outline: 2px solid var(--aw-amber); outline-offset: 2px; }
+
+/* ---------- app frame ---------- */
+.aw-app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  isolation: isolate;
+  background: var(--aw-bg);
+}
+
+/* ---------- titlebar ---------- */
+.aw-titlebar {
+  position: relative;
+  z-index: 40;
+  flex: 0 0 42px;
+  height: 42px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 15px;
+  background:
+    linear-gradient(180deg, rgba(255, 235, 200, .07), transparent 34%),
+    linear-gradient(180deg, #2a2018 0%, #1a130e 58%, #120d09 100%);
+  border-bottom: 1px solid rgba(199, 154, 75, .42);
+  box-shadow: 0 1px 0 rgba(255, 235, 200, .05), 0 10px 28px rgba(0, 0, 0, .34);
+  color: var(--aw-titlebar-ink);
+}
+.aw-titlebar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(232, 197, 124, .55) 0 1px, transparent 1.4px);
+  background-size: 22px 22px;
+  opacity: .18;
+  mask-image: linear-gradient(180deg, #000 0 4px, transparent 12px, transparent calc(100% - 10px), #000 calc(100% - 3px));
+}
+.aw-titlebar::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--aw-brass) 14%, var(--aw-brass-hi) 50%, var(--aw-brass) 86%, transparent);
+  opacity: .42;
+}
+.aw-title-left, .aw-title-right { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.aw-title-right { justify-content: flex-end; }
+.aw-title-mark {
+  width: 24px; height: 24px; flex: 0 0 auto;
+  color: var(--aw-brass);
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,.6));
+}
+.aw-title-copy { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.aw-title-name {
+  font-family: var(--aw-font-display);
+  font-size: 13px; font-weight: 600; letter-spacing: .16em; line-height: 1;
+  color: var(--aw-titlebar-ink);
+}
+.aw-title-sub {
+  font: 500 6.8px/1 var(--aw-font-mono);
+  letter-spacing: .22em;
+  color: rgba(232, 197, 124, .72);
+}
+.aw-title-mid {
+  display: flex; align-items: baseline; gap: 7px;
+  font-family: var(--aw-font-display);
+  letter-spacing: .2em;
+  user-select: none;
+}
+.aw-title-mid b {
+  font-size: 13px; font-weight: 600;
+  color: var(--aw-brass-hi);
+  text-shadow: 0 1px 0 rgba(0,0,0,.7);
+}
+.aw-title-mid span {
+  font: 500 6.5px/1 var(--aw-font-mono);
+  letter-spacing: .18em;
+  padding: 3px 5px 2px;
+  color: #1a120d;
+  background: linear-gradient(180deg, var(--aw-brass-hi), var(--aw-brass-lo));
+  border-radius: 2px;
+}
+.aw-clock {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 2px;
+  font: 500 7.5px/1 var(--aw-font-mono);
+  letter-spacing: .12em;
+  color: var(--aw-titlebar-ink);
+}
+.aw-clock span { font-size: 6px; color: rgba(232, 197, 124, .55); letter-spacing: .16em; }
+.aw-gauge { width: 26px; height: 26px; flex: 0 0 auto; color: var(--aw-brass); opacity: .9; }
+.aw-lamp {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--aw-amber);
+  box-shadow: 0 0 7px rgba(240, 180, 94, .8);
+  animation: aw-flicker 7s ease-in-out infinite;
+}
+
+/* ---------- shell ---------- */
+.aw-shell { position: relative; display: flex; flex: 1 1 auto; min-height: 0; }
+
+/* ---------- sidebar ---------- */
+.aw-sidebar {
+  position: relative;
+  z-index: 30;
+  flex: 0 0 298px;
+  width: 298px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background:
+    linear-gradient(90deg, rgba(255, 235, 200, .035), transparent 22%),
+    linear-gradient(180deg, #1c1510 0%, #15100c 52%, #0d0a07 100%);
+  border-right: 1px solid rgba(199, 154, 75, .30);
+  box-shadow: 18px 0 48px rgba(0, 0, 0, .30);
+}
+.aw-sidebar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(0deg, rgba(255, 235, 200, .025) 0 1px, transparent 1px 3px);
+  opacity: .7;
+}
+.aw-sidebar > * { position: relative; z-index: 1; }
+.aw-brand { display: flex; align-items: center; gap: 11px; padding: 18px 16px 14px; }
+.aw-brand-mark {
+  width: 34px; height: 34px; flex: 0 0 auto;
+  color: var(--aw-brass);
+  filter: drop-shadow(0 0 10px rgba(199, 154, 75, .18));
+}
+.aw-brand-copy { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.aw-brand-name {
+  font-family: var(--aw-font-display);
+  font-size: 16px; font-weight: 600; letter-spacing: .13em; line-height: 1;
+  color: var(--aw-ink);
+}
+.aw-brand-sub {
+  font: 500 7px/1 var(--aw-font-mono);
+  letter-spacing: .2em;
+  color: var(--aw-mute);
+}
+.aw-brand-sub b { color: var(--aw-brass); font-weight: 500; }
+
+.aw-new {
+  margin: 3px 12px 11px;
+  height: 38px;
+  display: flex; align-items: center; gap: 9px;
+  padding: 0 11px;
+  border: 1px solid rgba(199, 154, 75, .58);
+  border-radius: 5px;
+  background:
+    linear-gradient(180deg, rgba(232, 197, 124, .12), rgba(199, 154, 75, .03)),
+    rgba(10, 8, 6, .35);
+  color: var(--aw-brass-hi);
+  font: 600 8.5px/1 var(--aw-font-mono);
+  letter-spacing: .16em;
+  box-shadow: inset 0 1px rgba(255, 235, 200, .08), 0 2px 8px rgba(0,0,0,.25);
+  transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+.aw-new:hover { border-color: var(--aw-brass-hi); background: rgba(199, 154, 75, .13); transform: translateY(-1px); }
+.aw-new svg { flex: 0 0 auto; color: var(--aw-brass); }
+.aw-new kbd {
+  margin-left: auto;
+  font: 500 7px/1 var(--aw-font-mono);
+  color: var(--aw-mute);
+  border: 1px solid var(--aw-line);
+  border-radius: 2px;
+  padding: 2px 4px;
+}
+
+.aw-search {
+  margin: 0 12px 13px;
+  height: 32px;
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 9px;
+  border: 1px solid var(--aw-line);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, .24);
+  color: var(--aw-mute);
+  transition: border-color .18s ease, background .18s ease;
+}
+.aw-search:hover, .aw-search:focus-within { border-color: rgba(199, 154, 75, .48); background: rgba(0, 0, 0, .32); }
+.aw-search svg { flex: 0 0 auto; opacity: .8; }
+.aw-search input {
+  width: 100%; min-width: 0;
+  border: 0; outline: 0; background: none;
+  color: var(--aw-ink);
+  font: 500 8.5px/1 var(--aw-font-mono);
+  letter-spacing: .14em;
+}
+.aw-search input::placeholder { color: var(--aw-mute); }
+.aw-search kbd { font: 500 7px/1 var(--aw-font-mono); color: var(--aw-faint); }
+
+.aw-section {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 16px 8px;
+  font: 600 7px/1 var(--aw-font-mono);
+  letter-spacing: .2em;
+  color: var(--aw-mute);
+}
+.aw-section::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--aw-line), transparent); }
+.aw-section b { color: var(--aw-brass); font-weight: 500; }
+
+.aw-sessions { display: flex; flex-direction: column; gap: 2px; padding: 0 8px; overflow: auto; scrollbar-width: none; }
+.aw-sessions::-webkit-scrollbar { display: none; }
+.aw-session {
+  position: relative;
+  display: flex; align-items: center; gap: 9px;
+  height: 46px;
+  padding: 0 9px 0 9px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background .16s ease, border-color .16s ease;
+}
+.aw-session:hover { background: rgba(255, 235, 200, .04); }
+.aw-session-idx {
+  flex: 0 0 22px;
+  font: 500 8px/1 var(--aw-font-mono);
+  letter-spacing: .04em;
+  color: var(--aw-faint);
+  text-align: right;
+}
+.aw-session-copy { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; }
+.aw-session-title {
+  font-size: 12px; line-height: 1; font-weight: 500;
+  color: var(--aw-dim);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.aw-session-meta {
+  display: flex; align-items: center; gap: 6px;
+  font: 500 6.8px/1 var(--aw-font-mono);
+  letter-spacing: .1em;
+  color: var(--aw-faint);
+}
+.aw-session-meta i { width: 3px; height: 3px; border-radius: 50%; background: currentColor; opacity: .55; }
+.aw-session-time { font: 500 7px/1 var(--aw-font-mono); color: var(--aw-faint); }
+.aw-session.is-active {
+  border-color: rgba(199, 154, 75, .38);
+  background: linear-gradient(90deg, rgba(199, 154, 75, .14), rgba(199, 154, 75, .03) 70%, transparent);
+  box-shadow: inset 0 1px rgba(255, 235, 200, .05), 0 4px 14px rgba(0,0,0,.18);
+}
+.aw-session.is-active::before {
+  content: "";
+  position: absolute; left: -1px; top: 8px; bottom: 8px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--aw-brass-hi), var(--aw-brass));
+  box-shadow: 0 0 9px rgba(199, 154, 75, .45);
+}
+.aw-session.is-active .aw-session-idx { color: var(--aw-brass); }
+.aw-session.is-active .aw-session-title { color: var(--aw-ink); }
+.aw-session-lamp {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--aw-amber);
+  box-shadow: 0 0 6px rgba(240, 180, 94, .7);
+  flex: 0 0 auto;
+}
+.aw-session-lamp.is-muted { background: var(--aw-faint); box-shadow: none; }
+
+.aw-sidebar-spacer { flex: 1 1 auto; min-height: 10px; }
+
+.aw-sector {
+  margin: 0 12px 10px;
+  border: 1px solid var(--aw-line);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, .2);
+  overflow: hidden;
+}
+.aw-sector-head {
+  display: flex; align-items: center; gap: 7px;
+  height: 25px; padding: 0 9px;
+  border-bottom: 1px solid var(--aw-line);
+  font: 600 6.8px/1 var(--aw-font-mono);
+  letter-spacing: .18em;
+  color: var(--aw-mute);
+}
+.aw-sector-head b { margin-left: auto; color: var(--aw-amber); font-weight: 500; }
+.aw-sector-body { padding: 8px 9px 9px; }
+.aw-sector-drawing {
+  height: 58px;
+  border: 1px solid var(--aw-line);
+  border-radius: 2px;
+  background:
+    linear-gradient(180deg, rgba(255,235,200,.03), transparent),
+    rgba(0,0,0,.16);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.aw-sector-drawing svg { width: 100%; height: 100%; color: var(--aw-brass); opacity: .55; }
+.aw-sector-title { font-size: 11px; font-weight: 600; color: var(--aw-ink); margin-bottom: 3px; }
+.aw-sector-meta { font: 500 6.8px/1.5 var(--aw-font-mono); letter-spacing: .08em; color: var(--aw-mute); }
+.aw-sector-meta b { color: var(--aw-brass); font-weight: 500; }
+
+.aw-operator {
+  display: flex; align-items: center; gap: 9px;
+  height: 48px;
+  margin: 0 8px 8px;
+  padding: 0 8px;
+  border-top: 1px solid var(--aw-line);
+  color: var(--aw-mute);
+}
+.aw-avatar {
+  width: 25px; height: 25px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  border: 1px solid rgba(199, 154, 75, .45);
+  background: radial-gradient(circle at 32% 28%, rgba(255, 235, 200, .18), transparent 62%), var(--aw-panel-raised);
+  font: 600 8px/1 var(--aw-font-mono);
+  color: var(--aw-brass);
+}
+.aw-operator-copy { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.aw-operator-name { font: 600 8px/1 var(--aw-font-mono); letter-spacing: .12em; color: var(--aw-dim); }
+.aw-operator-role { font: 500 6.5px/1 var(--aw-font-mono); letter-spacing: .1em; color: var(--aw-faint); }
+.aw-operator .aw-icon-btn { margin-left: auto; }
+.aw-icon-btn {
+  width: 25px; height: 25px;
+  display: grid; place-items: center;
+  border-radius: 4px;
+  color: var(--aw-mute);
+  transition: color .15s ease, background .15s ease;
+}
+.aw-icon-btn:hover { color: var(--aw-ink); background: rgba(255, 235, 200, .05); }
+
+/* ---------- main ---------- */
+.aw-main {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--aw-bg);
+}
+.aw-scene { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.aw-scene-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.aw-paper-scene { display: none; }
+body:not([data-ds-dark-theme]) .aw-dark-scene { display: none; }
+body:not([data-ds-dark-theme]) .aw-paper-scene { display: block; }
+body:not([data-ds-dark-theme]) .aw-scene { background: var(--aw-paper-bg); }
+
+.aw-photo {
+  position: absolute;
+  inset: 0;
+  background: url("../src/client/assets/hall.webp") center 42% / cover no-repeat;
+  filter: brightness(.66) contrast(1.14) sepia(.30) saturate(.82) hue-rotate(-8deg);
+}
+body:not([data-ds-dark-theme]) .aw-photo {
+  filter: brightness(1.12) contrast(.90) sepia(.42) saturate(.72);
+  opacity: .86;
+}
+.aw-tone {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 70%, rgba(240, 160, 76, .16), transparent 38%),
+    radial-gradient(ellipse at 50% 44%, transparent 20%, rgba(4, 3, 2, .48) 66%, rgba(3, 2, 2, .78) 100%);
+}
+body:not([data-ds-dark-theme]) .aw-tone {
+  background:
+    radial-gradient(ellipse at 50% 36%, rgba(247, 240, 224, .82) 0%, rgba(247, 240, 224, .58) 36%, rgba(247, 240, 224, .16) 62%, transparent 78%),
+    radial-gradient(circle at 50% 70%, rgba(255, 238, 206, .18), transparent 44%),
+    radial-gradient(ellipse at 50% 44%, transparent 28%, rgba(246, 238, 221, .30) 70%, rgba(238, 226, 203, .55) 100%);
+}
+.aw-cool {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(74, 108, 116, .18), transparent 34%);
+  mix-blend-mode: screen;
+}
+body:not([data-ds-dark-theme]) .aw-cool { display: none; }
+.aw-corner {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(7, 5, 4, .82), transparent 18%),
+    linear-gradient(270deg, rgba(7, 5, 4, .62), transparent 16%),
+    linear-gradient(180deg, rgba(7, 5, 4, .55), transparent 16%),
+    linear-gradient(0deg, rgba(7, 5, 4, .45), transparent 14%);
+}
+body:not([data-ds-dark-theme]) .aw-corner {
+  background:
+    linear-gradient(90deg, rgba(90, 70, 44, .20), transparent 18%),
+    linear-gradient(270deg, rgba(90, 70, 44, .14), transparent 16%),
+    linear-gradient(180deg, rgba(90, 70, 44, .14), transparent 16%),
+    linear-gradient(0deg, rgba(90, 70, 44, .10), transparent 14%);
+}
+.aw-fog {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 74%, rgba(232, 217, 188, .09), transparent 70%),
+    linear-gradient(180deg, rgba(11, 8, 6, .18), transparent 26%, transparent 68%, rgba(11, 8, 6, .52));
+  opacity: .9;
+}
+body:not([data-ds-dark-theme]) .aw-fog {
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 74%, rgba(255, 250, 240, .18), transparent 70%),
+    linear-gradient(180deg, rgba(222, 210, 185, .18), transparent 30%, transparent 72%, rgba(222, 210, 185, .28));
+}
+.aw-grain {
+  position: absolute;
+  inset: 0;
+  opacity: .055;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+body:not([data-ds-dark-theme]) .aw-grain { opacity: .04; }
+.aw-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 44%, transparent 34%, rgba(0, 0, 0, .30) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, .30), transparent 18%, transparent 82%, rgba(0, 0, 0, .30));
+}
+body:not([data-ds-dark-theme]) .aw-vignette {
+  background:
+    radial-gradient(ellipse at 50% 44%, transparent 38%, rgba(90, 64, 38, .10) 100%),
+    linear-gradient(90deg, rgba(90, 64, 38, .10), transparent 16%, transparent 84%, rgba(90, 64, 38, .10));
+}
+.aw-dust {
+  position: absolute;
+  inset: 0;
+  opacity: .35;
+  background-image:
+    radial-gradient(1px 1px at 18% 22%, rgba(240, 180, 94, .7), transparent 100%),
+    radial-gradient(1px 1px at 72% 38%, rgba(240, 180, 94, .45), transparent 100%),
+    radial-gradient(1px 1px at 44% 68%, rgba(232, 217, 188, .35), transparent 100%),
+    radial-gradient(1px 1px at 86% 74%, rgba(240, 180, 94, .35), transparent 100%);
+  background-size: 340px 340px, 460px 460px, 280px 280px, 520px 520px;
+  mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent);
+}
+
+/* content */
+.aw-content {
+  position: relative;
+  z-index: 5;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 clamp(26px, 4vw, 60px) 18px;
+}
+.aw-content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 62% 58% at 50% 38%, rgba(11, 8, 6, .66), transparent 74%),
+    linear-gradient(90deg, rgba(11, 8, 6, .28), transparent 16%, transparent 84%, rgba(11, 8, 6, .28));
+}
+body:not([data-ds-dark-theme]) .aw-content::before {
+  background:
+    radial-gradient(ellipse 62% 58% at 50% 38%, rgba(222, 210, 185, .34), transparent 76%),
+    linear-gradient(90deg, rgba(222, 210, 185, .28), transparent 16%, transparent 84%, rgba(222, 210, 185, .28));
+}
+.aw-topline {
+  flex: 0 0 42px;
+  display: flex; align-items: center; gap: 10px;
+  font: 500 7.5px/1 var(--aw-font-mono);
+  letter-spacing: .17em;
+  color: var(--aw-mute);
+  border-bottom: 1px solid var(--aw-line);
+}
+.aw-topline .aw-crumb { display: flex; align-items: center; gap: 7px; }
+.aw-topline .aw-crumb b { color: var(--aw-dim); font-weight: 500; }
+.aw-topline .aw-slash { color: var(--aw-faint); }
+.aw-topline .aw-signal { display: flex; align-items: center; gap: 5px; color: var(--aw-amber); }
+.aw-topline .aw-signal i { width: 4px; height: 4px; border-radius: 50%; background: currentColor; box-shadow: 0 0 6px currentColor; }
+.aw-topline-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.aw-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 23px; padding: 0 8px;
+  border: 1px solid var(--aw-line);
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--aw-panel-solid) 52%, transparent);
+  font: 500 7px/1 var(--aw-font-mono);
+  letter-spacing: .1em;
+  color: var(--aw-dim);
+  white-space: nowrap;
+}
+.aw-chip svg { color: var(--aw-brass); }
+.aw-chip b { color: var(--aw-ink); font-weight: 500; }
+
+.aw-stage {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 3vh;
+}
+.aw-hero { width: min(900px, 100%); margin: 0 auto; text-align: center; position: relative; }
+.aw-plate-row {
+  display: flex; align-items: center; justify-content: center; gap: 9px;
+  padding-left: 24px; margin-bottom: 14px;
+}
+.aw-plate {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 600 7.5px/1 var(--aw-font-mono);
+  letter-spacing: .22em;
+  color: var(--aw-brass);
+}
+.aw-plate::before, .aw-plate::after {
+  content: ""; width: 26px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--aw-brass));
+}
+.aw-plate::after { background: linear-gradient(90deg, var(--aw-brass), transparent); }
+/* the redraw knob on the plate; 15px on the mock's smaller scale */
+.aw-quote-refresh {
+  display: inline-grid; place-items: center;
+  width: 15px; height: 15px; padding: 0;
+  border: 1px solid rgba(224, 182, 106, .52); border-radius: 50%;
+  background: rgba(7, 6, 5, .42); color: #e0b66a;
+  opacity: .8; cursor: pointer;
+  transition: opacity 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+.aw-quote-refresh:hover { opacity: 1; border-color: rgba(224, 182, 106, .9); background: rgba(224, 182, 106, .14); }
+body:not([data-ds-dark-theme]) .aw-quote-refresh {
+  background: rgba(247, 238, 220, .52); border-color: rgba(139, 100, 38, .34); color: var(--aw-brass);
+}
+body:not([data-ds-dark-theme]) .aw-quote-refresh:hover {
+  border-color: rgba(139, 100, 38, .72); background: rgba(139, 100, 38, .10);
+}
+.aw-quote-refresh:active svg { transform: rotate(-38deg); }
+.aw-quote-refresh svg { transition: transform 260ms ease; }
+.aw-quote-body.is-redrawing { animation: aw-mock-survey 420ms cubic-bezier(.22, .61, .36, 1) both; }
+@keyframes aw-mock-survey {
+  from { opacity: 0; transform: translateY(7px); filter: blur(3px); }
+  to { opacity: 1; transform: translateY(0); filter: none; }
+}
+.aw-headline {
+  margin: 0;
+  font-family: var(--aw-font-display);
+  font-size: clamp(46px, 5.9vw, 82px);
+  font-weight: 500;
+  line-height: .98;
+  letter-spacing: .012em;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #f5ead6 0%, #ddcaaa 42%, #b49569 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 2px 0 rgba(0, 0, 0, .38)) drop-shadow(0 12px 28px rgba(0, 0, 0, .28));
+}
+.aw-headline em { font-style: italic; color: transparent; }
+.aw-headline .aw-cn {
+  font-family: var(--aw-font-cn);
+  font-size: .8em;
+  font-weight: 600;
+  letter-spacing: .06em;
+  line-height: 1.18;
+}
+
+/* 中文句末标点只占 em 框左半边；拆出来悬挂，行才按墨迹而不是字宽居中 */
+.aw-punct {
+  letter-spacing: 0;
+  margin-right: -.6em;
+}
+.aw-headline .aw-brass-word {
+  background: linear-gradient(180deg, #f7e3b8 0%, #d8ad64 46%, #a97b3f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+body:not([data-ds-dark-theme]) .aw-headline {
+  background: linear-gradient(180deg, #2b2117 0%, #4a3a29 52%, #7a6244 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 1px 0 rgba(255, 250, 240, .55));
+}
+body:not([data-ds-dark-theme]) .aw-headline .aw-brass-word {
+  background: linear-gradient(180deg, #7a4e16 0%, #a06b22 54%, #5a3f17 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+/* 引子：把引文的第一句先说完，声音压住，落点留给下面两行大字 */
+.aw-lede {
+  margin: 0 auto 15px;
+  max-width: 620px;
+  font-family: var(--aw-font-cn);
+  font-size: 15.5px;
+  line-height: 1.7;
+  letter-spacing: .16em;
+  color: var(--aw-ink);
+  opacity: .9;
+  font-weight: 400;
+}
+/* 落款：引文出处，黄铜小字，紧跟在引文下方 */
+.aw-source {
+  margin: 11px auto 0;
+  max-width: 560px;
+  font: 400 8.5px/1.7 var(--aw-font-cn);
+  letter-spacing: .16em;
+  color: var(--aw-brass);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+}
+body:not([data-ds-dark-theme]) .aw-source { text-shadow: none; }
+.aw-epigraph {
+  margin: 11px auto 0;
+  max-width: 560px;
+  font: 500 7px/1.7 var(--aw-font-mono);
+  letter-spacing: .18em;
+  color: var(--aw-mute);
+  text-transform: uppercase;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+}
+body:not([data-ds-dark-theme]) .aw-stat b,
+body:not([data-ds-dark-theme]) .aw-epigraph { text-shadow: none; }
+.aw-epigraph span { color: var(--aw-brass); white-space: nowrap; }
+.aw-stats {
+  display: inline-flex;
+  align-items: stretch;
+  margin-top: 16px;
+  border-top: 1px solid var(--aw-line);
+  border-bottom: 1px solid var(--aw-line);
+}
+.aw-stat { padding: 9px 18px; display: flex; flex-direction: column; gap: 5px; }
+.aw-stat + .aw-stat { border-left: 1px solid var(--aw-line); }
+.aw-stat span { font: 500 6.2px/1 var(--aw-font-mono); letter-spacing: .18em; color: var(--aw-faint); }
+.aw-stat b { font: 500 8.5px/1 var(--aw-font-mono); letter-spacing: .1em; color: var(--aw-dim); text-shadow: 0 1px 2px rgba(0, 0, 0, .55); }
+.aw-stat b em { font-style: normal; color: var(--aw-brass); }
+
+/* composer */
+.aw-composer-wrap { width: min(790px, 100%); margin: 24px auto 0; }
+.aw-composer {
+  /* the console is always a dark-substrate instrument, in both modes */
+  --aw-ink: #eadfc8;
+  --aw-dim: #b9a98e;
+  --aw-mute: #8b7b64;
+  --aw-faint: #7a6a54;
+  --aw-brass: #c79a4b;
+  --aw-brass-hi: #e8c57c;
+  --aw-brass-lo: #7a5a28;
+  --aw-line: rgba(234, 223, 200, .12);
+  --aw-line-strong: rgba(234, 223, 200, .24);
+  --aw-panel-solid: #16110c;
+  position: relative;
+  border: 1px solid rgba(199, 154, 75, .55);
+  border-radius: 7px;
+  background:
+    linear-gradient(180deg, rgba(255, 235, 200, .08), transparent 12%),
+    linear-gradient(180deg, #241b13 0%, #17110c 48%, #100c09 100%);
+  box-shadow: var(--aw-shadow), inset 0 1px rgba(255, 235, 200, .08), 0 0 0 1px rgba(0, 0, 0, .5);
+  overflow: hidden;
+}
+.aw-composer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(232, 197, 124, .55) 0 1px, transparent 1.4px);
+  background-size: 24px 24px;
+  opacity: .12;
+  mask-image: linear-gradient(180deg, #000, transparent 12px, transparent calc(100% - 12px), #000);
+}
+.aw-bolt {
+  position: absolute;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #f2d79b, #7a5a28 70%);
+  box-shadow: 0 1px 1px rgba(0,0,0,.6);
+  z-index: 2;
+}
+.aw-bolt.tl { top: 5px; left: 5px; }
+.aw-bolt.tr { top: 5px; right: 5px; }
+.aw-bolt.bl { bottom: 5px; left: 5px; }
+.aw-bolt.br { bottom: 5px; right: 5px; }
+.aw-composer-top {
+  display: flex; align-items: center; gap: 7px;
+  height: 28px; padding: 0 13px;
+  border-bottom: 1px solid var(--aw-line);
+  font: 600 6.8px/1 var(--aw-font-mono);
+  letter-spacing: .18em;
+  color: var(--aw-mute);
+}
+.aw-composer-top .aw-rec { display: inline-flex; align-items: center; gap: 5px; color: var(--aw-brass); }
+.aw-composer-top .aw-rec i { width: 4px; height: 4px; border-radius: 50%; background: currentColor; box-shadow: 0 0 6px currentColor; }
+.aw-composer-top b { color: var(--aw-dim); font-weight: 500; }
+.aw-composer-top .aw-spacer { flex: 1; }
+.aw-composer-top .aw-tick { color: var(--aw-faint); letter-spacing: .08em; }
+.aw-mini-gauge { width: 30px; height: 18px; color: var(--aw-brass); opacity: .8; }
+.aw-screen {
+  margin: 10px 11px 0;
+  min-height: 72px;
+  padding: 14px 15px 12px;
+  border: 1px solid rgba(199, 154, 75, .22);
+  border-radius: 3px;
+  background:
+    linear-gradient(180deg, rgba(255, 235, 200, .025), transparent 26%),
+    var(--aw-glass);
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, .65), inset 0 1px rgba(255, 235, 200, .04);
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+.aw-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(240, 180, 94, .035) 0 1px, transparent 1px 4px);
+  opacity: .5;
+}
+.aw-screen p {
+  margin: 0;
+  font: 500 10.5px/1.7 var(--aw-font-mono);
+  letter-spacing: .12em;
+  color: var(--aw-glass-mute);
+}
+.aw-caret {
+  display: inline-block;
+  width: 5px; height: 12px;
+  margin-left: 3px;
+  vertical-align: -2px;
+  background: var(--aw-amber);
+  box-shadow: 0 0 8px rgba(240, 180, 94, .55);
+  animation: aw-blink 1.15s steps(1) infinite;
+}
+.aw-composer-row {
+  display: flex; align-items: center; gap: 7px;
+  padding: 9px 12px 10px;
+  border-top: 1px solid var(--aw-line);
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, .2));
+}
+.aw-round {
+  width: 27px; height: 27px;
+  display: grid; place-items: center;
+  border: 1px solid rgba(199, 154, 75, .34);
+  border-radius: 50%;
+  color: var(--aw-brass);
+  background: rgba(0,0,0,.18);
+  transition: border-color .15s ease, background .15s ease, color .15s ease;
+}
+.aw-round:hover { border-color: var(--aw-brass); color: var(--aw-brass-hi); background: rgba(199, 154, 75, .10); }
+.aw-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 24px; padding: 0 8px;
+  border: 1px solid var(--aw-line);
+  border-radius: 3px;
+  font: 500 7px/1 var(--aw-font-mono);
+  letter-spacing: .1em;
+  color: var(--aw-dim);
+  background: rgba(255, 235, 200, .02);
+}
+.aw-pill:hover { border-color: var(--aw-line-strong); color: var(--aw-ink); }
+.aw-pill svg { color: var(--aw-brass); }
+.aw-pill.is-accent { border-color: rgba(199, 154, 75, .3); color: var(--aw-brass-hi); }
+.aw-composer-row .aw-spacer { flex: 1; }
+.aw-ctx {
+  display: flex; align-items: center; gap: 6px;
+  font: 500 6.8px/1 var(--aw-font-mono);
+  letter-spacing: .1em;
+  color: var(--aw-mute);
+}
+.aw-ctx-bar { width: 30px; height: 3px; border-radius: 2px; background: var(--aw-line); overflow: hidden; }
+.aw-ctx-bar i { display: block; width: 18%; height: 100%; background: linear-gradient(90deg, var(--aw-patina), var(--aw-brass)); }
+.aw-send {
+  width: 34px; height: 34px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  color: #1a120d;
+  background:
+    radial-gradient(circle at 36% 28%, #f6dfae, transparent 42%),
+    linear-gradient(145deg, var(--aw-brass-hi), var(--aw-brass) 48%, var(--aw-brass-lo));
+  border: 1px solid #e8c57c;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.4), 0 5px 14px rgba(0,0,0,.4), inset 0 1px rgba(255,255,255,.35);
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+.aw-send:hover { transform: translateY(-1px); box-shadow: 0 0 0 1px rgba(0,0,0,.4), 0 7px 18px rgba(0,0,0,.45), 0 0 18px rgba(199, 154, 75, .28); }
+.aw-send:active { transform: translateY(0) scale(.96); }
+.aw-composer-foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 8px 4px 0;
+  font: 500 6.5px/1 var(--aw-font-mono);
+  letter-spacing: .12em;
+  color: var(--aw-faint);
+}
+.aw-composer-foot b { color: var(--aw-mute); font-weight: 500; }
+.aw-composer-foot .aw-sides { display: flex; gap: 12px; }
+.aw-composer-foot .aw-sides span { display: inline-flex; align-items: center; gap: 5px; }
+.aw-composer-foot .aw-sides i { width: 3px; height: 3px; border-radius: 50%; background: var(--aw-amber); box-shadow: 0 0 5px var(--aw-amber); }
+
+/* orders */
+.aw-orders {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 9px;
+  width: min(790px, 100%);
+  margin: 20px auto 0;
+}
+.aw-order {
+  display: flex; align-items: center; gap: 9px;
+  min-width: 0;
+  height: 52px;
+  padding: 0 10px;
+  border: 1px solid var(--aw-line);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--aw-panel-solid) 46%, transparent);
+  text-align: left;
+  transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+.aw-order:hover { border-color: rgba(199, 154, 75, .5); background: color-mix(in srgb, var(--aw-panel-solid) 70%, transparent); transform: translateY(-1px); }
+.aw-order-num { font: 600 6.5px/1 var(--aw-font-mono); letter-spacing: .1em; color: var(--aw-faint); align-self: flex-start; margin-top: 3px; }
+.aw-order-icon {
+  flex: 0 0 auto; width: 24px; height: 24px;
+  display: grid; place-items: center;
+  border: 1px solid var(--aw-line);
+  border-radius: 3px;
+  color: var(--aw-brass);
+  background: rgba(255,235,200,.02);
+}
+.aw-order-copy { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.aw-order-copy b { font: 600 8px/1 var(--aw-font-mono); letter-spacing: .1em; color: var(--aw-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.aw-order-copy span { font-size: 9px; line-height: 1; color: var(--aw-mute); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.aw-order-arrow { margin-left: auto; color: var(--aw-faint); transition: color .18s ease, transform .18s ease; }
+.aw-order:hover .aw-order-arrow { color: var(--aw-brass); transform: translate(1px, -1px); }
+
+/* ============================================================
+   CHAT VIEW
+   ============================================================ */
+.aw-chat { display: none; width: min(870px, 100%); margin: 0 auto; flex: 1 1 auto; min-height: 0; padding: 8px 0 0; overflow: hidden; }
+body[data-view="chat"] .aw-stage { display: none; }
+body[data-view="chat"] .aw-chat { display: flex; flex-direction: column; }
+body[data-view="chat"] .aw-composer-wrap { margin-top: 12px; }
+body[data-view="chat"] .aw-orders { display: none; }
+body:not([data-view="chat"]) #chat-composer { display: none; }
+
+.aw-chat-head {
+  display: flex; align-items: center; gap: 10px;
+  height: 34px;
+  border-bottom: 1px solid var(--aw-line);
+  font: 600 7px/1 var(--aw-font-mono);
+  letter-spacing: .18em;
+  color: var(--aw-mute);
+}
+.aw-chat-head b { color: var(--aw-dim); font-weight: 500; }
+.aw-chat-head .aw-spacer { flex: 1; }
+.aw-chat-head .aw-live { display: inline-flex; align-items: center; gap: 5px; color: var(--aw-amber); }
+.aw-chat-head .aw-live i { width: 4px; height: 4px; border-radius: 50%; background: currentColor; box-shadow: 0 0 6px currentColor; }
+.aw-chat-scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  padding: 20px 4px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(199, 154, 75, .4) transparent;
+}
+.aw-msg { display: flex; gap: 11px; max-width: 94%; }
+.aw-msg.is-user { margin-left: auto; flex-direction: row-reverse; }
+.aw-msg-avatar {
+  flex: 0 0 auto;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  border: 1px solid rgba(199, 154, 75, .40);
+  background: radial-gradient(circle at 32% 28%, rgba(255,235,200,.16), transparent 62%), var(--aw-panel-raised);
+  font: 700 7px/1 var(--aw-font-mono);
+  color: var(--aw-brass);
+}
+.aw-msg.is-user .aw-msg-avatar { color: var(--aw-rust); border-color: rgba(168, 84, 53, .6); }
+.aw-msg-body { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.aw-msg-meta { display: flex; align-items: center; gap: 7px; font: 600 6.8px/1 var(--aw-font-mono); letter-spacing: .14em; color: var(--aw-mute); }
+.aw-msg-meta b { color: var(--aw-dim); font-weight: 500; }
+.aw-msg.is-user .aw-msg-meta { justify-content: flex-end; }
+.aw-bubble {
+  padding: 13px 15px;
+  border: 1px solid var(--aw-line);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--aw-panel-solid) 92%, transparent);
+  font-size: 12.5px; line-height: 1.8;
+  color: var(--aw-dim);
+  box-shadow: 0 8px 28px rgba(0,0,0,.18);
+  backdrop-filter: blur(8px);
+}
+.aw-bubble strong { color: var(--aw-ink); font-weight: 600; }
+.aw-bubble .aw-inline-code {
+  font: 500 11px/1.4 var(--aw-font-mono);
+  padding: 1px 5px;
+  border: 1px solid var(--aw-line);
+  border-radius: 2px;
+  background: rgba(0,0,0,.22);
+  color: var(--aw-brass-hi);
+}
+.aw-msg.is-user .aw-bubble {
+  border-color: rgba(199, 154, 75, .38);
+  background: #d9cab0;
+  color: #241c13;
+  padding-bottom: 26px;
+  border-bottom-right-radius: 1px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.18);
+  position: relative;
+}
+.aw-msg.is-user .aw-bubble::after {
+  content: "RECEIVED";
+  position: absolute;
+  right: 10px; bottom: 6px;
+  font: 600 6px/1 var(--aw-font-mono);
+  letter-spacing: .18em;
+  color: rgba(142, 59, 34, .65);
+  border: 1px solid rgba(142, 59, 34, .45);
+  padding: 2px 4px;
+  transform: rotate(-4deg);
+}
+body:not([data-ds-dark-theme]) .aw-bubble {
+  background: rgba(255, 252, 245, .94);
+  border-color: rgba(36, 28, 19, .18);
+}
+body:not([data-ds-dark-theme]) .aw-msg.is-user .aw-bubble {
+  background: #f2e4cc;
+  border-color: rgba(142, 59, 34, .38);
+  box-shadow: inset 3px 0 0 rgba(142, 59, 34, .55), 0 10px 24px rgba(70, 48, 28, .12);
+}
+
+.aw-think {
+  display: flex; align-items: center; gap: 9px;
+  padding: 9px 11px;
+  border: 1px solid color-mix(in srgb, var(--aw-patina) 34%, transparent);
+  border-radius: 4px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--aw-patina) 10%, transparent), color-mix(in srgb, var(--aw-panel-solid) 90%, transparent));
+  color: var(--aw-mute);
+  font: 500 8px/1 var(--aw-font-mono);
+  letter-spacing: .1em;
+}
+.aw-gear {
+  width: 12px; height: 12px;
+  color: var(--aw-patina);
+  animation: aw-rotate 8s linear infinite;
+}
+.aw-think .aw-spacer { flex: 1; }
+.aw-think .aw-think-time { color: var(--aw-faint); font-size: 6.8px; }
+
+.aw-tool {
+  display: flex; align-items: center; gap: 9px;
+  height: 36px; padding: 0 10px;
+  border: 1px solid var(--aw-line);
+  border-left: 2px solid var(--aw-patina);
+  border-radius: 3px;
+  background: color-mix(in srgb, var(--aw-panel-solid) 90%, transparent);
+  font: 500 8px/1 var(--aw-font-mono);
+  letter-spacing: .08em;
+  color: var(--aw-mute);
+}
+.aw-tool svg { color: var(--aw-patina); flex: 0 0 auto; }
+.aw-tool b { color: var(--aw-dim); font-weight: 500; }
+.aw-tool .aw-tool-state { margin-left: auto; color: var(--aw-patina); font-size: 6.8px; letter-spacing: .12em; }
+.aw-tool .aw-tool-chevron { color: var(--aw-faint); }
+
+.aw-code {
+  border: 1px solid rgba(199, 154, 75, .28);
+  border-radius: 4px;
+  overflow: hidden;
+  background: #0b0907;
+  box-shadow: 0 14px 34px rgba(0,0,0,.34);
+}
+.aw-code-head {
+  display: flex; align-items: center; gap: 7px;
+  height: 27px; padding: 0 10px;
+  border-bottom: 1px solid rgba(199, 154, 75, .18);
+  background: linear-gradient(180deg, rgba(255,235,200,.035), transparent);
+  font: 600 6.8px/1 var(--aw-font-mono);
+  letter-spacing: .16em;
+  color: var(--aw-mute);
+}
+.aw-code-head .aw-leds { display: flex; gap: 3px; margin-right: 3px; }
+.aw-code-head .aw-leds i { width: 4px; height: 4px; border-radius: 50%; background: var(--aw-rust); opacity: .85; }
+.aw-code-head .aw-leds i:nth-child(2) { background: var(--aw-amber); }
+.aw-code-head .aw-leds i:nth-child(3) { background: var(--aw-patina); }
+.aw-code-head b { color: var(--aw-brass-hi); font-weight: 500; }
+.aw-code-head .aw-spacer { flex: 1; }
+.aw-code-body {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  padding: 10px 0 12px;
+  font: 500 10.5px/1.75 var(--aw-font-mono);
+  color: #d9c8a8;
+  overflow: auto;
+}
+.aw-code-lines { text-align: right; padding-right: 9px; color: #544534; user-select: none; }
+.aw-code-src { padding-left: 10px; border-left: 1px solid rgba(199,154,75,.12); white-space: pre; }
+.aw-code-src .c-key { color: #e8c57c; }
+.aw-code-src .c-fn { color: #8fbfa8; }
+.aw-code-src .c-str { color: #d89a6a; }
+.aw-code-src .c-com { color: #6b5b46; }
+.aw-code-src .c-num { color: #c79a4b; }
+
+
+/* light mode: parchment ledger */
+body:not([data-ds-dark-theme]) .aw-sidebar {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, .55), transparent 22%),
+    linear-gradient(180deg, #f2ead8 0%, #e6d8c2 52%, #dccbb2 100%);
+  border-right-color: rgba(90, 58, 30, .28);
+  box-shadow: 18px 0 40px rgba(70, 48, 28, .10);
+}
+body:not([data-ds-dark-theme]) .aw-sidebar::before {
+  background-image: repeating-linear-gradient(0deg, rgba(36, 28, 19, .022) 0 1px, transparent 1px 3px);
+}
+body:not([data-ds-dark-theme]) .aw-brand-name { color: #241c13; }
+body:not([data-ds-dark-theme]) .aw-brand-mark { color: #8b6426; }
+body:not([data-ds-dark-theme]) .aw-brand-sub { color: #6a573f; }
+body:not([data-ds-dark-theme]) .aw-brand-sub b { color: #8b6426; }
+body:not([data-ds-dark-theme]) .aw-new {
+  border-color: rgba(139, 100, 38, .52);
+  background: linear-gradient(180deg, rgba(255, 255, 255, .5), rgba(139, 100, 38, .04));
+  color: #6b4a18;
+}
+body:not([data-ds-dark-theme]) .aw-new svg { color: #8b6426; }
+body:not([data-ds-dark-theme]) .aw-new kbd { color: #7e6b52; border-color: rgba(36, 28, 19, .2); }
+body:not([data-ds-dark-theme]) .aw-search { background: rgba(255, 255, 255, .42); }
+body:not([data-ds-dark-theme]) .aw-search input { color: #241c13; }
+body:not([data-ds-dark-theme]) .aw-section { color: #6a573f; }
+body:not([data-ds-dark-theme]) .aw-session:hover { background: rgba(90, 64, 38, .06); }
+body:not([data-ds-dark-theme]) .aw-session-title { color: #4e4030; }
+body:not([data-ds-dark-theme]) .aw-session.is-active {
+  background: linear-gradient(90deg, rgba(139, 100, 38, .14), rgba(139, 100, 38, .03) 70%, transparent);
+  border-color: rgba(139, 100, 38, .46);
+}
+body:not([data-ds-dark-theme]) .aw-session.is-active .aw-session-title { color: #241c13; }
+body:not([data-ds-dark-theme]) .aw-sector { background: rgba(255, 255, 255, .30); }
+body:not([data-ds-dark-theme]) .aw-sector-drawing { background: rgba(255, 255, 255, .20); }
+body:not([data-ds-dark-theme]) .aw-sector-title { color: #241c13; }
+body:not([data-ds-dark-theme]) .aw-sector-head { color: #6a573f; }
+body:not([data-ds-dark-theme]) .aw-sector-meta { color: #6a573f; }
+body:not([data-ds-dark-theme]) .aw-operator-name { color: #4e4030; }
+body:not([data-ds-dark-theme]) .aw-operator-role { color: #7e6b52; }
+body:not([data-ds-dark-theme]) .aw-avatar {
+  background: radial-gradient(circle at 32% 28%, rgba(255, 255, 255, .7), transparent 62%), #f7efe1;
+  color: #8b6426;
+}
+body:not([data-ds-dark-theme]) .aw-icon-btn { color: #6a573f; }
+body:not([data-ds-dark-theme]) .aw-order { background: rgba(255, 255, 255, .30); }
+body:not([data-ds-dark-theme]) .aw-order:hover { background: rgba(255, 255, 255, .55); }
+
+/* responsive */
+@media (max-width: 1120px) {
+  .aw-sidebar { flex-basis: 262px; width: 262px; }
+  .aw-content { padding-inline: 26px; }
+  .aw-headline { font-size: clamp(38px, 5.4vw, 60px); }
+}
+@media (max-width: 840px) {
+  .aw-sidebar { display: none; }
+  .aw-content { padding-inline: 18px; }
+  .aw-headline { font-size: clamp(34px, 8.6vw, 52px); }
+  .aw-orders { grid-template-columns: 1fr; }
+  .aw-order:nth-child(n+3) { display: none; }
+  .aw-stats { display: flex; width: 100%; }
+  .aw-stat { flex: 1; padding-inline: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+
+@media (max-width: 560px) {
+  .aw-titlebar { grid-template-columns: 1fr auto; padding-inline: 10px; }
+  .aw-title-mid,
+  .aw-title-left .aw-title-sub,
+  .aw-title-right .aw-clock,
+  .aw-title-right .aw-title-sub { display: none; }
+  .aw-title-name { font-size: 12px; letter-spacing: .12em; }
+  .aw-title-right { gap: 6px; }
+  .aw-gauge { width: 22px; height: 22px; }
+  .aw-hide-sm { display: none !important; }
+  .aw-content { padding-inline: 14px; padding-bottom: 12px; }
+  .aw-topline { font-size: 6.5px; gap: 6px; height: 38px; flex-basis: 38px; }
+  .aw-headline { font-size: clamp(34px, 9.6vw, 48px); }
+  .aw-lede { margin-bottom: 11px; font-size: 13px; letter-spacing: .12em; }
+  .aw-source { margin-top: 9px; font-size: 7.5px; letter-spacing: .12em; }
+  /* 小字现在承担溯源：窄屏缩到 7px 而不是隐藏 */
+  .aw-epigraph { margin-top: 10px; max-width: 340px; font-size: 6.5px; letter-spacing: .1em; }
+  .aw-stats { display: grid; grid-template-columns: 1fr 1fr; width: 100%; margin-top: 14px; }
+  .aw-stat { padding: 7px 10px; }
+  .aw-stat + .aw-stat { border-left: 0; }
+  .aw-stat:nth-child(even) { border-left: 1px solid var(--aw-line); }
+  .aw-stat:nth-child(n+3) { border-top: 1px solid var(--aw-line); }
+  .aw-stat b { font-size: 8.5px; }
+  .aw-composer-wrap { margin-top: 20px; }
+  .aw-orders { display: none; }
+  .aw-composer-foot { display: none; }
+  .aw-composer-top .aw-tick,
+  .aw-composer-top .aw-mini-gauge { display: none; }
+  .aw-screen { min-height: 62px; padding: 12px 12px 10px; }
+  .aw-screen p { font-size: 9.5px; }
+  .aw-composer-row { gap: 5px; padding: 8px 9px 9px; }
+  .aw-composer-foot { white-space: nowrap; overflow: hidden; }
+  .aw-composer-foot > span:first-child { overflow: hidden; text-overflow: ellipsis; }
+  .aw-preview-bar { bottom: 8px; font-size: 6.5px; }
+  .aw-preview-bar button { padding: 0 7px; }
+}
+
+/* preview-only toolbar */
+.aw-preview-bar {
+  position: fixed;
+  z-index: 100;
+  left: 50%; bottom: 14px;
+  transform: translateX(-50%);
+  display: flex; align-items: center; gap: 4px;
+  padding: 5px;
+  border: 1px solid rgba(199, 154, 75, .45);
+  border-radius: 999px;
+  background: rgba(16, 12, 9, .86);
+  box-shadow: 0 12px 40px rgba(0,0,0,.45);
+  backdrop-filter: blur(12px);
+  font: 600 7.5px/1 var(--aw-font-mono);
+  letter-spacing: .1em;
+  color: var(--aw-dim);
+}
+.aw-preview-bar button {
+  height: 23px; padding: 0 10px;
+  border-radius: 999px;
+  color: var(--aw-mute);
+  font: inherit; letter-spacing: inherit;
+}
+.aw-preview-bar button:hover { color: var(--aw-ink); background: rgba(199,154,75,.12); }
+.aw-preview-bar button.is-on { color: #1a120d; background: linear-gradient(180deg, var(--aw-brass-hi), var(--aw-brass)); }
+body[data-preview-clean] .aw-preview-bar { display: none; }
+
+/* keyframes */
+@keyframes aw-blink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
+@keyframes aw-rotate { to { transform: rotate(360deg); } }
+@keyframes aw-flicker {
+  0%, 92%, 100% { opacity: .9; }
+  93% { opacity: .55; }
+  94% { opacity: .95; }
+  96% { opacity: .68; }
+}
+</style>
+</head>
+<body data-dsh-sector-07 data-ds-dark-theme data-view="hero">
+
+<div class="aw-app">
+  <header class="aw-titlebar">
+    <div class="aw-title-left">
+      <svg class="aw-title-mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="16" cy="16" r="10.5" stroke="currentColor" stroke-width="1.3"/>
+        <circle cx="16" cy="16" r="6.2" stroke="currentColor" stroke-width="1"/>
+        <path d="M16 1.5v5M16 25.5v5M1.5 16h5M25.5 16h5M6 6l3.5 3.5M22.5 22.5L26 26M26 6l-3.5 3.5M9.5 22.5L6 26" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M16 9.5v6.5l4 2.4" stroke="currentColor" stroke-width="1.1" opacity=".8"/>
+      </svg>
+      <div class="aw-title-copy">
+        <span class="aw-title-name">AETHERWORKS</span>
+        <span class="aw-title-sub">CENTRAL SURVEY // OUTER RING</span>
+      </div>
+    </div>
+    <div class="aw-title-mid"><b>DEEPSEEK</b><span>HARNESS</span></div>
+    <div class="aw-title-right">
+      <div class="aw-clock">03:17 <span>STOPPED</span></div>
+      <svg class="aw-gauge" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="16" cy="16" r="12" stroke="currentColor" stroke-width="1" opacity=".55"/>
+        <path d="M16 6v3M16 23v3M6 16h3M23 16h3" stroke="currentColor" stroke-width="1.2" opacity=".7"/>
+        <path d="M16 16 22 10" stroke="currentColor" stroke-width="1.6"/>
+        <circle cx="16" cy="16" r="1.6" fill="currentColor"/>
+      </svg>
+      <span class="aw-lamp"></span>
+      <span class="aw-title-sub">AUX</span>
+    </div>
+  </header>
+
+  <div class="aw-shell">
+    <aside class="aw-sidebar">
+      <div class="aw-brand">
+        <svg class="aw-brand-mark" viewBox="0 0 34 34" fill="none" aria-hidden="true">
+          <circle cx="17" cy="17" r="13" stroke="currentColor" stroke-width="1.2" opacity=".8"/>
+          <circle cx="17" cy="17" r="8.2" stroke="currentColor" stroke-width="1.1"/>
+          <circle cx="17" cy="17" r="2.6" fill="currentColor"/>
+          <path d="M17 4v5M17 25v5M4 17h5M25 17h5M7.8 7.8l3.5 3.5M22.7 22.7l3.5 3.5M26.2 7.8l-3.5 3.5M11.3 22.7l-3.5 3.5" stroke="currentColor" stroke-width="1.1" opacity=".65"/>
+          <path d="M17 8.8v8.2l5 3" stroke="currentColor" stroke-width="1" opacity=".8"/>
+        </svg>
+        <div class="aw-brand-copy">
+          <span class="aw-brand-name">AETHERWORKS</span>
+          <span class="aw-brand-sub">SURVEY <b>//</b> SECTOR 07</span>
+        </div>
+      </div>
+
+      <button class="aw-new">
+        <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="1.3"/></svg>
+        NEW SURVEY
+        <kbd>⌘N</kbd>
+      </button>
+
+      <label class="aw-search">
+        <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="7" cy="7" r="4.4" stroke="currentColor" stroke-width="1.2"/><path d="M10.4 10.4 14 14" stroke="currentColor" stroke-width="1.2"/></svg>
+        <input placeholder="SEARCH THE LEDGER" aria-label="Search the ledger" />
+        <kbd>⌘K</kbd>
+      </label>
+
+      <div class="aw-section">SURVEY LEDGER <b>04</b></div>
+
+      <div class="aw-sessions">
+        <div class="aw-session is-active">
+          <span class="aw-session-idx">014</span>
+          <span class="aw-session-copy">
+            <span class="aw-session-title">下层泵站 · 压力异常</span>
+            <span class="aw-session-meta"><span>LOWER PUMP STATION</span><i></i><span>OPEN</span></span>
+          </span>
+          <span class="aw-session-lamp"></span>
+          <span class="aw-session-time">NOW</span>
+        </div>
+        <div class="aw-session">
+          <span class="aw-session-idx">013</span>
+          <span class="aw-session-copy">
+            <span class="aw-session-title">升降井 · 第 41 层</span>
+            <span class="aw-session-meta"><span>LIFT SHAFT</span><i></i><span>41Y AGO</span></span>
+          </span>
+          <span class="aw-session-lamp is-muted"></span>
+          <span class="aw-session-time">03:17</span>
+        </div>
+        <div class="aw-session">
+          <span class="aw-session-idx">012</span>
+          <span class="aw-session-copy">
+            <span class="aw-session-title">锅炉大教堂 · 外环</span>
+            <span class="aw-session-meta"><span>BOILER CATHEDRAL</span><i></i><span>SEALED</span></span>
+          </span>
+          <span class="aw-session-lamp is-muted"></span>
+          <span class="aw-session-time">—</span>
+        </div>
+        <div class="aw-session">
+          <span class="aw-session-idx">011</span>
+          <span class="aw-session-copy">
+            <span class="aw-session-title">档案室 · 未归档手稿</span>
+            <span class="aw-session-meta"><span>ARCHIVE</span><i></i><span>PARTIAL</span></span>
+          </span>
+          <span class="aw-session-lamp is-muted"></span>
+          <span class="aw-session-time">REV.41</span>
+        </div>
+      </div>
+
+      <div class="aw-sidebar-spacer"></div>
+
+      <div class="aw-sector">
+        <div class="aw-sector-head">CURRENT SECTOR <b>AUX 12%</b></div>
+        <div class="aw-sector-body">
+          <div class="aw-sector-drawing">
+            <svg viewBox="0 0 220 60" fill="none" aria-hidden="true">
+              <path d="M18 54V18h30v36M48 18l10-8 10 8v36M68 54V22h26v32M104 54V12h12v42M126 54V20h34v34M170 54V26h30v28" stroke="currentColor" stroke-width="1.2"/>
+              <path d="M0 54h220M18 30h30M68 34h26M126 32h34M170 38h30" stroke="currentColor" stroke-width=".8" opacity=".7"/>
+              <circle cx="110" cy="34" r="10" stroke="currentColor" stroke-width="1.2"/>
+              <circle cx="110" cy="34" r="3" fill="currentColor"/>
+              <path d="M110 12v12M110 44v10M88 34h12M120 34h12" stroke="currentColor" stroke-width=".8" opacity=".6"/>
+            </svg>
+          </div>
+          <div class="aw-sector-title">锅炉大教堂 · BOILER CATHEDRAL</div>
+          <div class="aw-sector-meta">ELEV. <b>+412 M</b> / PRESSURE <b>0.42</b><br />LAST INSPECTION <b>41Y</b> / CREW <b>00</b></div>
+        </div>
+      </div>
+
+      <div class="aw-operator">
+        <span class="aw-avatar">?</span>
+        <span class="aw-operator-copy">
+          <span class="aw-operator-name">OPERATOR // UNRECORDED</span>
+          <span class="aw-operator-role">LOCAL TERMINAL · AUX POWER</span>
+        </span>
+        <button class="aw-icon-btn" aria-label="Settings">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2.3" stroke="currentColor" stroke-width="1.2"/><path d="M8 1.4v1.8M8 12.8v1.8M1.4 8h1.8M12.8 8h1.8M3.3 3.3l1.3 1.3M11.4 11.4l1.3 1.3M12.7 3.3l-1.3 1.3M4.6 11.4l-1.3 1.3" stroke="currentColor" stroke-width="1.1"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <main class="aw-main">
+      <div class="aw-scene" aria-hidden="true">
+        <div class="aw-photo"></div>
+        <div class="aw-tone"></div>
+        <div class="aw-cool"></div>
+        <div class="aw-corner"></div>
+        <div class="aw-dust"></div>
+        <div class="aw-fog"></div>
+        <div class="aw-grain"></div>
+        <div class="aw-vignette"></div>
+      </div>
+
+      <div class="aw-content">
+        <div class="aw-topline">
+          <span class="aw-crumb"><span class="aw-hide-sm">AETHERWORKS</span> <span class="aw-slash aw-hide-sm">/</span> <b>SURVEY 014</b> <span class="aw-slash aw-hide-sm">/</span> <span class="aw-hide-sm">SECTOR 07</span></span>
+          <span class="aw-signal"><i></i> SIGNAL WEAK</span>
+          <span class="aw-topline-right aw-hide-sm">
+            <span class="aw-chip"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M1 6h2l1.4-3 2.2 6L8 6h3" stroke="currentColor" stroke-width="1.2"/></svg> <b>AUX POWER</b> 12%</span>
+            <span class="aw-chip">PRESSURE <b>0.42</b></span>
+          </span>
+        </div>
+
+        <div class="aw-stage">
+          <div class="aw-hero">
+            <div class="aw-plate-row">
+              <div class="aw-plate">PLATE VII · SURVEY 014</div>
+              <button type="button" class="aw-quote-refresh" aria-label="换一句题词" title="换一句题词（快捷键 R）"><svg viewBox="0 0 16 16" width="8" height="8" aria-hidden="true" focusable="false"><path d="M13.1 6.4A5.3 5.3 0 1 0 13.3 9.4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M13.4 2.7v3.9H9.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+            <!-- The installed skin rolls a twenty-two-line quote pool per load and
+                 redraws on click; this static mock pins the first entry and cycles a
+                 six-line sample. -->
+            <div class="aw-quote-body">
+              <p class="aw-lede">生死去来，棚头傀儡<span class="aw-punct">。</span></p>
+              <h1 class="aw-headline"><span class="aw-cn">一线断时<span class="aw-punct">，</span></span><br /><span class="aw-brass-word aw-cn">落落磊磊<span class="aw-punct">。</span></span></h1>
+              <p class="aw-source">—— 世阿弥《花镜》，引自《攻壳机动队2：无罪》</p>
+              <p class="aw-epigraph">LIFE AND DEATH COME AND GO <span>· ZEAMI, VIA GHOST IN THE SHELL 2</span></p>
+            </div>
+            <div class="aw-stats">
+              <div class="aw-stat"><span>LAST INSPECTION</span><b>41 <em>Y</em></b></div>
+              <div class="aw-stat"><span>CREW</span><b>00 <em>/ UNRECORDED</em></b></div>
+            </div>
+          </div>
+
+          <div class="aw-composer-wrap">
+            <div class="aw-composer">
+              <span class="aw-bolt tl"></span><span class="aw-bolt tr"></span><span class="aw-bolt bl"></span><span class="aw-bolt br"></span>
+              <div class="aw-composer-top">
+                <span class="aw-rec"><i></i> MESSAGE TUBE</span>
+                <span class="aw-tick">//</span>
+                <b>CHANNEL 07</b>
+                <span class="aw-spacer"></span>
+                <span class="aw-tick">ENC · MECHANICAL</span>
+                <svg class="aw-mini-gauge" viewBox="0 0 34 20" fill="none" aria-hidden="true">
+                  <path d="M3 17a14 14 0 0 1 28 0" stroke="currentColor" stroke-width="1"/>
+                  <path d="M17 17 25 8" stroke="currentColor" stroke-width="1.4"/>
+                  <circle cx="17" cy="17" r="1.4" fill="currentColor"/>
+                  <path d="M7 12l2-1M27 12l-2-1M17 5v2" stroke="currentColor" stroke-width=".8" opacity=".6"/>
+                </svg>
+              </div>
+              <div class="aw-screen">
+                <p>WRITE A DISPATCH…<span class="aw-caret"></span></p>
+              </div>
+              <div class="aw-composer-row">
+                <button class="aw-round" aria-label="Attach"><svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.3"/></svg></button>
+                <button class="aw-pill is-accent"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6.2 4.6 9 10 3" stroke="currentColor" stroke-width="1.3"/></svg> PLAN</button>
+                <button class="aw-pill"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M1 6h2l1.2-3 2.4 6L8 6h3" stroke="currentColor" stroke-width="1.2"/></svg> DEEPSEEK</button>
+                <button class="aw-pill aw-hide-sm"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 2h8v8H2z" stroke="currentColor" stroke-width="1.1"/><path d="M4 4h4M4 6h4M4 8h2" stroke="currentColor" stroke-width="1"/></svg> SECTOR 07</button>
+                <span class="aw-spacer"></span>
+                <span class="aw-ctx aw-hide-sm"><span class="aw-ctx-bar"><i></i></span> CTX 12%</span>
+                <button class="aw-send" aria-label="Dispatch"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 12.5V3.5M3.8 7.4 8 3.2l4.2 4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              </div>
+            </div>
+            <div class="aw-composer-foot">
+              <span><b>ENTER</b> TO DISPATCH · <b>SHIFT+ENTER</b> FOR A NEW LINE</span>
+              <span class="aw-sides aw-hide-sm">
+                <span><i></i> AUX STABLE</span>
+                <span><b>0.42</b> MPA</span>
+                <span><b>03:17</b> LOCAL</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="aw-orders">
+            <button class="aw-order">
+              <span class="aw-order-num">01</span>
+              <span class="aw-order-icon"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M2 4.5h5l1.2 1.5H14v7H2z" stroke="currentColor" stroke-width="1.2"/><path d="M2 6h12" stroke="currentColor" stroke-width="1.1"/></svg></span>
+              <span class="aw-order-copy"><b>SURVEY THE LOWER LEVELS</b><span>下探至泵站第 12 层</span></span>
+              <span class="aw-order-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M3 9 9 3M4 3h5v5" stroke="currentColor" stroke-width="1.2"/></svg></span>
+            </button>
+            <button class="aw-order">
+              <span class="aw-order-num">02</span>
+              <span class="aw-order-icon"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M2 3h12v10H2z" stroke="currentColor" stroke-width="1.2"/><path d="m4.6 10 2-2.6 1.6 1.8L10.4 6l1.8 4" stroke="currentColor" stroke-width="1.1"/></svg></span>
+              <span class="aw-order-copy"><b>OPEN THE ARCHIVE</b><span>读取未归档的检修手稿</span></span>
+              <span class="aw-order-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M3 9 9 3M4 3h5v5" stroke="currentColor" stroke-width="1.2"/></svg></span>
+            </button>
+            <button class="aw-order">
+              <span class="aw-order-num">03</span>
+              <span class="aw-order-icon"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.2"/><path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.4 3.4l1.4 1.4M11.2 11.2l1.4 1.4M12.6 3.4l-1.4 1.4M4.8 11.2l-1.4 1.4" stroke="currentColor" stroke-width="1"/></svg></span>
+              <span class="aw-order-copy"><b>RUN DIAGNOSTICS</b><span>检查外环压力与阀门</span></span>
+              <span class="aw-order-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M3 9 9 3M4 3h5v5" stroke="currentColor" stroke-width="1.2"/></svg></span>
+            </button>
+          </div>
+        </div>
+
+        <section class="aw-chat" aria-label="Conversation">
+          <div class="aw-chat-head">
+            <span>MACHINE LOG</span><span class="aw-tick">/</span><b>SURVEY 014</b>
+            <span class="aw-spacer"></span>
+            <span class="aw-live"><i></i> LIVE</span>
+          </div>
+          <div class="aw-chat-scroll">
+            <div class="aw-msg is-user">
+              <span class="aw-msg-avatar">?</span>
+              <div class="aw-msg-body">
+                <div class="aw-msg-meta"><b>OPERATOR</b> <span>03:17</span></div>
+                <div class="aw-bubble">帮我设计一个 DSH 主题插件，替换现在的 maid-atelier。想要复古未来主义，蒸汽朋克、巨构，旧幻想里的实体机械系统。</div>
+              </div>
+            </div>
+
+            <div class="aw-msg">
+              <span class="aw-msg-avatar">DS</span>
+              <div class="aw-msg-body">
+                <div class="aw-msg-meta"><b>AETHERWORKS</b> <span>03:17</span> <span>·</span> <span>AUX CHANNEL</span></div>
+                <div class="aw-think">
+                  <svg class="aw-gear" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="3" stroke="currentColor" stroke-width="1.2"/><path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.4 3.4l1.4 1.4M11.2 11.2l1.4 1.4M12.6 3.4l-1.4 1.4M4.8 11.2l-1.4 1.4" stroke="currentColor" stroke-width="1.1"/></svg>
+                  CALCULATING · 2.4S
+                  <span class="aw-spacer"></span>
+                  <span class="aw-think-time">NEEDLE 0.42</span>
+                </div>
+                <div class="aw-bubble">
+                  方向已经锁定：不是霓虹未来，而是一座 <strong>仍在运转的旧巨构</strong>。外露的桁架、铆接钢板、黄铜仪表、被蒸汽磨钝的边角；它足够宏伟，也足够空。先把环境、仪表和输入口做出来，再补对话与档案页。
+                </div>
+                <div class="aw-tool">
+                  <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="m3 4 3 4-3 4M8 12h5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  <span>TELEMETRY</span><b>VALVE ARRAY 07</b>
+                  <span class="aw-tool-state">STABLE · 1.2S</span>
+                  <span class="aw-tool-chevron"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="m3 4.5 3 3 3-3" stroke="currentColor" stroke-width="1.2"/></svg></span>
+                </div>
+                <div class="aw-code">
+                  <div class="aw-code-head">
+                    <span class="aw-leds"><i></i><i></i><i></i></span>
+                    <b>AETHERWORKS.CSS</b>
+                    <span class="aw-spacer"></span>
+                    <span>PLATE VII · 01</span>
+                  </div>
+                  <div class="aw-code-body">
+                    <div class="aw-code-lines">1<br />2<br />3<br />4<br />5<br />6<br />7<br />8</div>
+                    <div class="aw-code-src"><span class="c-com">/* exposed structure */</span>
+body[<span class="c-key">data-dsh-sector-07</span>] {
+  <span class="c-fn">--aw-brass</span>: <span class="c-str">#c79a4b</span>;
+  <span class="c-fn">--aw-patina</span>: <span class="c-str">#5f8f7c</span>;
+  <span class="c-fn">--aw-glass</span>: <span class="c-str">#0a0806</span>;
+  <span class="c-fn">background</span>: <span class="c-str">radial-gradient(...)</span>;
+}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div class="aw-composer-wrap" id="chat-composer">
+          <div class="aw-composer">
+            <span class="aw-bolt tl"></span><span class="aw-bolt tr"></span><span class="aw-bolt bl"></span><span class="aw-bolt br"></span>
+            <div class="aw-composer-top">
+              <span class="aw-rec"><i></i> MESSAGE TUBE</span>
+              <span class="aw-tick">//</span>
+              <b>CHANNEL 07</b>
+              <span class="aw-spacer"></span>
+              <span class="aw-tick">CONTINUE THE LOG</span>
+            </div>
+            <div class="aw-screen">
+              <p>REPLY TO THE DISPATCH…<span class="aw-caret"></span></p>
+            </div>
+            <div class="aw-composer-row">
+              <button class="aw-round" aria-label="Attach"><svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.3"/></svg></button>
+              <button class="aw-pill is-accent"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 6.2 4.6 9 10 3" stroke="currentColor" stroke-width="1.3"/></svg> PLAN</button>
+              <button class="aw-pill"><svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M1 6h2l1.2-3 2.4 6L8 6h3" stroke="currentColor" stroke-width="1.2"/></svg> DEEPSEEK</button>
+              <span class="aw-spacer"></span>
+              <span class="aw-ctx"><span class="aw-ctx-bar"><i style="width:46%"></i></span> CTX 46%</span>
+              <button class="aw-send" aria-label="Dispatch"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 12.5V3.5M3.8 7.4 8 3.2l4.2 4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<div class="aw-preview-bar" data-preview-ui>
+  <button data-mode="dark" class="is-on">NIGHT</button>
+  <button data-mode="light">DAY</button>
+  <button data-view="hero" class="is-on">LANDING</button>
+  <button data-view="chat">CONVERSATION</button>
+  <button data-clean>HIDE UI</button>
+</div>
+
+<script>
+  const body = document.body;
+  const params = new URLSearchParams(location.search);
+
+  function applyMode(mode) {
+    body.toggleAttribute('data-ds-dark-theme', mode !== 'light');
+    document.querySelectorAll('button[data-mode]').forEach(b => b.classList.toggle('is-on', b.dataset.mode === mode));
+  }
+  function applyView(view) {
+    body.dataset.view = view;
+    document.querySelectorAll('button[data-view]').forEach(b => b.classList.toggle('is-on', b.dataset.view === view));
+  }
+
+  applyMode(params.get('mode') === 'light' ? 'light' : 'dark');
+  applyView(params.get('view') === 'chat' ? 'chat' : 'hero');
+  if (params.has('clean')) body.setAttribute('data-preview-clean', '');
+
+  document.querySelectorAll('button[data-mode]').forEach(b => b.addEventListener('click', () => applyMode(b.dataset.mode)));
+  document.querySelectorAll('button[data-view]').forEach(b => b.addEventListener('click', () => applyView(b.dataset.view)));
+  document.querySelector('[data-clean]').addEventListener('click', () => body.toggleAttribute('data-preview-clean'));
+
+  addEventListener('keydown', e => {
+    if (e.key === 'd') applyMode(body.hasAttribute('data-ds-dark-theme') ? 'light' : 'dark');
+    if (e.key === 'v') applyView(body.dataset.view === 'chat' ? 'hero' : 'chat');
+  });
+
+  // The knob on the plate. The shipped skin draws from all twenty-two entries in
+  // src/client/index.ts; this mock cycles a six-line sample so the redraw can be
+  // judged without shipping a second copy of the pool.
+  const SAMPLE = [
+    { lede: '生死去来，棚头傀儡。', punch: '一线断时，', turn: '落落磊磊。',
+      cite: '世阿弥《花镜》，引自《攻壳机动队2：无罪》',
+      en: 'LIFE AND DEATH COME AND GO', from: 'ZEAMI, VIA GHOST IN THE SHELL 2' },
+    { lede: '所有这些时刻，终将消逝于时间。', punch: '一如泪水，', turn: '落入雨中。',
+      cite: '罗伊·巴蒂，《银翼杀手》1982',
+      en: 'ALL THOSE MOMENTS WILL BE LOST IN TIME, LIKE TEARS IN RAIN', from: 'BLADE RUNNER, 1982' },
+    { lede: '人若不付出代价，便什么也得不到。', punch: '这就是，', turn: '等价交换。',
+      cite: '荒川弘《钢之炼金术师》',
+      en: 'NOTHING IS GAINED WITHOUT AN EQUAL TRADE', from: 'FULLMETAL ALCHEMIST' },
+    { lede: '这张面具之下，是一种思想。', punch: '而思想，', turn: '不怕子弹。',
+      cite: '《V字仇杀队》2005',
+      en: 'BENEATH THIS MASK THERE IS AN IDEA', from: 'V FOR VENDETTA, 2005' },
+    { lede: '有两样东西，愈思考愈敬畏：', punch: '头顶的星空，', turn: '心中的道德律。',
+      cite: '康德《实践理性批判》1788',
+      en: 'TWO THINGS FILL THE MIND WITH EVER NEW AND INCREASING ADMIRATION: THE STARRY HEAVENS ABOVE ME AND THE MORAL LAW WITHIN ME',
+      from: 'IMMANUEL KANT, CRITIQUE OF PRACTICAL REASON, 1788' },
+    { lede: '在隆冬，我终于知道，', punch: '我身上有一个，', turn: '不可战胜的夏天。',
+      cite: '加缪《重返蒂巴萨》1952',
+      en: 'IN THE MIDST OF WINTER, I FOUND THERE WAS, WITHIN ME, AN INVINCIBLE SUMMER',
+      from: 'ALBERT CAMUS, RETURN TO TIPASA, 1952' },
+  ];
+  let sampleIndex = 0;
+  const redraw = document.querySelector('.aw-quote-refresh');
+  if (redraw) {
+    redraw.addEventListener('click', () => {
+      sampleIndex = (sampleIndex + 1) % SAMPLE.length;
+      const quote = SAMPLE[sampleIndex];
+      const strip = document.querySelector('.aw-quote-body');
+      const splitMark = text => {
+        const line = text.trimEnd();
+        const mark = /[，。！？；：、]$/u.exec(line);
+        return mark ? [line.slice(0, mark.index), mark[0]] : [line, ''];
+      };
+      const setQuoteLine = (node, text) => {
+        const [line, mark] = splitMark(text);
+        if (!mark) { node.textContent = line; return; }
+        const span = document.createElement('span');
+        span.className = 'aw-punct';
+        span.textContent = mark;
+        node.replaceChildren(document.createTextNode(line), span);
+      };
+      setQuoteLine(strip.querySelector('.aw-lede'), quote.lede);
+      setQuoteLine(strip.querySelector('.aw-headline .aw-cn:not(.aw-brass-word)'), quote.punch);
+      setQuoteLine(strip.querySelector('.aw-headline .aw-brass-word'), quote.turn);
+      strip.querySelector('.aw-source').textContent = `—— ${quote.cite}`;
+      const epigraph = strip.querySelector('.aw-epigraph');
+      const from = document.createElement('span');
+      from.textContent = `· ${quote.from}`;
+      epigraph.replaceChildren(`${quote.en} `, from);
+      strip.classList.remove('is-redrawing');
+      void strip.offsetWidth;
+      strip.classList.add('is-redrawing');
+    });
+    addEventListener('keydown', e => {
+      if (e.key !== 'r' || e.metaKey || e.ctrlKey || e.altKey || e.repeat) return;
+      if (body.dataset.view === 'chat') return;
+      if (/^(?:INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName) || e.target.isContentEditable) return;
+      redraw.click();
+    });
+  }
+</script>
+</body>
+</html>

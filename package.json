@@ -1,0 +1,79 @@
+{
+  "name": "@zcm/dsh-client-ui-skin-sector-07",
+  "version": "0.1.0",
+  "description": "SECTOR 07 — three night-shift skins for the DeepSeek Harness web GUI: Aetherworks, Neon Drift and Sunset Coast",
+  "author": {
+    "name": "Evan1987",
+    "url": "https://github.com/Evan1987"
+  },
+  "license": "MIT",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./skin.json": "./skin.json",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "inject": [],
+      "platform": "web"
+    }
+  },
+  "scripts": {
+    "build": "node build/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node build/build.mjs && node --test tests/apply.test.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "skin",
+    "theme",
+    "aetherworks",
+    "neon",
+    "sunset",
+    "steampunk",
+    "retrofuturism"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Evan1987/dsh-sector-07.git"
+  },
+  "homepage": "https://github.com/Evan1987/dsh-sector-07#readme",
+  "bugs": {
+    "url": "https://github.com/Evan1987/dsh-sector-07/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "cordis.patch.yml",
+    "skin.json",
+    "preview",
+    "docs",
+    "src",
+    "tests",
+    "README.md",
+    "README.en.md",
+    "LICENSE",
+    "build",
+    "tsconfig.json"
+  ],
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "jsdom": "^26.0.0",
+    "typescript": "^5.7.0",
+    "@types/node": "^22.0.0"
+  }
+}

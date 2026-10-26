@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Read the install and compatibility notes
+    url: https://github.com/Evan1987/dsh-sector-07#install
+    about: Check the install steps, the one-skin-bundle rule, and the DSH version requirement first.

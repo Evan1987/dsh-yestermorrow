@@ -1,0 +1,72 @@
+name: Bug report
+description: Something looks broken or unreadable in one of the SECTOR 07 skins.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Screenshots help a lot, but please hide private
+        session titles and workspace names before attaching them.
+
+  - type: input
+    id: dsh-version
+    attributes:
+      label: DSH version
+      description: Output of `dsh --version`.
+      placeholder: 0.2.1-rc.2
+    validations:
+      required: true
+
+  - type: dropdown
+    id: skin
+    attributes:
+      label: Skin
+      options:
+        - Aetherworks / 以太工造
+        - Neon Drift / 霓虹夜行
+        - Sunset Coast / 落日海岸
+        - All / switching between them
+    validations:
+      required: true
+
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Mode
+      options:
+        - Dark
+        - Light (Aetherworks only)
+        - Both
+    validations:
+      required: true
+
+  - type: input
+    id: source
+    attributes:
+      label: Install source
+      description: GitHub main, a local clone, or a specific commit.
+      placeholder: github:Evan1987/dsh-sector-07#main
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you saw, where, and what you expected instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: console
+    attributes:
+      label: Console / errors
+      description: Paste any browser console output or DSH log lines.
+      render: shell
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots or context
+      description: Drag images here after removing private information.

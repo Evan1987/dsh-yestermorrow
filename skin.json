@@ -1,0 +1,30 @@
+{
+  "id": "aetherworks",
+  "name": "以太工造",
+  "nameEn": "Aetherworks",
+  "author": "Evan1987",
+  "tagline": "一座未完工的蒸汽巨构，仍在替不在的人运转",
+  "description": "面向 DeepSeek Harness Web GUI 的复古未来主义皮肤：铆接钢板、黄铜仪表、外露桁架，以及一张停在 03:17 的夜间巨构实景底片。暗色为雨夜中央尖塔，亮色为测绘纸档案副本。",
+  "tags": [
+    "retrofuturism",
+    "steampunk",
+    "megastructure",
+    "ruin",
+    "industrial",
+    "sepia"
+  ],
+  "accent": "#c79a4b",
+  "bodyAttr": "data-dsh-sector-07",
+  "package": "@zcm/dsh-client-ui-skin-sector-07",
+  "wiring": {
+    "id": "ui-skin-sector-07",
+    "bundleWired": false
+  },
+  "preview": {
+    "light": "preview/live-light.png",
+    "dark": "preview/live-dark.png"
+  },
+  "order": 6,
+  "taglineEn": "An unfinished steam megastructure, still running for the people who left",
+  "dshCompatibility": "0.2.1rc2"
+}

@@ -1,0 +1,2530 @@
+/* ============================================================
+   AETHERWORKS / 以太工造
+   A retro-futurist steam-megastructure survey terminal for DSH Web.
+   Scope: body[data-dsh-skin]. All decoration is reversible,
+   pointer-events:none where it is not a control, and generated from CSS/SVG.
+   ============================================================ */
+
+/* ---------- 1. tokens ---------- */
+body[data-dsh-skin='aetherworks'] {
+  --aw-font-display: "Bodoni 72", "Didot", "Playfair Display", "Georgia", "Songti SC", serif;
+  --aw-font-ui: "Avenir Next", "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Segoe UI", sans-serif;
+  --aw-font-mono: "SF Mono", "IBM Plex Mono", "Menlo", "Consolas", "PingFang SC", monospace;
+  --aw-font-cn: "Songti SC", "STSong", "SimSun", "Noto Serif SC", serif;
+
+  --aw-bg: #0b0806;
+  --aw-bg-2: #15100c;
+  --aw-bg-3: #1e1711;
+  --aw-panel: rgba(21, 16, 12, .88);
+  --aw-panel-solid: #16110c;
+  --aw-panel-raised: #211912;
+  --aw-ink: #eadfc8;
+  --aw-dim: #b9a98e;
+  --aw-mute: #9c8b72;
+  --aw-faint: #8f7d63;
+  --aw-line: rgba(234, 223, 200, .12);
+  --aw-line-strong: rgba(234, 223, 200, .24);
+  --aw-brass: #c79a4b;
+  --aw-brass-hi: #e8c57c;
+  --aw-brass-lo: #7a5a28;
+  --aw-patina: #6f9b83;
+  --aw-patina-dim: #35564b;
+  --aw-rust: #b96343;
+  --aw-amber: #f0b45e;
+  --aw-ember: #ff8a3d;
+  --aw-glass: #0a0806;
+  --aw-glass-ink: #eadfc8;
+  --aw-glass-mute: #9b8a70;
+  --aw-shadow: 0 24px 70px rgba(0, 0, 0, .58);
+  --aw-paper-bg: #ded2b9;
+
+  /* The user's message is a note pasted onto the machine log. Here it is a
+     printed paper plate, so the ink is dark; the synthetic skins re-materialize
+     the same plate as backlit glass, where that ink would vanish. Each skin
+     supplies its own four values, and the anatomy below never names a color. */
+  --aw-note-ink: #241c13;
+  --aw-note-link: #6f2f1c;
+  --aw-note-chip-bg: rgba(142, 59, 34, .08);
+  --aw-note-chip-line: rgba(142, 59, 34, .35);
+
+  color-scheme: dark;
+
+  /* DSH alias layer */
+  --dsw-alias-bg-base: #0b0806;
+  --dsw-alias-bg-layer-1: #15100c;
+  --dsw-alias-bg-layer-2: #1e1711;
+  --dsw-alias-bg-layer-3: #241b13;
+  --dsw-alias-bg-overlay: #2a2018;
+  --dsw-alias-bg-module-platform: #15100c;
+  --dsw-alias-bg-multi-select: #241b13;
+  --dsw-alias-bg-skeleton: rgba(234, 223, 200, .06);
+
+  --dsw-alias-label-primary: #eadfc8;
+  --dsw-alias-label-secondary: #c3b398;
+  --dsw-alias-label-tertiary: #a6947a;
+  --dsw-alias-label-caption: #96856c;
+  --dsw-alias-label-dimmed: #5e5345;
+  --dsw-alias-label-primary-dimmed: #d6c7ae;
+  --dsw-alias-label-primary-inverted: #1a120d;
+  --dsw-alias-label-primary-foreground: #f5ead6;
+  --dsw-alias-label-primary-bluish: #e8c57c;
+  --dsw-alias-label-inverse: #1a120d;
+  --dsw-alias-label-error: #d07a58;
+
+  --dsw-alias-border-l1: rgba(234, 223, 200, .10);
+  --dsw-alias-border-l2: rgba(234, 223, 200, .17);
+  --dsw-alias-border-l3: rgba(234, 223, 200, .26);
+  --dsw-alias-border-l4: rgba(234, 223, 200, .34);
+  --dsw-alias-border-l2-darkmode-thin: rgba(234, 223, 200, .08);
+  --dsw-alias-border-inverted: rgba(0, 0, 0, .62);
+  --dsw-alias-border-inverted2: rgba(0, 0, 0, .38);
+
+  --dsw-alias-brand-primary: #c79a4b;
+  --dsw-alias-brand-primary-invert: #e8c57c;
+  --dsw-alias-brand-text: #c79a4b;
+
+  --dsw-alias-button-primary-fill: #b98a3d;
+  --dsw-alias-button-primary-hover: #d3a95f;
+  --dsw-alias-button-primary-dimmed: #6b4d22;
+  --dsw-alias-button-contrast-fill: #c79a4b;
+  --dsw-alias-button-elevated-fill: #241b13;
+  --dsw-alias-button-floating-fill: #1e1711;
+  --dsw-alias-button-floating-hover: #2a2018;
+  --dsw-alias-button-ghost-active-fill: #2a2018;
+  --dsw-alias-button-ghost-active-hover: #33281e;
+  --dsw-alias-button-ghost-active-border: #6b5a44;
+  --dsw-alias-button-tool-bar-fill: rgba(22, 17, 12, .72);
+  --dsw-alias-button-tool-bar-fill-invisible: rgba(22, 17, 12, .4);
+  --dsw-alias-button-tool-bar-hover: rgba(42, 32, 24, .9);
+
+  --dsw-alias-interactive-bg-hover: rgba(199, 154, 75, .10);
+  --dsw-alias-interactive-bg-active: rgba(199, 154, 75, .17);
+  --dsw-alias-interactive-bg-hover-solid: #241b13;
+  --dsw-alias-interactive-bg-hover-accent: rgba(232, 197, 124, .18);
+  --dsw-alias-interactive-bg-hover-danger: rgba(185, 99, 67, .18);
+
+  --dsw-alias-state-business-primary: #d8ad64;
+  --dsw-alias-state-business-tertiary: #3a2c1a;
+  --dsw-alias-state-success-primary: #7fae93;
+  --dsw-alias-state-success-secondary: #6f9b83;
+  --dsw-alias-state-success-tertiary: rgba(95, 143, 124, .18);
+  --dsw-alias-state-warn-primary: #f0b45e;
+  --dsw-alias-state-warn-secondary: #e8c57c;
+  --dsw-alias-state-warn-tertiary: rgba(240, 180, 94, .16);
+  --dsw-alias-state-warn-label: #e8c57c;
+  --dsw-alias-state-error-primary: #d07a58;
+  --dsw-alias-state-error-secondary: #b96343;
+
+  --dsw-specific-bubble: #241b13;
+  --dsw-specific-bubble-highlight: #3a2c1a;
+  --dsw-specific-input-major: #0d0a07;
+  --dsw-specific-login-input: #15100c;
+  --dsw-specific-menu: #1e1711;
+  --dsw-specific-selector: #241b13;
+  --dsw-specific-sidebar-fill: #15100c;
+  --dsw-specific-sidebar-nav-item-active: #2a2018;
+  --dsw-specific-sidebar-nav-item-active-accent: #3a2c1a;
+  --dsw-specific-sidebar-nav-item-hover: #211912;
+  --dsw-specific-tip: #1a130e;
+
+  --dsw-alias-markdown-code-block: #0e0b08;
+  --dsw-alias-markdown-code-block-banner: #1a130e;
+  --dsw-alias-markdown-inline-code: #241b13;
+  --dsw-alias-markdown-citation: #1e1711;
+  --dsw-alias-markdown-placeholder: #1e1711;
+  --dsw-alias-markdown-tag: #241b13;
+  --dsw-alias-markdown-code-segment-selected: #2a2018;
+  --dsw-alias-markdown-code-segment-unselected: #15100c;
+
+  --dsw-alias-scrollbar-bg-l1: rgba(199, 154, 75, .24);
+  --dsw-alias-scrollbar-bg-l2: rgba(199, 154, 75, .32);
+  --dsw-alias-scrollbar-hover-l1: #c79a4b;
+  --dsw-alias-scrollbar-hover-l2: #d8ad64;
+
+  --dsw-alias-toast-bg: #241b13;
+  --dsw-alias-tooltip-bg: #2a2018;
+
+  --dsw-font-family: var(--aw-font-ui);
+  --ds-font-family-code: var(--aw-font-mono);
+  --dsw-shadow-lv1: 0 2px 5px rgba(0, 0, 0, .38);
+  --dsw-shadow-lv1-blur: 0 4px 14px rgba(0, 0, 0, .3);
+  --dsw-shadow-lv2: 0 6px 18px rgba(0, 0, 0, .42), 0 2px 8px rgba(0, 0, 0, .3);
+  --dsw-shadow-lv3: 0 0 1px rgba(0, 0, 0, .8), 0 14px 40px rgba(0, 0, 0, .55);
+  --dsw-mask-blur: blur(3px);
+
+  --shiki-foreground: #e6d7bd;
+  --shiki-token-constant: #d8ad64;
+  --shiki-token-string: #8fb59c;
+  --shiki-token-comment: #7f6e57;
+  --shiki-token-keyword: #d07a58;
+  --shiki-token-parameter: #d8ad64;
+  --shiki-token-function: #9dbbae;
+  --shiki-token-string-expression: #8fb59c;
+  --shiki-token-punctuation: #a6947a;
+  --shiki-token-link: #e8c57c;
+}
+
+body[data-dsh-skin='aetherworks']:not([data-ds-dark-theme]) {
+  --aw-bg: #ded2b9;
+  --aw-bg-2: #d2c4a8;
+  --aw-bg-3: #c6b696;
+  --aw-panel: rgba(246, 239, 224, .88);
+  --aw-panel-solid: #f2ead8;
+  --aw-panel-raised: #faf4e6;
+  --aw-ink: #241c13;
+  --aw-dim: #4e4030;
+  --aw-mute: #5e4c36;
+  --aw-faint: #66533b;
+  --aw-line: rgba(36, 28, 19, .16);
+  --aw-line-strong: rgba(36, 28, 19, .30);
+  --aw-brass: #8b6426;
+  --aw-brass-hi: #a06b22;
+  --aw-brass-lo: #5a3f17;
+  --aw-patina: #2f5d4e;
+  --aw-patina-dim: #6e8f82;
+  --aw-rust: #8e3b22;
+  --aw-amber: #b46a1e;
+  --aw-ember: #c85a24;
+  --aw-glass: #14110d;
+  --aw-glass-ink: #f2e8d3;
+  --aw-glass-mute: #a08e74;
+  --aw-shadow: 0 24px 50px rgba(70, 48, 28, .18);
+
+
+  color-scheme: light;
+
+  --dsw-alias-bg-base: #ded2b9;
+  --dsw-alias-bg-layer-1: #e7dcc6;
+  --dsw-alias-bg-layer-2: #f2ead8;
+  --dsw-alias-bg-layer-3: #faf4e6;
+  --dsw-alias-bg-overlay: #c6b696;
+  --dsw-alias-bg-module-platform: #e7dcc6;
+  --dsw-alias-bg-multi-select: #e7dcc6;
+  --dsw-alias-bg-skeleton: rgba(36, 28, 19, .06);
+
+  --dsw-alias-label-primary: #241c13;
+  --dsw-alias-label-secondary: #4e4030;
+  --dsw-alias-label-tertiary: #5e4c36;
+  --dsw-alias-label-caption: #66533b;
+  --dsw-alias-label-dimmed: #92805f;
+  --dsw-alias-label-primary-dimmed: #3c3022;
+  --dsw-alias-label-primary-inverted: #f6efe0;
+  --dsw-alias-label-primary-foreground: #f6efe0;
+  --dsw-alias-label-primary-bluish: #7a4e16;
+  --dsw-alias-label-inverse: #f6efe0;
+  --dsw-alias-label-error: #8e3b22;
+
+  --dsw-alias-border-l1: rgba(36, 28, 19, .14);
+  --dsw-alias-border-l2: rgba(36, 28, 19, .22);
+  --dsw-alias-border-l3: rgba(36, 28, 19, .30);
+  --dsw-alias-border-l4: rgba(36, 28, 19, .38);
+  --dsw-alias-border-l2-darkmode-thin: rgba(36, 28, 19, .18);
+  --dsw-alias-border-inverted: rgba(36, 28, 19, .5);
+  --dsw-alias-border-inverted2: rgba(36, 28, 19, .26);
+
+  --dsw-alias-brand-primary: #8b6426;
+  --dsw-alias-brand-primary-invert: #5a3f17;
+  --dsw-alias-brand-text: #8b6426;
+
+  --dsw-alias-button-primary-fill: #8b6426;
+  --dsw-alias-button-primary-hover: #a06b22;
+  --dsw-alias-button-primary-dimmed: #b99b6d;
+  --dsw-alias-button-contrast-fill: #8b6426;
+  --dsw-alias-button-elevated-fill: #faf4e6;
+  --dsw-alias-button-floating-fill: #f2ead8;
+  --dsw-alias-button-floating-hover: #faf4e6;
+  --dsw-alias-button-ghost-active-fill: #e7dcc6;
+  --dsw-alias-button-ghost-active-hover: #f2ead8;
+  --dsw-alias-button-ghost-active-border: #8b7a5f;
+  --dsw-alias-button-tool-bar-fill: rgba(246, 239, 224, .66);
+  --dsw-alias-button-tool-bar-fill-invisible: rgba(246, 239, 224, .4);
+  --dsw-alias-button-tool-bar-hover: rgba(250, 244, 230, .92);
+
+  --dsw-alias-interactive-bg-hover: rgba(139, 100, 38, .10);
+  --dsw-alias-interactive-bg-active: rgba(139, 100, 38, .17);
+  --dsw-alias-interactive-bg-hover-solid: #e7dcc6;
+  --dsw-alias-interactive-bg-hover-accent: rgba(139, 100, 38, .16);
+  --dsw-alias-interactive-bg-hover-danger: rgba(142, 59, 34, .12);
+
+  --dsw-alias-state-business-primary: #8b6426;
+  --dsw-alias-state-business-tertiary: #e8d9bc;
+  --dsw-alias-state-success-primary: #2f5d4e;
+  --dsw-alias-state-success-secondary: #3f7361;
+  --dsw-alias-state-success-tertiary: rgba(47, 93, 78, .12);
+  --dsw-alias-state-warn-primary: #a35f1c;
+  --dsw-alias-state-warn-secondary: #b46a1e;
+  --dsw-alias-state-warn-tertiary: rgba(180, 106, 30, .14);
+  --dsw-alias-state-warn-label: #a35f1c;
+  --dsw-alias-state-error-primary: #8e3b22;
+  --dsw-alias-state-error-secondary: #a85435;
+
+  --dsw-specific-bubble: #e4d7bd;
+  --dsw-specific-bubble-highlight: #d8c8a8;
+  --dsw-specific-input-major: #f2ead8;
+  --dsw-specific-login-input: #f2ead8;
+  --dsw-specific-menu: #faf4e6;
+  --dsw-specific-selector: #e7dcc6;
+  --dsw-specific-sidebar-fill: #e7dcc6;
+  --dsw-specific-sidebar-nav-item-active: #d8c8a8;
+  --dsw-specific-sidebar-nav-item-active-accent: #c6b696;
+  --dsw-specific-sidebar-nav-item-hover: #ded2b9;
+  --dsw-specific-tip: #f2ead8;
+
+  /* Code plates stay smoked steel in the archive copy, so the syntax palette
+     is the dark one; the banner gets an explicit light-on-iron override. */
+  --dsw-alias-markdown-code-block: #0e0b08;
+  --dsw-alias-markdown-code-block-banner: #1a130e;
+  --dsw-alias-markdown-inline-code: #d8c8a8;
+  --dsw-alias-markdown-citation: #e7dcc6;
+  --dsw-alias-markdown-placeholder: #e7dcc6;
+  --dsw-alias-markdown-tag: #e7dcc6;
+  --dsw-alias-markdown-code-segment-selected: #f2ead8;
+  --dsw-alias-markdown-code-segment-unselected: #ded2b9;
+
+  --dsw-alias-scrollbar-bg-l1: rgba(139, 100, 38, .28);
+  --dsw-alias-scrollbar-bg-l2: rgba(139, 100, 38, .36);
+  --dsw-alias-scrollbar-hover-l1: #8b6426;
+  --dsw-alias-scrollbar-hover-l2: #5a3f17;
+
+  --dsw-alias-toast-bg: #f2ead8;
+  --dsw-alias-tooltip-bg: #1e1711;
+
+  --shiki-foreground: #e6d7bd;
+  --shiki-token-constant: #d8ad64;
+  --shiki-token-string: #8fb59c;
+  --shiki-token-comment: #7f6e57;
+  --shiki-token-keyword: #d07a58;
+  --shiki-token-parameter: #d8ad64;
+  --shiki-token-function: #9dbbae;
+  --shiki-token-string-expression: #8fb59c;
+  --shiki-token-punctuation: #a6947a;
+  --shiki-token-link: #e8c57c;
+}
+
+/* ---------- 2. base ---------- */
+body[data-dsh-skin] {
+  font-family: var(--aw-font-ui);
+  color: var(--aw-ink);
+  background: var(--aw-bg);
+  isolation: isolate;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body[data-dsh-skin] ::selection {
+  background: var(--aw-brass);
+  color: #1a120d;
+}
+
+body[data-dsh-skin] :focus-visible {
+  outline: 2px solid var(--aw-amber);
+  outline-offset: 2px;
+}
+
+body[data-dsh-skin] #root {
+  position: relative;
+  z-index: 1;
+}
+
+body[data-dsh-skin] #root [class*='frame'] {
+  background: transparent;
+}
+
+body[data-dsh-skin] [class*='centerCol'] {
+  background: transparent;
+}
+
+body[data-dsh-skin] [class*='detailsCol'] {
+  background:
+    linear-gradient(180deg, rgba(21, 16, 12, .82), rgba(11, 8, 6, .9));
+  backdrop-filter: blur(6px);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) [class*='detailsCol'] {
+  background:
+    linear-gradient(180deg, rgba(231, 220, 198, .9), rgba(222, 210, 185, .94));
+}
+
+body[data-dsh-skin] :is([data-phase='hero'], [data-phase='active']) {
+  background: transparent;
+}
+
+body[data-dsh-skin] [data-phase='active'] {
+  position: relative;
+}
+
+body[data-dsh-skin] [data-phase='active']::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 66% 58% at 50% 34%, rgba(11, 8, 6, .58), transparent 76%),
+    linear-gradient(180deg, rgba(11, 8, 6, .62), rgba(11, 8, 6, .78));
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) [data-phase='active']::before {
+  background:
+    radial-gradient(ellipse 66% 58% at 50% 34%, rgba(222, 210, 185, .40), transparent 76%),
+    linear-gradient(180deg, rgba(222, 210, 185, .48), rgba(222, 210, 185, .66));
+}
+
+body[data-dsh-skin] [data-phase='active'] > * {
+  position: relative;
+  z-index: 1;
+}
+
+body[data-dsh-skin] [data-conversation-scroll] {
+  scrollbar-gutter: stable;
+}
+
+/* ---------- 3. scene: photographic plate ---------- */
+body[data-dsh-skin] .aw-scene-host {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #060504;
+}
+
+body[data-dsh-skin] .aw-scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: opacity 700ms ease;
+}
+
+/* the plate itself: a real survey photograph, graded like a warm archive print */
+body[data-dsh-skin] .aw-hall {
+  position: absolute;
+  inset: -3%;
+  background-position: 50% 38%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: brightness(1.06) contrast(1.03) saturate(1) sepia(.04) hue-rotate(-3deg);
+  transform: scale(1.015);
+}
+
+body[data-dsh-skin] .aw-hall-tone {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 40% 44% at 42% 63%, rgba(255, 148, 58, .14), rgba(255, 110, 40, .04) 46%, transparent 72%),
+    linear-gradient(180deg, rgba(5, 4, 3, .32), transparent 22%, transparent 62%, rgba(5, 4, 3, .64));
+}
+
+body[data-dsh-skin] .aw-hall-cool {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(36, 64, 68, .20), transparent 42%, rgba(10, 8, 6, .10)),
+    radial-gradient(ellipse 50% 60% at 12% 80%, rgba(22, 52, 56, .22), transparent 70%);
+  mix-blend-mode: soft-light;
+  opacity: .7;
+}
+
+body[data-dsh-skin] .aw-shaft {
+  position: absolute;
+  inset: 0;
+  filter: blur(26px);
+  mix-blend-mode: screen;
+  opacity: .5;
+}
+
+body[data-dsh-skin] .aw-shaft-a {
+  background: linear-gradient(180deg, rgba(255, 214, 160, .22), rgba(255, 190, 120, .05) 55%, transparent 80%);
+  clip-path: polygon(4% 0, 20% 0, 48% 100%, 24% 100%);
+}
+
+body[data-dsh-skin] .aw-shaft-b {
+  background: linear-gradient(180deg, rgba(255, 240, 210, .14), rgba(255, 220, 170, .03) 50%, transparent 78%);
+  clip-path: polygon(78% 0, 90% 0, 72% 88%, 58% 88%);
+}
+
+/* ---------- 3b. the dusk plate: DUSK LINE, survey 021 ---------- */
+/*
+ * The dusk line is the dark theme's single photographic plate. It mounts on
+ * the landing page as well as behind an open conversation, so entering a
+ * session no longer swaps one world for another: the same photograph pans a
+ * little and its lights go down for reading.
+ *
+ * Light theme never mounts it. It keeps the night plate and its bone-paper
+ * scrim exactly as they were.
+ */
+body[data-dsh-skin] .aw-plate-dusk {
+  opacity: 0;
+  inset: -2%;
+  background-position: 58% 34%;
+  filter: brightness(.95) contrast(1.03) saturate(1.02) hue-rotate(-3deg);
+  transform: scale(1.012);
+  transition:
+    opacity 900ms ease,
+    filter 900ms ease,
+    background-position 1200ms ease;
+}
+
+body[data-dsh-skin][data-ds-dark-theme] .aw-plate-dusk {
+  opacity: 1;
+}
+
+/*
+ * The reading state keeps the same frame and only grades it down: no second
+ * plate, no frosted pane. brightness and saturation carry the contrast the
+ * body text needs; the scrim below is a soft veil, not a panel.
+ */
+body[data-dsh-skin][data-ds-dark-theme]:has([data-phase='active']) .aw-plate-dusk {
+  background-position: 44% 46%;
+  filter: brightness(.60) contrast(1.06) saturate(.62) hue-rotate(-3deg);
+}
+
+/* the teal soft-light of the deep survey reads cold against a dusk sky */
+body[data-dsh-skin][data-ds-dark-theme]:has([data-phase='active']) .aw-hall-tone {
+  background:
+    radial-gradient(ellipse 46% 40% at 50% 30%, rgba(150, 108, 220, .10), transparent 72%),
+    radial-gradient(ellipse 44% 30% at 46% 72%, rgba(255, 150, 62, .16), rgba(255, 110, 40, .05) 48%, transparent 76%),
+    linear-gradient(180deg, rgba(5, 4, 3, .46), transparent 26%, transparent 58%, rgba(5, 4, 3, .62));
+}
+
+body[data-dsh-skin][data-ds-dark-theme]:has([data-phase='active']) .aw-hall-cool {
+  background:
+    linear-gradient(180deg, rgba(28, 46, 92, .26), transparent 46%, rgba(10, 8, 6, .12)),
+    radial-gradient(ellipse 52% 58% at 14% 82%, rgba(20, 40, 74, .26), transparent 72%);
+  mix-blend-mode: soft-light;
+  opacity: .62;
+}
+
+body[data-dsh-skin][data-ds-dark-theme]:has([data-phase='active']) .aw-shaft-a {
+  background: linear-gradient(180deg, rgba(255, 206, 150, .20), rgba(255, 176, 104, .05) 55%, transparent 80%);
+}
+
+body[data-dsh-skin][data-ds-dark-theme]:has([data-phase='active']) .aw-shaft-b {
+  background: linear-gradient(180deg, rgba(216, 206, 255, .14), rgba(186, 206, 255, .03) 50%, transparent 78%);
+}
+
+/*
+ * The dimmed plate now carries the contrast; this veil only keeps the text
+ * column calm and lets the edges of the photograph stay readable.
+ */
+body[data-dsh-skin][data-ds-dark-theme]:has([data-phase='active']) [data-phase='active']::before {
+  background:
+    radial-gradient(ellipse 72% 66% at 50% 38%, rgba(11, 8, 6, .38), rgba(11, 8, 6, .15) 58%, transparent 82%),
+    linear-gradient(180deg, rgba(11, 8, 6, .30), rgba(11, 8, 6, .40));
+}
+
+/* the vignette that frames the night plate would swallow the dusk sky */
+body[data-dsh-skin][data-ds-dark-theme]:has([data-phase='active']) .aw-scene-host::after {
+  background:
+    linear-gradient(180deg, rgba(11, 8, 6, .30), transparent 26%, transparent 70%, rgba(11, 8, 6, .46)),
+    linear-gradient(90deg, rgba(11, 8, 6, .30), transparent 12%, transparent 88%, rgba(11, 8, 6, .30));
+}
+
+body[data-dsh-skin][data-ds-dark-theme]:has([data-phase='active']) .aw-shaft {
+  opacity: .16;
+}
+
+body[data-dsh-skin] .aw-print { display: none; }
+
+body[data-dsh-skin] .aw-scene-hud {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .55;
+}
+
+body[data-dsh-skin] .aw-scene-host::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 56% 52% at 50% 38%, rgba(11, 8, 6, .16) 0%, transparent 74%),
+    linear-gradient(180deg, rgba(11, 8, 6, .24), transparent 24%, transparent 70%, rgba(11, 8, 6, .58)),
+    linear-gradient(90deg, rgba(11, 8, 6, .40), transparent 14%, transparent 86%, rgba(11, 8, 6, .40));
+}
+
+body[data-dsh-skin][data-ds-dark-theme]:has([data-phase='active']) .aw-scene {
+  opacity: .80;
+}
+
+/* light theme re-prints the same plate: a faded sepia survey print on grid paper */
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-hall {
+  filter: brightness(.98) contrast(1.12) saturate(.28) sepia(.52) hue-rotate(-3deg);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-hall-tone {
+  background:
+    radial-gradient(ellipse 62% 56% at 50% 38%, rgba(247, 238, 220, .24), rgba(247, 238, 220, .10) 55%, transparent 80%),
+    linear-gradient(180deg, rgba(233, 220, 196, .20), transparent 30%, transparent 70%, rgba(233, 220, 196, .30));
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-hall-cool {
+  opacity: .18;
+  mix-blend-mode: multiply;
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-shaft {
+  opacity: .22;
+  mix-blend-mode: multiply;
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-print {
+  display: block;
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(84, 62, 36, .34) 0 .5px, transparent .9px);
+  background-size: 4px 4px;
+  mix-blend-mode: multiply;
+  opacity: .22;
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-scene-host::after {
+  background:
+    radial-gradient(ellipse 62% 56% at 50% 38%, rgba(247, 238, 220, .22) 0%, rgba(247, 238, 220, .08) 56%, transparent 82%),
+    linear-gradient(180deg, rgba(233, 220, 196, .20), transparent 30%, transparent 70%, rgba(233, 220, 196, .30)),
+    linear-gradient(90deg, rgba(233, 220, 196, .34), transparent 16%, transparent 84%, rgba(233, 220, 196, .34));
+}
+
+/* the survey grid printed over the plate */
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-scene-host::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(84, 62, 36, .05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(84, 62, 36, .05) 1px, transparent 1px);
+  background-size: 88px 88px;
+  mix-blend-mode: multiply;
+  opacity: .55;
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-scene-hud {
+  opacity: .68;
+}
+
+body[data-dsh-skin] .aw-fog {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 58% 38% at 46% 72%, rgba(255, 190, 120, .08), transparent 70%),
+    linear-gradient(180deg, rgba(11, 8, 6, .10), transparent 26%, transparent 66%, rgba(11, 8, 6, .44));
+  opacity: .9;
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-fog {
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 74%, rgba(255, 250, 240, .20), transparent 70%),
+    linear-gradient(180deg, rgba(222, 210, 185, .14), transparent 30%, transparent 72%, rgba(222, 210, 185, .26));
+}
+
+body[data-dsh-skin] .aw-grain {
+  position: absolute;
+  inset: 0;
+  opacity: .07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-grain { opacity: .05; }
+
+body[data-dsh-skin] .aw-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 44%, transparent 30%, rgba(0, 0, 0, .38) 100%),
+    linear-gradient(90deg, rgba(0, 0, 0, .34), transparent 18%, transparent 82%, rgba(0, 0, 0, .34));
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-vignette {
+  background:
+    radial-gradient(ellipse at 50% 44%, transparent 36%, rgba(90, 64, 38, .12) 100%),
+    linear-gradient(90deg, rgba(90, 64, 38, .10), transparent 16%, transparent 84%, rgba(90, 64, 38, .10));
+}
+
+body[data-dsh-skin] .aw-dust {
+  position: absolute;
+  inset: 0;
+  opacity: .28;
+  background-image:
+    radial-gradient(1px 1px at 18% 22%, rgba(240, 180, 94, .7), transparent 100%),
+    radial-gradient(1px 1px at 72% 38%, rgba(240, 180, 94, .45), transparent 100%),
+    radial-gradient(1px 1px at 44% 68%, rgba(232, 217, 188, .35), transparent 100%),
+    radial-gradient(1px 1px at 86% 74%, rgba(240, 180, 94, .35), transparent 100%);
+  background-size: 340px 340px, 460px 460px, 280px 280px, 520px 520px;
+  mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent);
+}
+
+/* ---------- 4. sidebar: riveted ledger ---------- */
+body[data-dsh-skin] :is([data-pane='sidebar'], [class*='sidebarCol']) {
+  position: relative;
+  background:
+    linear-gradient(90deg, rgba(255, 235, 200, .035), transparent 22%),
+    linear-gradient(180deg, #241b13 0%, #1a130e 52%, #110d09 100%);
+  border-right: 1px solid rgba(199, 154, 75, .35);
+  box-shadow: inset -1px 0 rgba(232, 197, 124, .16), 18px 0 48px rgba(0, 0, 0, .38);
+}
+
+body[data-dsh-skin] :is([data-pane='sidebar'], [class*='sidebarCol'])::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgba(232, 197, 124, .55) 0 1px, transparent 1.4px),
+    repeating-linear-gradient(0deg, rgba(255, 235, 200, .025) 0 1px, transparent 1px 3px);
+  background-size: 26px 26px, auto;
+  opacity: .10;
+  mask-image: linear-gradient(90deg, transparent, #000 18%, #000 100%);
+}
+
+body[data-dsh-skin] [class*='sidebarCol'] > div {
+  background: transparent;
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) :is([data-pane='sidebar'], [class*='sidebarCol']) {
+  background:
+    linear-gradient(90deg, rgba(255, 250, 240, .22), transparent 24%),
+    linear-gradient(180deg, #e7dcc6 0%, #ded2b9 58%, #d2c4a8 100%);
+  border-right: 1px solid rgba(90, 63, 23, .28);
+  box-shadow: 14px 0 34px rgba(70, 48, 28, .10);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) :is([data-pane='sidebar'], [class*='sidebarCol'])::before {
+  background-image:
+    radial-gradient(circle, rgba(90, 63, 23, .55) 0 1px, transparent 1.4px),
+    repeating-linear-gradient(0deg, rgba(36, 28, 19, .035) 0 1px, transparent 1px 3px);
+  opacity: .12;
+}
+
+/* brand / new survey / search */
+body[data-dsh-skin] [class*='logoRow'] button[class*='brand'] {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 3px;
+  color: var(--aw-brass-hi);
+  padding-left: 2px;
+}
+
+body[data-dsh-skin] [class*='logoRow'] button[class*='brand'] > span {
+  display: none;
+}
+
+body[data-dsh-skin] [class*='logoRow'] button[class*='brand'] svg {
+  display: none;
+}
+
+body[data-dsh-skin] [class*='logoRow'] button[class*='brand']::before {
+  content: var(--aw-brand-name, "AETHERWORKS");
+  font: 600 14.5px/1 var(--aw-font-display);
+  letter-spacing: .16em;
+  color: var(--aw-brass-hi);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .55);
+}
+
+body[data-dsh-skin] [class*='logoRow'] button[class*='brand']::after {
+  content: var(--aw-brand-sub, "SURVEY // SECTOR 07");
+  font: 500 9.6px/1 var(--aw-font-mono);
+  letter-spacing: .22em;
+  color: rgba(232, 197, 124, .82);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) [class*='logoRow'] button[class*='brand']::before {
+  color: #7a4e16;
+  text-shadow: 0 1px 0 rgba(255, 250, 240, .45);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) [class*='logoRow'] button[class*='brand']::after {
+  color: rgba(90, 63, 23, .78);
+}
+
+body[data-dsh-skin] [class*='logoRow'] [class*='toggle'] {
+  color: var(--aw-mute);
+  border: 1px solid transparent;
+}
+
+body[data-dsh-skin] [class*='logoRow'] [class*='toggle']:hover {
+  color: var(--aw-brass-hi);
+  border-color: var(--aw-line);
+}
+
+body[data-dsh-skin] button[class*='newSession'] {
+  position: relative;
+  height: 40px;
+  white-space: nowrap;
+  border: 1px solid rgba(199, 154, 75, .46);
+  border-radius: 3px;
+  background:
+    linear-gradient(180deg, rgba(255, 235, 200, .08), transparent 40%),
+    linear-gradient(180deg, #2a2018, #1a130e);
+  color: var(--aw-brass-hi);
+  font: 600 11.5px/1 var(--aw-font-mono);
+  letter-spacing: .20em;
+  box-shadow: inset 0 1px rgba(255, 235, 200, .08), 0 1px 2px rgba(0, 0, 0, .5);
+  transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+body[data-dsh-skin] button[class*='newSession']:hover {
+  border-color: var(--aw-brass);
+  background:
+    linear-gradient(180deg, rgba(255, 235, 200, .12), transparent 44%),
+    linear-gradient(180deg, #33281e, #1e1711);
+  color: #f7e6bd;
+}
+
+body[data-dsh-skin] button[class*='newSession'] > span {
+  display: none;
+}
+
+body[data-dsh-skin] button[class*='newSession']::after {
+  content: var(--aw-session-label, "NEW SURVEY");
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 600 11.5px/1 var(--aw-font-mono);
+  letter-spacing: .20em;
+  pointer-events: none;
+}
+
+body[data-dsh-skin] button[class*='newSession']::before {
+  content: "⌘N";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font: 500 9.5px/1 var(--aw-font-mono);
+  letter-spacing: .12em;
+  color: var(--aw-faint);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) button[class*='newSession'] {
+  background:
+    linear-gradient(180deg, rgba(255, 250, 240, .55), transparent 50%),
+    linear-gradient(180deg, #efe4cd, #e2d5bb);
+  color: #6b4d1e;
+  border-color: rgba(90, 63, 23, .36);
+  box-shadow: inset 0 1px rgba(255, 255, 255, .6), 0 1px 2px rgba(70, 48, 28, .12);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) button[class*='newSession']:hover {
+  background: linear-gradient(180deg, #f7eeda, #e8dcc4);
+  color: #5a3f17;
+}
+
+body[data-dsh-skin] :is([data-pane='sidebar'], [class*='sidebarCol']) [class*='search']:has(input) {
+  border: 1px solid var(--aw-line);
+  border-radius: 3px;
+  background: rgba(0, 0, 0, .20);
+  transition: border-color 160ms ease, background 160ms ease;
+}
+
+body[data-dsh-skin] :is([data-pane='sidebar'], [class*='sidebarCol']) [class*='search']:has(input):focus-within {
+  border-color: rgba(199, 154, 75, .55);
+  background: rgba(0, 0, 0, .28);
+  box-shadow: 0 0 0 1px rgba(199, 154, 75, .12);
+}
+
+body[data-dsh-skin] :is([data-pane='sidebar'], [class*='sidebarCol']) input[class*='searchInput'] {
+  font: 500 12px/1 var(--aw-font-mono);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--aw-dim);
+}
+
+body[data-dsh-skin] :is([data-pane='sidebar'], [class*='sidebarCol']) input[class*='searchInput']::placeholder {
+  color: var(--aw-faint);
+  letter-spacing: .14em;
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) :is([data-pane='sidebar'], [class*='sidebarCol']) [class*='search']:has(input) {
+  background: rgba(255, 250, 240, .34);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) :is([data-pane='sidebar'], [class*='sidebarCol']) input[class*='searchInput'] {
+  color: var(--aw-ink);
+}
+
+body[data-dsh-skin] [class*='sectionHeader'] {
+  color: var(--aw-brass);
+}
+
+body[data-dsh-skin] [class*='sectionLabel'] {
+  font: 600 10.5px/1 var(--aw-font-mono);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--aw-brass);
+}
+
+body[data-dsh-skin] :is([data-pane='sidebar'], [class*='sidebarCol']) [role='treeitem'] {
+  position: relative;
+  border-radius: 2px;
+  transition: background 140ms ease, box-shadow 140ms ease;
+}
+
+body[data-dsh-skin] :is([data-pane='sidebar'], [class*='sidebarCol']) [role='treeitem'][aria-selected='true'] {
+  background:
+    linear-gradient(90deg, rgba(199, 154, 75, .16), rgba(199, 154, 75, .035) 72%, transparent);
+  box-shadow: inset 2px 0 var(--aw-brass), inset 0 0 22px rgba(199, 154, 75, .05);
+}
+
+body[data-dsh-skin] :is([data-pane='sidebar'], [class*='sidebarCol']) [role='treeitem'][aria-selected='true'] [class*='title'] {
+  color: #f3e7cd;
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) :is([data-pane='sidebar'], [class*='sidebarCol']) [role='treeitem'][aria-selected='true'] {
+  background: linear-gradient(90deg, rgba(139, 100, 38, .16), rgba(139, 100, 38, .04) 72%, transparent);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) :is([data-pane='sidebar'], [class*='sidebarCol']) [role='treeitem'][aria-selected='true'] [class*='title'] {
+  color: #241c13;
+}
+
+body[data-dsh-skin] :is([data-pane='sidebar'], [class*='sidebarCol']) [class*='time'] {
+  font: 500 9.5px/1 var(--aw-font-mono);
+  letter-spacing: .08em;
+  color: var(--aw-faint);
+}
+
+body[data-dsh-skin] :is([data-pane='sidebar'], [class*='sidebarCol']) [class*='folder'] {
+  color: var(--aw-brass) !important;
+}
+
+body[data-dsh-skin] :is([data-pane='sidebar'], [class*='sidebarCol']) [class*='empty'] {
+  font: 500 10px/1.8 var(--aw-font-mono);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--aw-faint);
+}
+
+body[data-dsh-skin] [class*='footArea'] {
+  border-top: 1px solid var(--aw-line);
+  padding-top: 4px;
+}
+
+body[data-dsh-skin] [data-sidebar-collapsed] button[class*='newSession'] {
+  width: 36px;
+  height: 36px;
+  margin: 0 0 12px;
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-dsh-skin] [data-sidebar-collapsed] button[class*='newSession']::before,
+body[data-dsh-skin] [data-sidebar-collapsed] button[class*='newSession']::after {
+  display: none;
+}
+
+body[data-dsh-skin] [data-sidebar-collapsed] button[class*='newSession'] > svg {
+  width: 18px;
+  height: 18px;
+  color: var(--aw-brass-hi);
+}
+
+body[data-dsh-skin] [data-slot='sidebar.settings'] > :is(button, [role='button']) {
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: var(--aw-mute);
+  transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+}
+
+body[data-dsh-skin] [data-slot='sidebar.settings'] > :is(button, [role='button']):hover {
+  color: var(--aw-brass-hi);
+  border-color: var(--aw-line);
+  background: rgba(199, 154, 75, .05);
+}
+
+/* ---------- 5. hero: the unfinished works ---------- */
+body[data-dsh-skin] [data-phase='hero'] [class*='composerStack'] > div:has([class*='headline']) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+  pointer-events: none;
+}
+
+body[data-dsh-skin] [data-phase='hero'] [class*='composerHero'] {
+  gap: 6px;
+}
+
+body[data-dsh-skin] .aw-hero-copy {
+  position: relative;
+  isolation: isolate;
+  flex: none;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 10px 22px;
+  text-align: center;
+  pointer-events: none;
+  animation: aw-rise 520ms ease-out both;
+}
+
+body[data-dsh-skin] .aw-hero-copy::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0 -18% -16%;
+  background: radial-gradient(ellipse 68% 66% at 50% 45%, rgba(7, 6, 5, .58), rgba(7, 6, 5, .22) 56%, transparent 80%);
+  pointer-events: none;
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-hero-copy::before {
+  background: radial-gradient(ellipse 64% 62% at 50% 45%, rgba(247, 238, 220, .62), rgba(247, 238, 220, .28) 56%, transparent 80%);
+}
+
+/* the dusk sky is brighter than the night hall: the landing copy needs a deeper well */
+body[data-dsh-skin][data-ds-dark-theme] .aw-hero-copy::before {
+  background: radial-gradient(ellipse 70% 68% at 50% 45%, rgba(7, 6, 5, .66), rgba(7, 6, 5, .28) 56%, transparent 82%);
+}
+
+/* The plate sits in a row with its redraw knob. The knob hangs off the frame, so
+   the row is padded by exactly the knob's footprint: the plate itself stays
+   optically centred on the copy column. */
+body[data-dsh-skin] .aw-plate-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-left: 27px;
+  margin-bottom: 16px;
+}
+
+body[data-dsh-skin] .aw-plate {
+  text-shadow: 0 1px 10px rgba(0, 0, 0, .92), 0 0 22px rgba(0, 0, 0, .7);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font: 600 9.6px/1 var(--aw-font-mono);
+  letter-spacing: .24em;
+  color: var(--aw-brass);
+}
+
+/*
+ * The one interactive thing on the plate. It has to opt back into clicks: the
+ * copy block it lives in is pointer-events:none so the composer beneath it stays
+ * reachable.
+ */
+body[data-dsh-skin] .aw-quote-refresh {
+  display: inline-grid;
+  place-items: center;
+  width: 17px;
+  height: 17px;
+  padding: 0;
+  border: 1px solid rgba(224, 182, 106, .52);
+  border-radius: 50%;
+  background: rgba(7, 6, 5, .42);
+  color: #e0b66a;
+  opacity: .8;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: opacity 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+body[data-dsh-skin] .aw-quote-refresh:hover {
+  opacity: 1;
+  border-color: rgba(199, 154, 75, .78);
+  background: rgba(199, 154, 75, .12);
+}
+
+body[data-dsh-skin] .aw-quote-refresh:focus-visible {
+  opacity: 1;
+  outline: 1px solid var(--aw-brass);
+  outline-offset: 2px;
+}
+
+body[data-dsh-skin] .aw-quote-refresh:active svg {
+  transform: rotate(-38deg);
+}
+
+body[data-dsh-skin] .aw-quote-refresh svg {
+  transition: transform 260ms ease;
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-quote-refresh {
+  background: rgba(247, 238, 220, .52);
+  border-color: rgba(139, 100, 38, .34);
+  color: var(--aw-brass);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-quote-refresh:hover {
+  border-color: rgba(139, 100, 38, .72);
+  background: rgba(139, 100, 38, .10);
+}
+
+/* the redraw is announced through the status line, not read out of the plate */
+body[data-dsh-skin] .aw-quote-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+body[data-dsh-skin] .aw-plate::before,
+body[data-dsh-skin] .aw-plate::after {
+  content: "";
+  width: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--aw-brass));
+}
+
+body[data-dsh-skin] .aw-plate::after {
+  background: linear-gradient(90deg, var(--aw-brass), transparent);
+}
+
+body[data-dsh-skin] .aw-hero-title {
+  margin: 0;
+  font-family: var(--aw-font-display);
+  /* the quoted line is the monument; everything under it is annotation */
+  font-size: clamp(42px, 5.6vw, 82px);
+  font-weight: 500;
+  line-height: .98;
+  letter-spacing: .012em;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, #f5ead6 0%, #ddcaaa 42%, #b49569 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 2px 0 rgba(0, 0, 0, .38)) drop-shadow(0 12px 28px rgba(0, 0, 0, .28));
+}
+
+body[data-dsh-skin] .aw-hero-title .aw-cn {
+  font-family: var(--aw-font-cn);
+  font-size: .8em;
+  font-weight: 600;
+  letter-spacing: .06em;
+  line-height: 1.16;
+}
+
+body[data-dsh-skin] .aw-hero-title .aw-brass-word {
+  background: linear-gradient(180deg, #f7e3b8 0%, #d8ad64 46%, #a97b3f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+body[data-dsh-skin] .aw-punct {
+  /* Chinese terminal punctuation sits on the left of its em box. Let it hang
+     past the line box so the line is centred by ink, not by advance. */
+  letter-spacing: 0;
+  margin-right: -.6em;
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-hero-title {
+  background: linear-gradient(180deg, #2b2117 0%, #4a3a29 52%, #7a6244 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 1px 0 rgba(255, 250, 240, .55));
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-hero-title .aw-brass-word {
+  background: linear-gradient(180deg, #7a4e16 0%, #a06b22 54%, #5a3f17 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+body[data-dsh-skin] .aw-lede {
+  /* the set-up clause: spoken first, deliberately quiet — the two lines under it
+     are the landing */
+  text-shadow: 0 2px 14px rgba(0, 0, 0, .9), 0 0 30px rgba(0, 0, 0, .6);
+  margin: 0 auto 15px;
+  max-width: 620px;
+  font-family: var(--aw-font-cn);
+  font-size: 18px;
+  line-height: 1.7;
+  letter-spacing: .16em;
+  color: var(--aw-ink);
+  opacity: .9;
+  font-weight: 400;
+}
+
+body[data-dsh-skin] .aw-source {
+  /* the 落款 under the quote: the drawer this plate was filed in, written out */
+  margin: 13px auto 0;
+  max-width: 560px;
+  font: 400 10px/1.7 var(--aw-font-cn);
+  letter-spacing: .16em;
+  color: var(--aw-brass);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-source {
+  text-shadow: none;
+}
+
+body[data-dsh-skin] .aw-epigraph {
+  margin: 12px auto 0;
+  max-width: 560px;
+  font: 500 9.5px/1.7 var(--aw-font-mono);
+  letter-spacing: .16em;
+  color: var(--aw-mute);
+  text-transform: uppercase;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-epigraph {
+  text-shadow: none;
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-plate {
+  text-shadow: 0 1px 10px rgba(247, 238, 220, .95);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-lede {
+  text-shadow: 0 1px 12px rgba(247, 238, 220, .95);
+}
+
+body[data-dsh-skin] .aw-epigraph span {
+  /* the line now carries the source: keep the attribution from splitting mid-name */
+  color: var(--aw-brass);
+  white-space: nowrap;
+}
+
+body[data-dsh-skin] .aw-stats {
+  display: inline-flex;
+  align-items: stretch;
+  margin-top: 20px;
+  justify-content: center;
+  padding: 8px 12px;
+  background: rgba(7, 6, 5, .46);
+  border-top: 1px solid var(--aw-line);
+  border-bottom: 1px solid var(--aw-line);
+  backdrop-filter: blur(2px);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-stats {
+  background: rgba(247, 238, 220, .62);
+}
+
+body[data-dsh-skin] .aw-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 18px;
+}
+
+body[data-dsh-skin] .aw-stat + .aw-stat {
+  border-left: 1px solid var(--aw-line);
+}
+
+body[data-dsh-skin] .aw-stat span {
+  font: 500 8.8px/1 var(--aw-font-mono);
+  letter-spacing: .15em;
+  color: var(--aw-faint);
+}
+
+body[data-dsh-skin] .aw-stat b {
+  font: 500 12.5px/1 var(--aw-font-mono);
+  letter-spacing: .07em;
+  color: var(--aw-dim);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, .55);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) .aw-stat b { text-shadow: none; }
+body[data-dsh-skin] .aw-stat b em { font-style: normal; color: var(--aw-brass); }
+
+/* ---------- 6. composer: the message tube ---------- */
+body[data-dsh-skin] [data-composer-card] {
+  --dsw-alias-label-primary: #eadfc8;
+  --dsw-alias-label-secondary: #c3b398;
+  --dsw-alias-label-tertiary: #a6947a;
+  --dsw-alias-label-caption: #8b7b64;
+  --dsw-alias-label-dimmed: #5e5345;
+  --dsw-alias-border-l1: rgba(234, 223, 200, .10);
+  --dsw-alias-border-l2: rgba(234, 223, 200, .17);
+  --dsw-alias-border-l3: rgba(234, 223, 200, .26);
+  --dsw-alias-border-l4: rgba(199, 154, 75, .55);
+  --dsw-alias-interactive-bg-hover: rgba(199, 154, 75, .10);
+  --dsw-alias-interactive-bg-active: rgba(199, 154, 75, .17);
+  --dsw-alias-interactive-bg-hover-solid: #241b13;
+  --dsw-alias-button-elevated-fill: #241b13;
+  --dsw-specific-selector: #241b13;
+  --dsw-alias-state-business-primary: #d8ad64;
+  --dsw-alias-state-warn-label: #e8c57c;
+  position: relative;
+  padding-top: 37px;
+  border: 1px solid rgba(199, 154, 75, .50);
+  border-radius: 6px;
+  background:
+    radial-gradient(circle at 7px 7px, rgba(232, 197, 124, .65) 0 1.1px, transparent 1.6px),
+    radial-gradient(circle at calc(100% - 7px) 7px, rgba(232, 197, 124, .65) 0 1.1px, transparent 1.6px),
+    radial-gradient(circle at 7px calc(100% - 7px), rgba(232, 197, 124, .65) 0 1.1px, transparent 1.6px),
+    radial-gradient(circle at calc(100% - 7px) calc(100% - 7px), rgba(232, 197, 124, .65) 0 1.1px, transparent 1.6px),
+    linear-gradient(180deg, rgba(255, 235, 200, .07), transparent 12%),
+    linear-gradient(180deg, #241b13 0%, #17110c 48%, #100c09 100%);
+  box-shadow:
+    var(--aw-shadow),
+    inset 0 1px rgba(255, 235, 200, .08),
+    0 0 0 1px rgba(0, 0, 0, .5);
+  color: var(--aw-glass-ink);
+}
+
+body[data-dsh-skin] [data-composer-card]::before {
+  content: var(--aw-rail-card, "◉ MESSAGE TUBE     //     CHANNEL 07");
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  border-bottom: 1px solid rgba(234, 223, 200, .12);
+  background:
+    linear-gradient(180deg, rgba(255, 235, 200, .06), transparent),
+    rgba(0, 0, 0, .18);
+  font: 600 9.5px/1 var(--aw-font-mono);
+  letter-spacing: .16em;
+  color: #c79a4b;
+  pointer-events: none;
+  white-space: pre;
+}
+
+body[data-dsh-skin] [data-phase='active'] [data-composer-card]::before {
+  content: var(--aw-rail-card-active, "◉ CONTINUE THE LOG     //     CHANNEL 07");
+}
+
+
+body[data-dsh-skin] [data-composer-card] > [data-input-scroll] {
+  position: relative;
+  margin: 9px 11px 0;
+  padding: 4px 0;
+  border: 1px solid rgba(199, 154, 75, .22);
+  border-radius: 3px;
+  background:
+    linear-gradient(180deg, rgba(255, 235, 200, .025), transparent 26%),
+    var(--aw-glass);
+  box-shadow: inset 0 0 30px rgba(0, 0, 0, .65), inset 0 1px rgba(255, 235, 200, .04);
+}
+
+body[data-dsh-skin] [data-composer-card] > [data-input-scroll]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(240, 180, 94, .035) 0 1px, transparent 1px 4px);
+  opacity: .5;
+}
+
+body[data-dsh-skin] [data-composer-card] [data-input-backdrop] {
+  color: var(--aw-glass-ink);
+}
+
+body[data-dsh-skin] [data-composer-card] [data-input-mirror] {
+  min-height: 36px;
+  font-family: var(--aw-font-mono);
+  font-size: 14px;
+  letter-spacing: .03em;
+}
+
+body[data-dsh-skin] [data-composer-card] textarea {
+  caret-color: var(--aw-amber);
+}
+
+body[data-dsh-skin] [data-composer-card] [data-composer-input] {
+  color: var(--aw-glass-ink);
+  caret-color: var(--aw-amber);
+  font-family: var(--aw-font-mono);
+  font-size: 15px;
+  line-height: 1.7;
+  letter-spacing: .01em;
+}
+
+body[data-dsh-skin] [data-composer-card] [data-composer-placeholder] {
+  color: var(--aw-glass-mute);
+  font: 500 14px/1.7 var(--aw-font-mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+body[data-dsh-skin] [data-composer-card] textarea::placeholder {
+  color: var(--aw-glass-mute);
+  font-family: var(--aw-font-mono);
+  font-size: 13.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+body[data-dsh-skin] [data-composer-card] > [class*='row'] {
+  margin-top: 2px;
+  border-top: 1px solid rgba(234, 223, 200, .12);
+  padding: 8px 11px 9px;
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, .2));
+}
+
+body[data-dsh-skin] [data-composer-card] button:not([class*='primary']) {
+  border: 1px solid rgba(199, 154, 75, .26);
+  border-radius: 3px;
+  background: rgba(255, 235, 200, .02);
+  color: #e2d3b6;
+  transition: border-color 140ms ease, color 140ms ease, background 140ms ease;
+}
+
+body[data-dsh-skin] [data-composer-card] button:not([class*='primary']):hover:not(:disabled) {
+  border-color: rgba(199, 154, 75, .55);
+  color: #f0d9a4;
+  background: rgba(199, 154, 75, .08);
+}
+
+body[data-dsh-skin] [data-composer-card] button[class*='add'] {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border-color: rgba(199, 154, 75, .34);
+  color: #c79a4b;
+}
+
+body[data-dsh-skin] [data-composer-card] button[class*='primary'] {
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(232, 197, 124, .55);
+  border-radius: 3px;
+  background:
+    linear-gradient(180deg, rgba(255, 240, 205, .28), transparent 55%),
+    linear-gradient(180deg, #d8ad64, #8b6426);
+  color: #1a120d;
+  box-shadow: inset 0 1px rgba(255, 245, 220, .45), 0 1px 2px rgba(0, 0, 0, .5);
+}
+
+body[data-dsh-skin] [data-composer-card] button[class*='primary']:hover:not(:disabled) {
+  background:
+    linear-gradient(180deg, rgba(255, 245, 220, .36), transparent 55%),
+    linear-gradient(180deg, #e8c57c, #a97b3f);
+}
+
+body[data-dsh-skin] [data-composer-card] button[class*='primary']:disabled {
+  filter: grayscale(.5);
+  opacity: .5;
+}
+
+body[data-dsh-skin] [data-composer-card] :is(select, [class*='trigger']) {
+  font-family: var(--aw-font-mono);
+  font-size: 12px;
+  letter-spacing: .06em;
+  color: #e2d3b6;
+}
+
+body[data-dsh-skin] [data-composer-card] :is(select, [class*='trigger']):hover {
+  color: #f0d9a4;
+  background: rgba(199, 154, 75, .08);
+}
+
+body[data-dsh-skin] [data-composer-seat]:has([data-composer-card])::after {
+  content: "ENTER TO DISPATCH · SHIFT+ENTER FOR A NEW LINE";
+  display: block;
+  padding: 6px 0 2px;
+  text-align: center;
+  font: 500 9px/1 var(--aw-font-mono);
+  letter-spacing: .16em;
+  color: var(--aw-faint);
+  pointer-events: none;
+}
+
+body[data-dsh-skin] [data-phase='active'] [data-composer-seat]:has([data-composer-card])::after {
+  content: "DISPATCH TO THE LEDGER · SHIFT+ENTER FOR A NEW LINE";
+}
+
+/* the landing composer sits a touch narrower than the transcript */
+body[data-dsh-skin] [data-phase='hero'] [data-composer-card] {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: min(760px, var(--dsh-composer-card-max-width, 760px), 100%);
+  margin: 0 auto;
+}
+
+body[data-dsh-skin] [data-phase='hero'] [class*='heroWorkspaceRow'] {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: min(760px, var(--dsh-composer-card-max-width, 760px), 100%);
+  margin: 0 auto calc(-1 * var(--dsh-composer-stack-gap, 6px));
+  padding: 9px 14px;
+  gap: 9px;
+  border: 1px solid rgba(199, 154, 75, .50);
+  border-bottom: 0;
+  border-radius: 6px 6px 0 0;
+  background:
+    linear-gradient(180deg, rgba(255, 235, 200, .07), transparent 60%),
+    linear-gradient(180deg, #2a2018, #19120d);
+  box-shadow: inset 0 1px rgba(255, 235, 200, .07);
+}
+
+body[data-dsh-skin] [data-phase='hero'] [class*='heroWorkspaceRow']::before {
+  content: var(--aw-rail-scope, "◉ SURVEY SCOPE");
+  flex: 0 0 auto;
+  margin-right: 2px;
+  font: 600 9.5px/1 var(--aw-font-mono);
+  letter-spacing: .2em;
+  color: #c79a4b;
+  white-space: nowrap;
+}
+
+body[data-dsh-skin] [data-phase='hero'] [class*='heroWorkspaceRow']::after {
+  content: var(--aw-rail-channel, "MESSAGE TUBE // CH 07");
+  flex: 0 0 auto;
+  margin-left: auto;
+  font: 500 9.4px/1 var(--aw-font-mono);
+  letter-spacing: .14em;
+  color: #9c8a6e;
+  white-space: nowrap;
+}
+
+/* DSH right-aligns the hero options with `margin-left: auto`, and this skin's
+   right-hand caption (::after) also claims an auto margin. Two auto margins in
+   one flex line split the free space evenly, so the options — the branch
+   control included — landed near the middle of the rail, floating far from the
+   workspace chip and preset they belong to. Let the caption own the remaining
+   space and park the options right after the preset. */
+body[data-dsh-skin] [data-phase='hero'] [class*='heroWorkspaceRow'] [class*='heroOptions'] {
+  margin-left: 2px;
+}
+
+body[data-dsh-skin] [data-phase='hero'] [class*='heroWorkspaceRow'] :is(button, [role='button']) {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  max-width: 46%;
+  min-height: 32px;
+  padding: 5px 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: #e2d3b6;
+  font: 500 12.5px/1 var(--aw-font-mono);
+  letter-spacing: .04em;
+  transition: color 140ms ease, border-color 140ms ease, background 140ms ease;
+}
+
+body[data-dsh-skin] [data-phase='hero'] [class*='heroWorkspaceRow'] :is(button, [role='button']):hover {
+  color: #f0d9a4;
+  border-color: var(--aw-line);
+  background: rgba(199, 154, 75, .07);
+}
+
+body[data-dsh-skin] [data-phase='hero'] [class*='heroWorkspaceRow'] :is(button, [role='button']) svg {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+  opacity: .85;
+}
+
+/* the scope row becomes the dialog's top rail, not a floating control strip */
+body[data-dsh-skin] [data-phase='hero'] [class*='composerStack']:has([class*='heroWorkspaceRow']) [data-composer-card] {
+  padding-top: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+body[data-dsh-skin] [data-phase='hero'] [class*='composerStack']:has([class*='heroWorkspaceRow']) [data-composer-card]::before {
+  display: none;
+}
+
+body[data-dsh-skin] [data-phase='hero'] [class*='composerStack']:has([class*='heroWorkspaceRow']) [data-composer-card] > [data-input-scroll] {
+  margin-top: 8px;
+}
+
+body[data-dsh-skin] [data-phase='hero'] [class*='workspace'] {
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: var(--aw-dim);
+  font-family: var(--aw-font-mono);
+  font-size: 10.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+body[data-dsh-skin] [data-phase='hero'] [class*='workspace']:hover {
+  border-color: var(--aw-line);
+  color: var(--aw-brass-hi);
+  background: rgba(199, 154, 75, .06);
+}
+
+/* ---------- 7. machine log: transcript ---------- */
+body[data-dsh-skin] [data-chat-flow-kind='assistant'] {
+  position: relative;
+  padding-left: 14px;
+  border-left: 1px solid rgba(199, 154, 75, .18);
+}
+
+/* Scoped to the message plate itself — the only child of the stack. A bare
+   descendant match also caught the tooltip DSH renders for the row's 复制
+   button: that bubble is a CSS-module `*_bubble_*` span living inside the same
+   row, so the plate's `position: relative` pulled it out of its own fixed
+   placement and into the action row. The row then grew by the bubble's width,
+   slid the button out from under the pointer, dropped the tooltip, and snapped
+   back — forever, at hover rate. */
+body[data-dsh-skin] [data-chat-flow-kind='user'] [class*='userStack'] > [class*='bubble']:not([role='tooltip']) {
+  position: relative;
+  padding: 10px 15px;
+  border: 1px solid rgba(90, 63, 23, .34);
+  border-radius: 2px;
+  background:
+    linear-gradient(180deg, rgba(255, 250, 240, .32), transparent 36%),
+    repeating-linear-gradient(0deg, rgba(90, 63, 23, .035) 0 1px, transparent 1px 4px),
+    #e4d7bd;
+  color: var(--aw-note-ink);
+  box-shadow:
+    0 2px 0 rgba(0, 0, 0, .35),
+    0 12px 26px rgba(0, 0, 0, .22);
+}
+
+body[data-dsh-skin] [data-chat-flow-kind='user'] [class*='userStack'] > [class*='bubble']:not([role='tooltip'])::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 7px;
+  width: 1px;
+  background: rgba(142, 59, 34, .55);
+  pointer-events: none;
+}
+
+body[data-dsh-skin] [data-chat-flow-kind='user'] [class*='userStack'] > [class*='bubble']:not([role='tooltip']) :is(strong, em) {
+  color: var(--aw-note-ink);
+}
+
+body[data-dsh-skin] [data-chat-flow-kind='user'] [class*='userStack'] > [class*='bubble']:not([role='tooltip']) a {
+  color: var(--aw-note-link);
+  text-decoration-color: color-mix(in srgb, var(--aw-note-link) 55%, transparent);
+}
+
+body[data-dsh-skin] [data-chat-flow-kind='user'] [class*='userStack'] {
+  max-width: min(560px, 86%);
+}
+
+body[data-dsh-skin] [data-chat-flow-kind='user'] [class*='refChip'] {
+  border: 1px solid var(--aw-note-chip-line);
+  background: var(--aw-note-chip-bg);
+  color: var(--aw-note-link);
+}
+
+body[data-dsh-skin] :is([class*='reasoning'], [class*='think']) {
+  color: var(--aw-mute);
+}
+
+body[data-dsh-skin] :is([class*='reasoning'], [class*='think']) svg {
+  color: var(--aw-patina);
+}
+
+body[data-dsh-skin] [data-tool] {
+  padding-left: 10px;
+  border-left: 1px solid rgba(111, 155, 131, .30);
+}
+
+body[data-dsh-skin] [data-tool] [class*='title'] {
+  font-family: var(--aw-font-mono);
+  font-size: 11.5px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+body[data-dsh-skin] [data-tool] [class*='summary'] {
+  font-family: var(--aw-font-mono);
+  font-size: 11.5px;
+  letter-spacing: .04em;
+}
+
+body[data-dsh-skin] [data-tool][data-state='running'] {
+  border-left-color: rgba(240, 180, 94, .6);
+}
+
+body[data-dsh-skin] [data-tool][data-state='running'] [class*='leading'] svg {
+  animation: aw-gear 5s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+body[data-dsh-skin] [data-tool][data-state='error'] {
+  border-left-color: rgba(185, 99, 67, .7);
+}
+
+body[data-dsh-skin] [data-chat-flow-kind='turn-error'] {
+  border-left: 2px solid var(--aw-rust);
+  padding-left: 10px;
+}
+
+body[data-dsh-skin] [data-chat-flow-kind='turn-tail'] {
+  border-bottom: 1px solid var(--aw-line);
+  padding-bottom: 10px;
+}
+
+/* ---------- 8. code plates ---------- */
+body[data-dsh-skin] [class*='bannerWrap'] {
+  background: #0e0b08;
+}
+
+body[data-dsh-skin] [class*='banner'] {
+  border-bottom: 1px solid rgba(199, 154, 75, .22);
+  color: #eadfc8;
+}
+
+body[data-dsh-skin] [class*='infostring'] {
+  color: var(--aw-brass-hi);
+  font-family: var(--aw-font-mono);
+  font-size: 10.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+body[data-dsh-skin] pre.shiki,
+body[data-dsh-skin] [class*='block']:has(pre) pre {
+  border-left: 2px solid rgba(199, 154, 75, .55);
+  background: #0e0b08 !important;
+  color: #e6d7bd;
+}
+
+body[data-dsh-skin] pre.shiki code {
+  font-family: var(--aw-font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+body[data-dsh-skin] :not(pre) > code {
+  border: 1px solid var(--aw-line);
+  border-radius: 2px;
+  background: var(--dsw-alias-markdown-inline-code);
+  color: var(--aw-brass-hi);
+  font-family: var(--aw-font-mono);
+}
+
+body[data-dsh-skin] [class*='copyButton'] {
+  color: var(--aw-mute);
+}
+
+body[data-dsh-skin] [class*='copyButton']:hover {
+  color: var(--aw-brass-hi);
+}
+
+/* ---------- 9. work order / authorization ---------- */
+body[data-dsh-skin] [data-testid='todo-panel'] {
+  position: relative;
+  padding-top: 12px;
+  border-color: var(--aw-line);
+  border-radius: 3px;
+  background:
+    linear-gradient(180deg, rgba(255, 235, 200, .035), transparent 40%),
+    var(--aw-panel-solid);
+}
+
+body[data-dsh-skin] [data-testid='todo-panel']::before {
+  content: "WORK ORDER";
+  position: absolute;
+  top: 5px;
+  left: 12px;
+  font: 600 8.5px/1 var(--aw-font-mono);
+  letter-spacing: .18em;
+  color: var(--aw-brass);
+  pointer-events: none;
+}
+
+body[data-dsh-skin] [data-testid='todo-panel'] [class*='title'] {
+  font-family: var(--aw-font-mono);
+  font-size: 10.5px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--aw-dim);
+}
+
+body[data-dsh-skin] [data-testid='todo-panel'] [data-status='completed'] {
+  opacity: .68;
+}
+
+body[data-dsh-skin] [data-testid='todo-panel'] [data-status='completed'] [class*='content'] {
+  text-decoration: line-through;
+  text-decoration-color: rgba(199, 154, 75, .5);
+}
+
+body[data-dsh-skin] [data-testid='todo-panel'] [data-status='in_progress'] {
+  color: var(--aw-amber);
+}
+
+body[data-dsh-skin] [data-testid='todo-panel'] [data-status='in_progress'] [class*='content']::after {
+  content: " ●";
+  color: var(--aw-amber);
+  font-size: 8px;
+}
+
+body[data-dsh-skin] :is([data-question], [data-approval]) [class*='card'] {
+  border: 1px solid rgba(199, 154, 75, .42);
+  border-radius: 4px;
+  background:
+    linear-gradient(180deg, rgba(255, 235, 200, .05), transparent 20%),
+    linear-gradient(180deg, #211912, #120e0a);
+  box-shadow: var(--aw-shadow), inset 0 1px rgba(255, 235, 200, .07);
+  color: var(--aw-glass-ink);
+  --dsw-alias-label-primary: #eadfc8;
+  --dsw-alias-label-secondary: #c3b398;
+  --dsw-alias-label-tertiary: #a6947a;
+  --dsw-alias-label-caption: #8b7b64;
+  --dsw-alias-border-l2: rgba(234, 223, 200, .17);
+  --dsw-alias-interactive-bg-hover: rgba(199, 154, 75, .10);
+}
+
+body[data-dsh-skin] :is([data-question], [data-approval]) [class*='eyebrow'] {
+  font-family: var(--aw-font-mono);
+  font-size: 8.5px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--aw-brass);
+}
+
+body[data-dsh-skin] :is([data-question], [data-approval]) :is([class*='title'], [class*='heading']) {
+  font-family: var(--aw-font-display);
+  letter-spacing: .04em;
+  color: var(--aw-glass-ink);
+}
+
+body[data-dsh-skin] :is([data-question], [data-approval]) [class*='option'] {
+  border-radius: 3px;
+}
+
+body[data-dsh-skin] :is([data-question], [data-approval]) [class*='optionSelected'] {
+  border-color: rgba(199, 154, 75, .55);
+  background: rgba(199, 154, 75, .12);
+}
+
+body[data-dsh-skin] :is([data-question], [data-approval]) [class*='number'] {
+  border: 1px solid rgba(199, 154, 75, .35);
+  border-radius: 2px;
+  background: rgba(199, 154, 75, .08);
+  color: var(--aw-brass-hi);
+  font-family: var(--aw-font-mono);
+}
+
+/* ---------- 10. dialogs, menus, tooltips ---------- */
+body[data-dsh-skin] [role='dialog'] {
+  border: 1px solid rgba(199, 154, 75, .42);
+  border-radius: 4px;
+  background:
+    linear-gradient(180deg, rgba(255, 235, 200, .04), transparent 18%),
+    linear-gradient(180deg, #211912, #15100c);
+  box-shadow: var(--aw-shadow), inset 0 1px rgba(255, 235, 200, .06);
+}
+
+body[data-dsh-skin] [role='dialog']::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid rgba(199, 154, 75, .14);
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+body[data-dsh-skin] [role='dialog'] :is(h1, h2, h3, [class*='title']) {
+  font-family: var(--aw-font-display);
+  letter-spacing: .05em;
+}
+
+/* Settings is a control panel, not a title page: row labels are UI text and
+   must match the nav cells, descriptions and control values around them. */
+body[data-dsh-skin] [role='dialog'][data-shortcut-modal='settings'] :is(h1, h2, h3, [class*='title' i]) {
+  font-family: var(--aw-font-ui);
+  letter-spacing: normal;
+}
+
+body[data-dsh-skin] [role='dialog'] [class*='header'] {
+  border-bottom: 1px solid var(--aw-line);
+}
+
+body[data-dsh-skin] [role='dialog'] :is(input, textarea, select) {
+  border: 1px solid var(--aw-line);
+  border-radius: 3px;
+  background: rgba(0, 0, 0, .26);
+  color: var(--aw-ink);
+  font-family: var(--aw-font-ui);
+}
+
+body[data-dsh-skin] [role='dialog'] :is(input, textarea, select):focus {
+  border-color: rgba(199, 154, 75, .6);
+  outline: none;
+  box-shadow: 0 0 0 1px rgba(199, 154, 75, .18);
+}
+
+body[data-dsh-skin] [role='dialog'] [class*='navCell'] {
+  border-radius: 2px;
+  color: var(--aw-dim);
+}
+
+body[data-dsh-skin] [role='dialog'] [class*='navCell']:hover {
+  background: rgba(199, 154, 75, .07);
+  color: var(--aw-ink);
+}
+
+body[data-dsh-skin] [role='dialog'] [class*='navCell'][aria-current='true'] {
+  background: rgba(199, 154, 75, .13);
+  color: var(--aw-brass-hi);
+  box-shadow: inset 2px 0 var(--aw-brass);
+}
+
+body[data-dsh-skin] [role='dialog'] [class*='themeCube'] {
+  border: 1px solid var(--aw-line);
+  border-radius: 3px;
+  background: rgba(0, 0, 0, .16);
+  color: var(--aw-dim);
+}
+
+body[data-dsh-skin] [role='dialog'] [class*='themeCube'] svg {
+  color: var(--aw-brass);
+}
+
+body[data-dsh-skin] [role='dialog'] [class*='themeCube'][class*='selected'] {
+  border-color: rgba(199, 154, 75, .72);
+  background: rgba(199, 154, 75, .10);
+  color: var(--aw-brass-hi);
+  box-shadow: inset 0 0 20px rgba(199, 154, 75, .07);
+}
+
+body[data-dsh-skin] [role='dialog'] [role='switch'] {
+  border: 1px solid var(--aw-line);
+  background: #2a2018;
+}
+
+body[data-dsh-skin] [role='dialog'] [role='switch'][aria-checked='true'] {
+  border-color: var(--aw-brass-hi);
+  background: var(--aw-brass);
+}
+
+body[data-dsh-skin] [role='dialog'] [role='switch'] > * {
+  background: #f5ead6;
+}
+
+body[data-dsh-skin] [role='dialog'] [class*='selector'] {
+  border: 1px solid var(--aw-line);
+  border-radius: 3px;
+  background: rgba(0, 0, 0, .16);
+  color: var(--aw-dim);
+}
+
+body[data-dsh-skin] [role='dialog'] [class*='selector']:hover {
+  border-color: rgba(199, 154, 75, .5);
+  color: var(--aw-brass-hi);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) [role='dialog'] [class*='navCell'][aria-current='true'] {
+  background: rgba(139, 100, 38, .12);
+  color: #5a3f17;
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) [role='dialog'] [class*='themeCube'] {
+  background: rgba(255, 250, 240, .34);
+  color: var(--aw-dim);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) [role='dialog'] [class*='themeCube'][class*='selected'] {
+  border-color: rgba(139, 100, 38, .7);
+  background: rgba(139, 100, 38, .08);
+  color: #5a3f17;
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) [role='dialog'] [role='switch'] {
+  background: #d8c8a8;
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) [role='dialog'] [role='switch'][aria-checked='true'] {
+  background: var(--aw-brass);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) [role='dialog'] [class*='selector'] {
+  background: rgba(255, 250, 240, .48);
+  color: var(--aw-dim);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) [role='dialog'] {
+  background:
+    linear-gradient(180deg, rgba(255, 250, 240, .4), transparent 18%),
+    linear-gradient(180deg, #f6efe0, #e7dcc6);
+  border-color: rgba(90, 63, 23, .36);
+  box-shadow: 0 24px 60px rgba(70, 48, 28, .2), inset 0 1px rgba(255, 255, 255, .55);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) [role='dialog'] :is(input, textarea, select) {
+  background: rgba(255, 250, 240, .55);
+  color: var(--aw-ink);
+}
+
+body[data-dsh-skin] [role='menu'] {
+  border: 1px solid rgba(199, 154, 75, .42);
+  border-radius: 3px;
+  background:
+    linear-gradient(180deg, rgba(255, 235, 200, .04), transparent 22%),
+    #1e1711;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, .55), inset 0 1px rgba(255, 235, 200, .06);
+}
+
+body[data-dsh-skin] [role='menu'] [role='menuitem'] {
+  border-radius: 2px;
+  font-family: var(--aw-font-ui);
+  font-size: 13px;
+  color: var(--aw-dim);
+}
+
+body[data-dsh-skin] [role='menu'] [role='menuitem']:hover,
+body[data-dsh-skin] [role='menu'] [role='menuitem']:focus {
+  background: rgba(199, 154, 75, .12);
+  color: var(--aw-brass-hi);
+}
+
+body[data-dsh-skin] [role='menu'] [role='separator'] {
+  background: var(--aw-line);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) [role='menu'] {
+  background:
+    linear-gradient(180deg, rgba(255, 250, 240, .5), transparent 26%),
+    #f6efe0;
+  border-color: rgba(90, 63, 23, .34);
+  box-shadow: 0 14px 36px rgba(70, 48, 28, .18), inset 0 1px rgba(255, 255, 255, .6);
+}
+
+body[data-dsh-skin]:not([data-ds-dark-theme]):not([data-skin-forced-dark]) [role='menu'] [role='menuitem'] {
+  color: var(--aw-ink);
+}
+
+body[data-dsh-skin] [class*='tooltip'] {
+  border: 1px solid rgba(199, 154, 75, .35);
+  border-radius: 2px;
+  background: #2a2018;
+  color: #eadfc8;
+  font-family: var(--aw-font-mono);
+  font-size: 9.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* ---------- 11. generic controls ---------- */
+body[data-dsh-skin] button[class*='primary'] {
+  border-radius: 3px;
+  font-family: var(--aw-font-mono);
+  font-size: 10.5px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+body[data-dsh-skin] [role='tab'] {
+  font-family: var(--aw-font-mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+body[data-dsh-skin] [role='tab'][aria-selected='true'] {
+  color: var(--aw-brass-hi);
+}
+
+body[data-dsh-skin] [role='tab'][aria-selected='true']::after {
+  background: var(--aw-brass);
+}
+
+body[data-dsh-skin] hr {
+  border-color: var(--aw-line);
+}
+
+body[data-dsh-skin] [class*='stateDot'] {
+  filter: saturate(.75);
+}
+
+/* ---------- 12. session header chrome ---------- */
+/* The shell chrome is sized for a dense 13px UI. The mono tab treatment
+   above shrank the view tabs to a caption-sized 9.5px and the header's
+   open-with control renders icon-only at 24px, so both read as too small
+   next to the 13-14px crumbs they sit with. Restore them at shell scale
+   without touching the sidebar/deliverables instances of the same
+   open-with component (which are not in the header utilities slot) or the
+   shell's own 36px large variant. */
+body[data-dsh-skin] [data-conversation-tabs] {
+  gap: 30px;
+}
+
+body[data-dsh-skin] [data-conversation-tabs] [role='tab'] {
+  padding-bottom: 10px;
+  font-family: var(--aw-font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 18px;
+  letter-spacing: .06em;
+  color: var(--aw-mute);
+}
+
+body[data-dsh-skin] [data-conversation-tabs] [role='tab']:hover,
+body[data-dsh-skin] [data-conversation-tabs] [role='tab'][aria-selected='true'] {
+  color: var(--aw-brass-hi);
+}
+
+body[data-dsh-skin] [class*='headerUtilities'] [data-open-target][data-size='compact'] {
+  height: 30px;
+  border-radius: 3px;
+  border-color: var(--aw-line-strong);
+}
+
+body[data-dsh-skin] [class*='headerUtilities'] [data-open-target][data-size='compact']:hover {
+  border-color: var(--aw-brass-lo);
+  background: var(--dsw-alias-interactive-bg-hover);
+}
+
+body[data-dsh-skin] [class*='headerUtilities'] [data-open-target][data-size='compact'] > button {
+  gap: 6px;
+  padding: 5px 9px;
+  font-family: var(--aw-font-mono);
+  font-size: 12.5px;
+  line-height: 18px;
+  letter-spacing: .06em;
+}
+
+body[data-dsh-skin] [class*='headerUtilities'] [data-open-target][data-size='compact'] img,
+body[data-dsh-skin] [class*='headerUtilities'] [data-open-target][data-size='compact'] svg {
+  width: 16px;
+  height: 16px;
+}
+
+body[data-dsh-skin] [class*='headerUtilities'] [data-open-target][data-size='compact'] > button[aria-haspopup='menu'] {
+  padding: 5px 8px;
+}
+
+body[data-dsh-skin] [class*='headerUtilities'] [data-open-target][data-size='compact'] > button[aria-haspopup='menu'] svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* ---------- 13. motion ---------- */
+@keyframes aw-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* a redrawn plate is re-surveyed: the new line is developed, not swapped in */
+@keyframes aw-resurvey {
+  from { opacity: 0; transform: translateY(7px); filter: blur(3px); }
+  to { opacity: 1; transform: translateY(0); filter: none; }
+}
+
+body[data-dsh-skin] .aw-quote-body.is-redrawing {
+  animation: aw-resurvey 420ms cubic-bezier(.22, .61, .36, 1) both;
+}
+
+@keyframes aw-gear {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes aw-flicker {
+  0%, 100% { opacity: .88; }
+  42% { opacity: 1; }
+  46% { opacity: .62; }
+  50% { opacity: .94; }
+  72% { opacity: .8; }
+}
+
+@keyframes aw-dust-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-18px, -26px, 0); }
+}
+
+body[data-dsh-skin] .aw-dust {
+  animation: aw-dust-drift 26s linear infinite alternate;
+}
+
+body[data-dsh-skin] [data-composer-card]::before {
+  animation: aw-flicker 9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-dsh-skin] *,
+  body[data-dsh-skin] *::before,
+  body[data-dsh-skin] *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------- 14. responsive ---------- */
+@media (max-width: 980px) {
+  body[data-dsh-skin] .aw-hero-title {
+    font-size: clamp(38px, 6.2vw, 58px);
+  }
+
+  body[data-dsh-skin] .aw-stats {
+    margin-top: 15px;
+  }
+
+  body[data-dsh-skin] .aw-stat {
+    padding: 8px 13px;
+  }
+}
+
+@media (max-width: 720px) {
+  body[data-dsh-skin] .aw-hero-copy {
+    padding-bottom: 14px;
+  }
+
+  body[data-dsh-skin] .aw-plate {
+    text-shadow: 0 1px 10px rgba(0, 0, 0, .92), 0 0 22px rgba(0, 0, 0, .7);
+  }
+
+  /* a fingertip needs a bigger knob than a cursor does */
+  body[data-dsh-skin] .aw-plate-row {
+    gap: 12px;
+    padding-left: 34px;
+    margin-bottom: 12px;
+  }
+
+  body[data-dsh-skin] .aw-quote-refresh {
+    width: 22px;
+    height: 22px;
+  }
+
+  body[data-dsh-skin] .aw-quote-refresh svg {
+    width: 11px;
+    height: 11px;
+  }
+
+  body[data-dsh-skin] .aw-hero-title {
+    font-size: clamp(34px, 8.8vw, 48px);
+  }
+
+  body[data-dsh-skin] .aw-lede {
+  text-shadow: 0 2px 14px rgba(0, 0, 0, .9), 0 0 30px rgba(0, 0, 0, .6);
+    margin-bottom: 12px;
+    font-size: 15px;
+    letter-spacing: .12em;
+  }
+
+  body[data-dsh-skin] .aw-source {
+    margin-top: 9px;
+    font-size: 9px;
+    letter-spacing: .12em;
+  }
+
+  /* the epigraph is no longer a redundant translation — it carries the source of
+     the quoted line, so on phones it shrinks instead of disappearing */
+  body[data-dsh-skin] .aw-epigraph {
+    margin-top: 10px;
+    max-width: 340px;
+    font-size: 8.5px;
+    letter-spacing: .1em;
+  }
+
+  body[data-dsh-skin] .aw-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: min(420px, 100%);
+  }
+
+  body[data-dsh-skin] [data-composer-card]::after {
+    display: none;
+  }
+
+  body[data-dsh-skin] [data-composer-card]::before {
+    font-size: 8px;
+    letter-spacing: .1em;
+  }
+
+  body[data-dsh-skin] [data-phase='hero'] [class*='heroWorkspaceRow']::after {
+    display: none;
+  }
+
+  body[data-dsh-skin] [data-composer-seat]:has([data-composer-card])::after {
+    display: none;
+  }
+
+  body[data-dsh-skin] [data-chat-flow-kind='user'] [class*='userStack'] {
+    max-width: 94%;
+  }
+}
+
+@media (max-width: 480px) {
+  body[data-dsh-skin] .aw-hero-title {
+    font-size: clamp(30px, 9.4vw, 38px);
+  }
+
+  body[data-dsh-skin] .aw-lede {
+  text-shadow: 0 2px 14px rgba(0, 0, 0, .9), 0 0 30px rgba(0, 0, 0, .6);
+    letter-spacing: .1em;
+  }
+
+  body[data-dsh-skin] .aw-stat {
+    padding: 7px 10px;
+  }
+
+  body[data-dsh-skin] .aw-stat b {
+    font-size: 10.5px;
+  }
+
+  body[data-dsh-skin] .aw-stat b em {
+    font-size: 8.5px;
+  }
+
+  body[data-dsh-skin] [data-phase='hero'] [class*='heroWorkspaceRow'] {
+    padding: 7px 10px;
+    gap: 6px;
+  }
+
+  body[data-dsh-skin] [data-phase='hero'] [class*='heroWorkspaceRow']::before {
+    display: none;
+  }
+
+  body[data-dsh-skin] [data-phase='hero'] [class*='heroWorkspaceRow'] :is(button, [role='button']) {
+    min-height: 30px;
+    padding: 4px 7px;
+    font-size: 11.5px;
+  }
+}
+
+
+/* ---------- 15. the skin shelf ---------- */
+/*
+ * One chip in the sidebar footer, one list under it. The chip is the shelf's
+ * handle: the dot carries the active accent, the label the active name. The
+ * menu is anchored above the chip because the footer sits at the bottom of the
+ * sidebar, and it never traps the pointer — clicking anywhere else closes it.
+ */
+body[data-dsh-skin] .aw-switch {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+  padding: 0;
+  font-family: var(--aw-font-ui);
+}
+
+body[data-dsh-skin] .aw-switch--floating {
+  position: fixed;
+  left: 16px;
+  bottom: 14px;
+  z-index: 30;
+  padding: 0;
+}
+
+body[data-dsh-skin] .aw-switch-trigger {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--aw-dim);
+  font: inherit;
+  font-size: 12.5px;
+  letter-spacing: .02em;
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+body[data-dsh-skin] .aw-switch-trigger > svg {
+  margin-left: auto;
+  opacity: .55;
+  transition: transform 160ms ease;
+}
+
+body[data-dsh-skin] .aw-switch-trigger[aria-expanded='true'] > svg { transform: rotate(180deg); }
+
+body[data-dsh-skin] .aw-switch-trigger:hover,
+body[data-dsh-skin] .aw-switch-trigger:focus-visible {
+  color: var(--aw-ink);
+  border-color: var(--aw-line);
+  background: var(--aw-panel);
+}
+
+body[data-dsh-skin] .aw-switch-dot {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--aw-dot, var(--aw-brass));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--aw-dot, var(--aw-brass)) 22%, transparent);
+}
+
+body[data-dsh-skin] .aw-switch-name { white-space: nowrap; }
+
+body[data-dsh-skin] .aw-switch-menu {
+  position: absolute;
+  left: 0;
+  right: 0;
+  min-width: 232px;
+  bottom: calc(100% + 8px);
+  z-index: 40;
+  padding: 8px;
+  border: 1px solid var(--aw-line-strong);
+  border-radius: 3px;
+  background: var(--aw-panel-solid);
+  box-shadow: var(--aw-shadow);
+  transform-origin: bottom center;
+  animation: aw-shelf-in 180ms ease both;
+}
+
+body[data-dsh-skin] .aw-switch--floating .aw-switch-menu {
+  left: 0;
+  right: auto;
+  width: 268px;
+}
+
+@keyframes aw-shelf-in {
+  from { opacity: 0; transform: translateY(4px) scale(.99); }
+  to { opacity: 1; transform: none; }
+}
+
+body[data-dsh-skin] .aw-switch-title {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 4px 7px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--aw-line);
+  color: var(--aw-faint);
+  font-family: var(--aw-font-mono);
+  font-size: 9.5px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+body[data-dsh-skin] .aw-switch-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+body[data-dsh-skin] .aw-switch-item {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 12px;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 6px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--aw-dim);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 140ms ease, border-color 140ms ease, color 140ms ease;
+}
+
+body[data-dsh-skin] .aw-switch-item:hover,
+body[data-dsh-skin] .aw-switch-item:focus-visible {
+  background: var(--aw-panel-raised);
+  color: var(--aw-ink);
+}
+
+body[data-dsh-skin] .aw-switch-item[aria-selected='true'] {
+  border-color: var(--aw-line-strong);
+  background: var(--aw-panel-raised);
+  color: var(--aw-ink);
+}
+
+body[data-dsh-skin] .aw-switch-swatch {
+  width: 34px;
+  height: 30px;
+  border-radius: 1px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .45);
+}
+
+body[data-dsh-skin] .aw-switch-meta {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  min-width: 0;
+  line-height: 1.2;
+}
+
+body[data-dsh-skin] .aw-switch-meta b {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+
+body[data-dsh-skin] .aw-switch-meta em {
+  color: var(--aw-faint);
+  font-family: var(--aw-font-mono);
+  font-size: 8.5px;
+  font-style: normal;
+  letter-spacing: .18em;
+}
+
+body[data-dsh-skin] .aw-switch-meta small {
+  margin-top: 2px;
+  overflow: hidden;
+  color: var(--aw-mute);
+  font-size: 10.5px;
+  line-height: 1.35;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body[data-dsh-skin] .aw-switch-check {
+  display: grid;
+  place-items: center;
+  color: var(--aw-brass);
+  opacity: 0;
+}
+
+body[data-dsh-skin] .aw-switch-item[aria-selected='true'] .aw-switch-check { opacity: 1; }
+
+body[data-dsh-skin] .aw-switch-hint {
+  margin: 7px 4px 1px;
+  color: var(--aw-faint);
+  font-family: var(--aw-font-mono);
+  font-size: 9px;
+  letter-spacing: .1em;
+  opacity: .7;
+}
+
+body[data-dsh-skin] .aw-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 720px) {
+  body[data-dsh-skin] .aw-switch-meta small { display: none; }
+}
+
+/*
+ * On a phone the sidebar collapses to a rail, so the chip has no room for a
+ * name: the dot alone carries the shelf, and the menu still opens full width
+ * from the rail's left edge.
+ */
+@media (max-width: 640px) {
+  body[data-dsh-skin] .aw-switch { flex: none; }
+  body[data-dsh-skin] .aw-switch-trigger {
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+  }
+  body[data-dsh-skin] .aw-switch-name,
+  body[data-dsh-skin] .aw-switch-trigger > svg { display: none; }
+  body[data-dsh-skin] .aw-switch-menu { left: 4px; right: auto; width: 244px; }
+}

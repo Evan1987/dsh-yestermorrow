@@ -1,0 +1,439 @@
+/* ============================================================
+   NEON DRIFT / 霓虹夜行 — the living night.
+   A rain-slick street a few minutes before midnight: cyan structures the
+   frame, magenta marks the one thing that is happening. Scoped to
+   body[data-dsh-skin='neon']; the shared anatomy lives in theme.css.
+   ============================================================ */
+
+/* ---------- tokens ---------- */
+body[data-dsh-skin='neon'] {
+  --aw-font-display: "Hiragino Mincho ProN", "Songti SC", "Noto Serif SC", "Times New Roman", serif;
+  --aw-font-ui: "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Segoe UI", sans-serif;
+  --aw-font-mono: "SF Mono", "IBM Plex Mono", "Menlo", "Consolas", "PingFang SC", monospace;
+  --aw-font-cn: "Songti SC", "Hiragino Mincho ProN", "Noto Serif SC", serif;
+
+  --aw-bg: #05070f;
+  --aw-bg-2: #0a1020;
+  --aw-bg-3: #101a30;
+  --aw-panel: rgba(10, 16, 32, .86);
+  --aw-panel-solid: #0a1020;
+  --aw-panel-raised: #121c33;
+  --aw-ink: #e8f0ff;
+  --aw-dim: #a8b8dd;
+  --aw-mute: #8593b8;
+  --aw-faint: #6b7a9e;
+  --aw-line: rgba(150, 190, 255, .14);
+  --aw-line-strong: rgba(150, 190, 255, .26);
+  --aw-brass: #41f0ff;
+  --aw-brass-hi: #9df9ff;
+  --aw-brass-lo: #1a6f80;
+  --aw-patina: #6c5cff;
+  --aw-patina-dim: #2c2670;
+  --aw-rust: #ff6a5a;
+  --aw-amber: #ffb070;
+  --aw-ember: #ff3d8b;
+  --aw-glass: #060b16;
+  --aw-glass-ink: #dbe7ff;
+  --aw-glass-mute: #8fa0c8;
+  --aw-shadow: 0 26px 70px rgba(0, 0, 0, .62), 0 0 0 1px rgba(65, 240, 255, .05);
+  --aw-paper-bg: #0d1526;
+
+  /* the user's note is a lit pane here, not paper: light ink, magenta chip */
+  --aw-note-ink: #ffe6f1;
+  --aw-note-link: #ff9ecb;
+  --aw-note-chip-bg: rgba(255, 61, 139, .12);
+  --aw-note-chip-line: rgba(255, 61, 139, .38);
+
+  color-scheme: dark;
+
+  --dsw-alias-bg-base: #05070f;
+  --dsw-alias-bg-layer-1: #0a1020;
+  --dsw-alias-bg-layer-2: #101a30;
+  --dsw-alias-bg-layer-3: #16203a;
+  --dsw-alias-bg-overlay: #1b2542;
+  --dsw-alias-bg-module-platform: #0a1020;
+  --dsw-alias-bg-multi-select: #16203a;
+  --dsw-alias-bg-skeleton: rgba(160, 200, 255, .05);
+
+  --dsw-alias-label-primary: #e8f0ff;
+  --dsw-alias-label-secondary: #b6c6e8;
+  --dsw-alias-label-tertiary: #93a3c8;
+  --dsw-alias-label-caption: #7d8db2;
+  --dsw-alias-label-dimmed: #4b577a;
+  --dsw-alias-label-primary-dimmed: #cedcf8;
+  --dsw-alias-label-primary-inverted: #081020;
+  --dsw-alias-label-primary-foreground: #f2f7ff;
+  --dsw-alias-label-primary-bluish: #9df9ff;
+  --dsw-alias-label-inverse: #081020;
+  --dsw-alias-label-error: #ff6a5a;
+
+  --dsw-alias-border-l1: rgba(150, 190, 255, .10);
+  --dsw-alias-border-l2: rgba(150, 190, 255, .16);
+  --dsw-alias-border-l3: rgba(150, 190, 255, .24);
+  --dsw-alias-border-l4: rgba(150, 190, 255, .32);
+  --dsw-alias-border-l2-darkmode-thin: rgba(150, 190, 255, .08);
+  --dsw-alias-border-inverted: rgba(0, 0, 0, .66);
+  --dsw-alias-border-inverted2: rgba(0, 0, 0, .42);
+
+  --dsw-alias-brand-primary: #41f0ff;
+  --dsw-alias-brand-primary-invert: #9df9ff;
+  --dsw-alias-brand-text: #7ef4ff;
+
+  --dsw-alias-button-primary-fill: #2ed9ea;
+  --dsw-alias-button-primary-hover: #63f2ff;
+  --dsw-alias-button-primary-dimmed: #135f6b;
+  --dsw-alias-button-contrast-fill: #41f0ff;
+  --dsw-alias-button-elevated-fill: #101a30;
+  --dsw-alias-button-floating-fill: #0d1526;
+  --dsw-alias-button-floating-hover: #16203a;
+  --dsw-alias-button-ghost-active-fill: #16203a;
+  --dsw-alias-button-ghost-active-hover: #1d2a48;
+  --dsw-alias-button-ghost-active-border: #36507a;
+  --dsw-alias-button-tool-bar-fill: rgba(10, 16, 32, .74);
+  --dsw-alias-button-tool-bar-fill-invisible: rgba(10, 16, 32, .42);
+  --dsw-alias-button-tool-bar-hover: rgba(22, 32, 58, .92);
+
+  --dsw-alias-interactive-bg-hover: rgba(65, 240, 255, .08);
+  --dsw-alias-interactive-bg-active: rgba(65, 240, 255, .14);
+  --dsw-alias-interactive-bg-hover-solid: #16203a;
+  --dsw-alias-interactive-bg-hover-accent: rgba(65, 240, 255, .16);
+  --dsw-alias-interactive-bg-hover-danger: rgba(255, 106, 90, .16);
+
+  --dsw-alias-state-business-primary: #9df9ff;
+  --dsw-alias-state-business-tertiary: #12303c;
+  --dsw-alias-state-success-primary: #7ef0b8;
+  --dsw-alias-state-success-secondary: #4ecf96;
+  --dsw-alias-state-success-tertiary: rgba(78, 207, 150, .16);
+  --dsw-alias-state-warn-primary: #ffb070;
+  --dsw-alias-state-warn-secondary: #ffd166;
+  --dsw-alias-state-warn-tertiary: rgba(255, 176, 112, .16);
+  --dsw-alias-state-warn-label: #ffd9a8;
+  --dsw-alias-state-error-primary: #ff6a5a;
+  --dsw-alias-state-error-secondary: #d24b45;
+
+  --dsw-specific-bubble: #131c36;
+  --dsw-specific-bubble-highlight: #1c2a4e;
+  --dsw-specific-input-major: #070c18;
+  --dsw-specific-login-input: #0a1020;
+  --dsw-specific-menu: #0d1526;
+  --dsw-specific-selector: #16203a;
+  --dsw-specific-sidebar-fill: #070c18;
+  --dsw-specific-sidebar-nav-item-active: #16203a;
+  --dsw-specific-sidebar-nav-item-active-accent: #1c2a4e;
+  --dsw-specific-sidebar-nav-item-hover: #0d1526;
+  --dsw-specific-tip: #0b1222;
+
+  --dsw-alias-markdown-code-block: #060b18;
+  --dsw-alias-markdown-code-block-banner: #0b1222;
+  --dsw-alias-markdown-inline-code: #131c36;
+  --dsw-alias-markdown-citation: #0d1526;
+  --dsw-alias-markdown-placeholder: #0d1526;
+  --dsw-alias-markdown-tag: #131c36;
+  --dsw-alias-markdown-code-segment-selected: #16203a;
+  --dsw-alias-markdown-code-segment-unselected: #0a1020;
+
+  --dsw-alias-scrollbar-bg-l1: rgba(65, 240, 255, .20);
+  --dsw-alias-scrollbar-bg-l2: rgba(65, 240, 255, .30);
+  --dsw-alias-scrollbar-hover-l1: #41f0ff;
+  --dsw-alias-scrollbar-hover-l2: #9df9ff;
+
+  --dsw-alias-toast-bg: #16203a;
+  --dsw-alias-tooltip-bg: #1b2542;
+
+  --dsw-font-family: var(--aw-font-ui);
+  --ds-font-family-code: var(--aw-font-mono);
+  --dsw-shadow-lv1: 0 2px 5px rgba(0, 0, 0, .42);
+  --dsw-shadow-lv1-blur: 0 4px 14px rgba(0, 0, 0, .34);
+  --dsw-shadow-lv2: 0 6px 18px rgba(0, 0, 0, .46), 0 2px 8px rgba(0, 0, 0, .32);
+  --dsw-shadow-lv3: 0 0 1px rgba(0, 0, 0, .8), 0 14px 40px rgba(0, 0, 0, .58);
+  --dsw-mask-blur: blur(3px);
+
+  --shiki-foreground: #dfe9ff;
+  --shiki-token-constant: #ffb070;
+  --shiki-token-string: #8ff0c0;
+  --shiki-token-comment: #5b6b93;
+  --shiki-token-keyword: #ff3d8b;
+  --shiki-token-parameter: #41f0ff;
+  --shiki-token-function: #9d8bff;
+  --shiki-token-string-expression: #8ff0c0;
+  --shiki-token-punctuation: #7f8fb8;
+  --shiki-token-link: #41f0ff;
+}
+
+/* ---------- scene: the street, graded cold, with the signs doing the lighting ---------- */
+body[data-dsh-skin='neon'] .aw-hall {
+  filter: brightness(.78) contrast(1.14) saturate(1.14) hue-rotate(8deg);
+  background-position: 52% 42%;
+}
+
+/* no second plate: the neon street is one continuous shot */
+body[data-dsh-skin='neon'] .aw-plate-dusk { display: none; }
+
+body[data-dsh-skin='neon'] .aw-hall-tone {
+  background:
+    radial-gradient(ellipse 42% 40% at 22% 72%, rgba(255, 61, 139, .16), transparent 68%),
+    radial-gradient(ellipse 38% 44% at 78% 34%, rgba(65, 240, 255, .14), transparent 70%),
+    linear-gradient(180deg, rgba(3, 5, 12, .48), transparent 30%, transparent 62%, rgba(3, 5, 12, .78));
+}
+
+body[data-dsh-skin='neon'] .aw-hall-cool {
+  background:
+    linear-gradient(180deg, rgba(28, 60, 120, .22), transparent 46%),
+    radial-gradient(ellipse 54% 60% at 82% 78%, rgba(108, 92, 255, .18), transparent 72%);
+  mix-blend-mode: screen;
+  opacity: .55;
+}
+
+/* the two architectural shafts were daylight in the survey: the street has none */
+body[data-dsh-skin='neon'] .aw-shaft { display: none; }
+body[data-dsh-skin='neon'] .aw-print,
+body[data-dsh-skin='neon'] .aw-dust,
+body[data-dsh-skin='neon'] .aw-fog { display: none; }
+
+body[data-dsh-skin='neon'] .aw-grain { opacity: .07; }
+
+body[data-dsh-skin='neon'] .aw-vignette {
+  background:
+    radial-gradient(ellipse 66% 62% at 50% 44%, transparent 26%, rgba(3, 5, 12, .46) 74%, rgba(3, 5, 12, .82) 100%);
+}
+
+/* scanlines + a breath of chromatic fringing: the print is a transfer, not a photo */
+body[data-dsh-skin='neon'] .aw-scene-host::after {
+  background:
+    repeating-linear-gradient(180deg, rgba(0, 0, 0, .22) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse 56% 52% at 50% 38%, rgba(5, 7, 15, .10) 0%, transparent 74%),
+    linear-gradient(180deg, rgba(5, 7, 15, .30), transparent 26%, transparent 66%, rgba(5, 7, 15, .72));
+  opacity: .55;
+  mix-blend-mode: normal;
+}
+
+body[data-dsh-skin='neon'] .aw-scene-hud {
+  opacity: .38;
+  filter: drop-shadow(0 0 3px rgba(65, 240, 255, .35));
+}
+
+body[data-dsh-skin='neon'] .aw-scene-hud text { opacity: .34; }
+
+/* ---------- sidebar: dark glass, one cyan edge ---------- */
+body[data-dsh-skin='neon'] :is([data-pane='sidebar'], [class*='sidebarCol']) {
+  background:
+    linear-gradient(90deg, rgba(65, 240, 255, .045), transparent 26%),
+    linear-gradient(180deg, #090f1e 0%, #070c18 54%, #05090f 100%);
+  border-right: 1px solid rgba(65, 240, 255, .18);
+  box-shadow: inset -1px 0 rgba(65, 240, 255, .10), 18px 0 48px rgba(0, 0, 0, .46);
+}
+
+/* the rivet sheet becomes a faint scan grid */
+body[data-dsh-skin='neon'] :is([data-pane='sidebar'], [class*='sidebarCol'])::before {
+  background-image:
+    repeating-linear-gradient(0deg, rgba(150, 190, 255, .05) 0 1px, transparent 1px 4px),
+    radial-gradient(ellipse 60% 30% at 20% 0%, rgba(65, 240, 255, .10), transparent 70%);
+  opacity: .5;
+}
+
+body[data-dsh-skin='neon'] :is([data-pane='sidebar'], [class*='sidebarCol']) [role='treeitem'][aria-selected='true'] {
+  background: linear-gradient(90deg, rgba(65, 240, 255, .16), rgba(65, 240, 255, .04) 62%, transparent);
+  box-shadow: inset 2px 0 0 var(--aw-brass), 0 0 18px rgba(65, 240, 255, .10);
+}
+
+body[data-dsh-skin='neon'] button[class*='newSession'] {
+  border-color: rgba(65, 240, 255, .34);
+  background: linear-gradient(180deg, rgba(65, 240, 255, .12), rgba(65, 240, 255, .04));
+  color: #bff9ff;
+  box-shadow: 0 0 18px rgba(65, 240, 255, .10), inset 0 1px rgba(157, 249, 255, .18);
+}
+
+body[data-dsh-skin='neon'] button[class*='newSession'] {
+  text-shadow: 0 0 14px rgba(65, 240, 255, .45);
+}
+
+/* ---------- hero: the plate under the sign ---------- */
+body[data-dsh-skin='neon'] .aw-hero-copy::before {
+  inset: -6% -26% -12%;
+  background:
+    radial-gradient(ellipse 58% 54% at 50% 44%, rgba(3, 5, 12, .82), rgba(3, 5, 12, .46) 54%, transparent 78%),
+    linear-gradient(180deg, transparent 8%, rgba(3, 5, 12, .34) 44%, transparent 78%);
+}
+
+body[data-dsh-skin='neon'] .aw-plate {
+  color: #8bf0ff;
+  text-shadow: 0 0 16px rgba(65, 240, 255, .55), 0 1px 10px rgba(0, 0, 0, .9);
+  font-weight: 500;
+}
+
+body[data-dsh-skin='neon'] .aw-plate::before,
+body[data-dsh-skin='neon'] .aw-plate::after {
+  opacity: .55;
+}
+
+body[data-dsh-skin='neon'] .aw-hero-title {
+  background: none;
+  color: #f2f7ff;
+  filter: drop-shadow(0 2px 10px rgba(2, 4, 10, .92)) drop-shadow(0 0 30px rgba(65, 240, 255, .20));
+  font-weight: 600;
+}
+
+body[data-dsh-skin='neon'] .aw-hero-title .aw-cn {
+  letter-spacing: .08em;
+  font-weight: 600;
+}
+
+body[data-dsh-skin='neon'] .aw-hero-title .aw-brass-word {
+  background: none;
+  color: #ff7bb0;
+  text-shadow: 0 2px 12px rgba(2, 4, 10, .9), 0 0 30px rgba(255, 61, 139, .50), 0 0 70px rgba(255, 61, 139, .24);
+}
+
+body[data-dsh-skin='neon'] .aw-lede {
+  color: #c3d2f2;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, .9);
+}
+
+body[data-dsh-skin='neon'] .aw-source {
+  color: #96a8d0;
+}
+
+body[data-dsh-skin='neon'] .aw-epigraph {
+  color: #7d8fb8;
+}
+
+body[data-dsh-skin='neon'] .aw-epigraph span { color: #5f7099; }
+
+body[data-dsh-skin='neon'] .aw-quote-refresh {
+  color: #8bf0ff;
+  border-color: rgba(65, 240, 255, .32);
+}
+
+body[data-dsh-skin='neon'] .aw-quote-refresh:hover {
+  color: #e8fdff;
+  border-color: rgba(65, 240, 255, .7);
+  box-shadow: 0 0 16px rgba(65, 240, 255, .4);
+}
+
+/* ---------- the scope rail above the composer ---------- */
+body[data-dsh-skin='neon'] [data-phase='hero'] [class*='heroWorkspaceRow'] {
+  padding: 6px 12px;
+  border-color: rgba(65, 240, 255, .20);
+  background:
+    linear-gradient(180deg, rgba(65, 240, 255, .07), transparent 70%),
+    linear-gradient(180deg, rgba(12, 19, 35, .96), rgba(8, 13, 26, .98));
+  box-shadow: inset 0 1px rgba(157, 249, 255, .10);
+}
+
+body[data-dsh-skin='neon'] [data-phase='hero'] [class*='heroWorkspaceRow']::before {
+  color: #7ef4ff;
+  font-weight: 600;
+}
+
+body[data-dsh-skin='neon'] [data-phase='hero'] [class*='heroWorkspaceRow']::after {
+  color: #6f86b0;
+}
+
+body[data-dsh-skin='neon'] [data-phase='hero'] [class*='heroWorkspaceRow'] :is(button, [role='button']):hover {
+  border-color: rgba(65, 240, 255, .26);
+  background: rgba(65, 240, 255, .07);
+  color: #cdf7ff;
+}
+
+/* the two readings: a hairline rail each, like a small console panel */
+body[data-dsh-skin='neon'] .aw-stat {
+  border-left: 1px solid rgba(65, 240, 255, .22);
+  background: linear-gradient(90deg, rgba(65, 240, 255, .05), transparent 70%);
+}
+
+body[data-dsh-skin='neon'] .aw-stat span {
+  color: #6f86b0;
+}
+
+body[data-dsh-skin='neon'] .aw-stat b {
+  color: #dbe7ff;
+}
+
+body[data-dsh-skin='neon'] .aw-stat b em {
+  color: #7d8fb8;
+}
+
+/* ---------- composer: smoked glass with a cyan seam ---------- */
+body[data-dsh-skin='neon'] [data-composer-card] {
+  background:
+    linear-gradient(180deg, rgba(11, 18, 34, .82), rgba(6, 11, 22, .90));
+  backdrop-filter: blur(9px) saturate(1.15);
+  border-color: rgba(65, 240, 255, .18);
+  box-shadow:
+    0 0 0 1px rgba(65, 240, 255, .05),
+    0 24px 60px rgba(0, 0, 0, .55),
+    0 0 42px rgba(65, 240, 255, .06);
+}
+
+body[data-dsh-skin='neon'] [data-composer-card]::before {
+  content: "◉ MESSAGE TUBE     //     CHANNEL 07";
+  border-bottom-color: rgba(65, 240, 255, .14);
+  background: linear-gradient(180deg, rgba(65, 240, 255, .07), transparent), rgba(0, 0, 0, .22);
+  color: #7ef4ff;
+}
+
+body[data-dsh-skin='neon'] [data-phase='active'] [data-composer-card]::before {
+  content: "◉ CONTINUE THE LINE     //     CHANNEL 07";
+}
+
+/* the well is the card's own glass: no second, milky pane inside it */
+body[data-dsh-skin='neon'] [data-composer-card] > [data-input-scroll] {
+  background: transparent;
+  box-shadow: none;
+}
+
+body[data-dsh-skin='neon'] [data-composer-card] > [data-input-scroll]::after {
+  background: repeating-linear-gradient(0deg, rgba(65, 240, 255, .025) 0 1px, transparent 1px 4px);
+  opacity: .45;
+}
+
+body[data-dsh-skin='neon'] [data-composer-card] [class*='input'] {
+  color: #e2ecff;
+}
+
+body[data-dsh-skin='neon'] [data-composer-card] [class*='placeholder'],
+body[data-dsh-skin='neon'] [data-composer-card] textarea::placeholder {
+  color: #6a7ba2;
+}
+
+/* ---------- transcript: two glasses, one of them warm ---------- */
+body[data-dsh-skin='neon'] [data-chat-flow-kind='user'] [class*='userStack'] > [class*='bubble']:not([role='tooltip']) {
+  background: linear-gradient(180deg, rgba(255, 61, 139, .14), rgba(255, 61, 139, .05));
+  border-color: rgba(255, 61, 139, .24);
+  box-shadow: inset 0 1px rgba(255, 150, 190, .16), 0 10px 26px rgba(0, 0, 0, .34);
+}
+
+body[data-dsh-skin='neon'] [data-chat-flow-kind='user'] [class*='userStack'] > [class*='bubble']:not([role='tooltip'])::before {
+  background: linear-gradient(90deg, transparent, rgba(255, 61, 139, .9), transparent);
+  opacity: .5;
+}
+
+/* ---------- dialogs, menus, tooltips: the same smoked glass ---------- */
+body[data-dsh-skin='neon'] [role='dialog'] {
+  border-color: rgba(65, 240, 255, .20);
+  background: linear-gradient(180deg, rgba(13, 21, 38, .96), rgba(7, 12, 24, .98));
+  box-shadow: 0 0 0 1px rgba(65, 240, 255, .05), 0 30px 80px rgba(0, 0, 0, .6);
+}
+
+body[data-dsh-skin='neon'] [role='dialog']::before {
+  background: linear-gradient(90deg, transparent, rgba(65, 240, 255, .45), transparent);
+}
+
+/* ---------- the shelf: cyan check, magenta state ---------- */
+body[data-dsh-skin='neon'] .aw-switch-trigger:hover,
+body[data-dsh-skin='neon'] .aw-switch-trigger:focus-visible {
+  border-color: rgba(65, 240, 255, .26);
+  background: rgba(65, 240, 255, .06);
+}
+
+body[data-dsh-skin='neon'] .aw-switch-menu {
+  border-color: rgba(65, 240, 255, .22);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .6), 0 0 34px rgba(65, 240, 255, .08);
+}
+
+body[data-dsh-skin='neon'] .aw-switch-item[aria-selected='true'] {
+  border-color: rgba(65, 240, 255, .34);
+  background: rgba(65, 240, 255, .08);
+}
+
+body[data-dsh-skin='neon'] .aw-switch-check { color: #7ef4ff; }
