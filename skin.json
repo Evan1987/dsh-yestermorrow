@@ -3,8 +3,8 @@
   "name": "以太工造",
   "nameEn": "Aetherworks",
   "author": "Evan1987",
-  "tagline": "一座未完工的蒸汽巨构，仍在替不在的人运转",
-  "description": "面向 DeepSeek Harness Web GUI 的复古未来主义皮肤：铆接钢板、黄铜仪表、外露桁架，以及一张停在 03:17 的夜间巨构实景底片。暗色为雨夜中央尖塔，亮色为测绘纸档案副本。",
+  "tagline": "黄昏列车驶向未来城市，车窗里仍亮着暖光",
+  "description": "面向 DeepSeek Harness Web GUI 的复古未来主义皮肤：黄昏列车、远方未来城市、黄铜仪表与工业材质。明暗模式共用列车底片，亮色叠加测绘纸质感。",
   "tags": [
     "retrofuturism",
     "steampunk",
@@ -14,10 +14,10 @@
     "sepia"
   ],
   "accent": "#c79a4b",
-  "bodyAttr": "data-dsh-sector-07",
-  "package": "@zcm/dsh-client-ui-skin-sector-07",
+  "bodyAttr": "data-dsh-yestermorrow",
+  "package": "@zcm/dsh-client-ui-skin-yestermorrow",
   "wiring": {
-    "id": "ui-skin-sector-07",
+    "id": "ui-skin-yestermorrow",
     "bundleWired": false
   },
   "preview": {
@@ -25,6 +25,6 @@
     "dark": "preview/live-dark.png"
   },
   "order": 6,
-  "taglineEn": "An unfinished steam megastructure, still running for the people who left",
+  "taglineEn": "A dusk train approaches a future city, its carriage windows still glowing",
   "dshCompatibility": "0.2.1rc2"
 }

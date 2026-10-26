@@ -9,7 +9,7 @@ const THEME = readFileSync(new URL('../src/client/theme.css', import.meta.url), 
 const PACKAGE = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'))
 const SKIN = JSON.parse(readFileSync(new URL('../skin.json', import.meta.url), 'utf8'))
 const PATCH = readFileSync(new URL('../cordis.patch.yml', import.meta.url), 'utf8')
-const ID = '@zcm/dsh-client-ui-skin-sector-07'
+const ID = '@zcm/dsh-client-ui-skin-yestermorrow'
 
 const FIXTURE = `
 <div id="root">
@@ -126,7 +126,7 @@ function boot({ html = FIXTURE, dark = true, title = '', observeLimit = Infinity
 }
 
 function owned(document, chrome) {
-  return document.querySelector(`[data-skin-chrome='${chrome}'][data-skin-owner='sector-07']`)
+  return document.querySelector(`[data-skin-chrome='${chrome}'][data-skin-owner='yestermorrow']`)
 }
 
 function flush() {
@@ -211,7 +211,7 @@ for (const initialTitle of ['DeepSeek Harness', 'Lower pump station — DeepSeek
       assert.equal(document.querySelector('meta[name="theme-color"]').content, color)
       assert.equal(document.title, initialTitle === 'DeepSeek Harness'
         ? `${name} · DeepSeek Harness` : `Lower pump station — ${name}`)
-      assert.equal(window.localStorage.getItem('sector-07:skin'), id)
+      assert.equal(window.localStorage.getItem('yestermorrow:skin'), id)
       for (const chrome of ['scene', 'hero-copy', 'favicon', 'switcher']) {
         assert.equal(document.querySelectorAll(`[data-skin-chrome="${chrome}"]`).length, 1)
       }
@@ -220,7 +220,7 @@ for (const initialTitle of ['DeepSeek Harness', 'Lower pump station — DeepSeek
     ctx.dispose()
     assert.equal(document.title, initialTitle)
     assert.equal(document.body.hasAttribute('data-dsh-skin'), false)
-    assert.equal(document.querySelector('[data-skin-owner="sector-07"]'), null)
+    assert.equal(document.querySelector('[data-skin-owner="yestermorrow"]'), null)
     document.title = 'After disposal — DeepSeek Harness'
     window.document.dispatchEvent(new window.KeyboardEvent('keydown', { key: '2', altKey: true }))
     await flush()
@@ -234,11 +234,30 @@ test('package, skin manifest and bundle patch agree', () => {
   assert.deepEqual(PACKAGE.dsh.client, { inject: [], platform: 'web' })
   assert.equal(PACKAGE.exports['./client'], './lib/client.js')
   assert.equal(SKIN.package, ID)
-  assert.equal(SKIN.bodyAttr, 'data-dsh-sector-07')
-  assert.equal(SKIN.wiring.id, 'ui-skin-sector-07')
+  assert.equal(SKIN.bodyAttr, 'data-dsh-yestermorrow')
+  assert.equal(SKIN.wiring.id, 'ui-skin-yestermorrow')
   assert.equal(SKIN.id, 'aetherworks')
-  assert.match(PATCH, /ui-skin-sector-07/)
+  assert.match(PATCH, /ui-skin-yestermorrow/)
   assert.match(PATCH, new RegExp(ID.replace(/[/@.]/g, '\\$&')))
+})
+
+test('renaming the plugin preserves the old skin choice and prefers the new choice', () => {
+  const { apply, ctx, document, window } = boot()
+  window.localStorage.setItem('sector-07:skin', 'neon')
+  apply(ctx)
+  assert.equal(document.body.getAttribute('data-dsh-skin'), 'neon')
+  assert.equal(window.localStorage.getItem('yestermorrow:skin'), 'neon')
+  ctx.dispose()
+
+  window.localStorage.setItem('yestermorrow:skin', 'sunset')
+  apply(ctx)
+  assert.equal(document.body.getAttribute('data-dsh-skin'), 'sunset')
+})
+
+test('the retired package is never registered or enabled by the renamed bundle', () => {
+  assert.doesNotMatch(CLIENT, /@zcm\/dsh-client-ui-skin-(?:sector-07|aetherworks)/)
+  assert.doesNotMatch(PATCH, /ui-skin-(?:sector-07|aetherworks)/)
+  assert.equal(PACKAGE.repository.url, 'git+https://github.com/Evan1987/dsh-yestermorrow.git')
 })
 
 test('applies the scope, styles and reversible chrome, then retracts all of it', () => {
@@ -247,8 +266,8 @@ test('applies the scope, styles and reversible chrome, then retracts all of it',
 
   apply(ctx)
 
-  assert.equal(document.body.hasAttribute('data-dsh-sector-07'), true)
-  const sheet = document.head.querySelector("style[data-plugin-css='sector-07/theme.css']")
+  assert.equal(document.body.hasAttribute('data-dsh-yestermorrow'), true)
+  const sheet = document.head.querySelector("style[data-plugin-css='yestermorrow/theme.css']")
   assert.ok(sheet)
   assert.equal(sheet.dataset.plugin, ID)
   assert.ok(owned(document, 'scene'))
@@ -260,8 +279,8 @@ test('applies the scope, styles and reversible chrome, then retracts all of it',
 
   ctx.dispose()
 
-  assert.equal(document.body.hasAttribute('data-dsh-sector-07'), false)
-  assert.equal(document.head.querySelector("style[data-plugin-css='sector-07/theme.css']"), null)
+  assert.equal(document.body.hasAttribute('data-dsh-yestermorrow'), false)
+  assert.equal(document.head.querySelector("style[data-plugin-css='yestermorrow/theme.css']"), null)
   assert.equal(owned(document, 'scene'), null)
   assert.equal(owned(document, 'favicon'), null)
   assert.equal(owned(document, 'hero-copy'), null)
@@ -271,10 +290,10 @@ test('applies the scope, styles and reversible chrome, then retracts all of it',
 
 test('restores the pre-existing body attribute instead of claiming ownership', () => {
   const { apply, ctx, document } = boot()
-  document.body.setAttribute('data-dsh-sector-07', 'pre-existing')
+  document.body.setAttribute('data-dsh-yestermorrow', 'pre-existing')
   apply(ctx)
   ctx.dispose()
-  assert.equal(document.body.getAttribute('data-dsh-sector-07'), 'pre-existing')
+  assert.equal(document.body.getAttribute('data-dsh-yestermorrow'), 'pre-existing')
 })
 
 test('tracks the DSH dark attribute and keeps the system chrome color coherent', async () => {
@@ -293,6 +312,19 @@ test('tracks the DSH dark attribute and keeps the system chrome color coherent',
 
   ctx.dispose()
   assert.equal(meta.content, '#ffffff')
+})
+
+test('Aetherworks uses the train photograph in both light and dark modes', async () => {
+  const { apply, ctx, document } = boot({ dark: false })
+  const train = readFileSync(new URL('../src/client/assets/dusk.webp', import.meta.url)).toString('base64')
+  apply(ctx)
+  for (const dark of [false, true]) {
+    document.body.toggleAttribute('data-ds-dark-theme', dark)
+    await flush()
+    const plates = document.querySelectorAll('[data-aw-plate]')
+    assert.equal(plates.length, 2)
+    for (const plate of plates) assert.ok(plate.style.backgroundImage.includes(train))
+  }
 })
 
 test('re-injects the hero plate after a React remount', async () => {
@@ -436,9 +468,9 @@ test('registers the disposer before a later initialization failure', () => {
   }
   assert.throws(() => apply(ctx), /fixture append failure/)
   head.append = append
-  assert.equal(document.body.hasAttribute('data-dsh-sector-07'), true)
+  assert.equal(document.body.hasAttribute('data-dsh-yestermorrow'), true)
   ctx.dispose()
-  assert.equal(document.body.hasAttribute('data-dsh-sector-07'), false)
+  assert.equal(document.body.hasAttribute('data-dsh-yestermorrow'), false)
 })
 
 test('projects the skin name into the product title without fighting session titles', async () => {

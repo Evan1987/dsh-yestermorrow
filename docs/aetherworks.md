@@ -1,10 +1,12 @@
 # AETHERWORKS · 以太工造
 
+> 2026-10-26：本文保留早期巨构世界观的设计记录；当前版本属于 YESTERMORROW，明暗模式均使用列车图。当前安装方式、主页截图和三套皮肤介绍以根目录 README 为准。
+
 > DSH Web GUI 的**复古未来主义 / 蒸汽朋克 / 巨构**主题皮肤  
 > 副标题：**THE UNFINISHED WORKS**  
 > 版本：v0.1.0 已实现 · 2026-10-18
 
-> 本文是 **SECTOR 07 / 七号扇区** 合集默认皮肤 AETHERWORKS 的设计与技术文档。  
+> 本文是 **YESTERMORROW / 昨日之明日** 合集默认皮肤 AETHERWORKS 的设计与技术文档。
 > 合集安装、切换方式，以及 NEON DRIFT、SUNSET COAST 两套皮肤见根目录 [README](../README.md)。
 
 皮肤预览（1440×900，暗色 / 亮色；本地 DSH 结构夹具渲染）：
@@ -26,7 +28,7 @@ DSH 是这座巨构内部的一台测绘终端：黄铜仪表、铆接钢板、�
 
 v0.1.0 已实现为一个可直接安装的 DSH client-only skin：
 
-- 包：`@zcm/dsh-client-ui-skin-sector-07`（合集包，内含三套皮肤；本套 id 为 `aetherworks`），`body[data-dsh-sector-07]` 作用域，`ui-skin-sector-07` 互斥 id。
+- 包：`@zcm/dsh-client-ui-skin-yestermorrow`（合集包，内含三套皮肤；本套 id 为 `aetherworks`），`body[data-dsh-yestermorrow]` 作用域，`ui-skin-yestermorrow` 互斥 id。
 - 产物：`lib/index.js`（host no-op）+ `lib/client.js`（`window.__ModuleLoader__.load` 闭包工厂，CSS/HTML/WebP 与 SVG HUD 叠层全部内联）。
 - 已在隔离的 DSH profile 中端到端验证：首次加载、暗/亮模式、着陆页、对话页、设置、菜单、移动端 390px、卸载清理。
 - 22 个 jsdom 生命周期/契约测试通过；`tsc --noEmit` 通过。
@@ -36,7 +38,7 @@ v0.1.0 已实现为一个可直接安装的 DSH client-only skin：
 要求 DSH Web 0.2.1-rc.2 或兼容版本。从 GitHub 安装：
 
 ```bash
-dsh plugin --profile web add 'github:Evan1987/dsh-sector-07#main'
+dsh plugin --profile web add 'github:Evan1987/dsh-yestermorrow#main'
 ```
 
 装好后重启一次 DSH。本地开发时改为 clone 后 `pnpm install && pnpm build`，再 `dsh plugin --profile web add "$PWD"`。
@@ -78,7 +80,7 @@ dsh plugin --profile web remove @smalltailqwq/dsh-client-ui-skin-maid-atelier
 合集包名（三套皮肤共用）：
 
 ```text
-@zcm/dsh-client-ui-skin-sector-07
+@zcm/dsh-client-ui-skin-yestermorrow
 ```
 
 ---
@@ -144,7 +146,7 @@ dsh plugin --profile web remove @smalltailqwq/dsh-client-ui-skin-maid-atelier
 
 不是设定集，只是终端里能看到的“现场痕迹”。这些文案会以标签、角标、空状态、tooltip 的形式出现，不打断功能。
 
-- **地点**：`AETHERWORKS / SECTOR 07 / AETHER SPIRE / CENTRAL RING`
+- **地点**：`AETHERWORKS / YESTERMORROW / AETHER SPIRE / CENTRAL RING`
 - **深度**：`1,204 M`
 - **压力**：`0.42 MPa`
 - **辅助电力**：`12%`
@@ -260,12 +262,12 @@ dsh plugin --profile web remove @smalltailqwq/dsh-client-ui-skin-maid-atelier
 - 右：`03:17 / STOPPED`、小压力表、`AUX` 汽灯。
 - 保留原生窗口按钮的行为与位置，只换色/描边，不拦截点击。
 
-> 当前 DSH Web GUI 没有独立的 `titlebar` 区域。实现把品牌、`SURVEY // SECTOR 07` 放进侧栏顶部，把 `PLATE VII · SURVEY 014`、`41Y`、`CREW 00` 放进着陆页 plate/仪表条。仪表读数（`DEPTH`/`PRESSURE`/`AUX%`/`ELEV`）不进入控件——挨着真实控件会被读成实时遥测；它们只保留在底片自身的 SVG 图例里，那里是画的一部分。若桌面 shell 渲染 `[class*=titlebar]`，原生窗口按钮保持可点击，不由皮肤接管。
+> 当前 DSH Web GUI 没有独立的 `titlebar` 区域。实现把品牌、`SURVEY // YESTERMORROW` 放进侧栏顶部，把 `PLATE VII · SURVEY 014`、`41Y`、`CREW 00` 放进着陆页 plate/仪表条。仪表读数（`DEPTH`/`PRESSURE`/`AUX%`/`ELEV`）不进入控件——挨着真实控件会被读成实时遥测；它们只保留在底片自身的 SVG 图例里，那里是画的一部分。若桌面 shell 渲染 `[class*=titlebar]`，原生窗口按钮保持可点击，不由皮肤接管。
 
 ### 5.2 侧栏（测绘台账）
 
 - 298px，深色铆接钢板；亮色模式变成羊皮纸台账。
-- 品牌：黄铜齿轮/拱形徽章 + `AETHERWORKS` + `SURVEY // SECTOR 07`。
+- 品牌：黄铜齿轮/拱形徽章 + `AETHERWORKS` + `SURVEY // YESTERMORROW`。
 - `NEW SURVEY`：黄铜描边按钮，像新领一张测绘表。
 - 搜索：`SEARCH THE LEDGER`，聚焦时黄铜边发亮。
 - `SURVEY LEDGER`：编号 `014–011`，标题 + 英文地点 + 状态 + 时间。
@@ -274,7 +276,7 @@ dsh plugin --profile web remove @smalltailqwq/dsh-client-ui-skin-maid-atelier
 
 ### 5.3 着陆页
 
-- 背景：一张低照度夜间城市航拍照片，叠加一座原创的阶梯式巨构（ziggurat）；保留真实城市的灯海、树影与道路，巨构的立面、窗格、露台光、顶部信标与探照灯由 SVG 逐层绘制，再叠雨雾、暗角与胶片颗粒。
+- 背景：黄昏列车、巨月与远方未来城市。明暗模式共用 `dusk.webp`，分别叠加暗色光效或测绘纸质感；过暗的夜间阶梯巨构底片已于 2026-10-26 移除。
 - 内容层叠一层径向暗角和中心压暗，保证标题/输入框可读。
 - 小牌：`PLATE VII · SURVEY 014`，右侧挂一枚 17px 的换句圆钮（`aria-label="换一句题词"`，`title` 提示 `R`）。牌子在 `.aw-plate-row` 里居中、圆钮挂在牌架右外侧，所以牌架左侧补了等宽内边距（桌面 27px、窄屏 34px），牌子本身仍与文案栏对齐；圆钮是整块文案区里唯一 `pointer-events: auto` 的元素（父层为 `click-through`，免得挡住输入框），窄屏加到 22px 以便指点。
 - 引子：引文的第一分句（`这张面具之下，是一种思想。`），18px 宋体、骨白，压在标题上方当起句。
@@ -317,7 +319,7 @@ dsh plugin --profile web remove @smalltailqwq/dsh-client-ui-skin-maid-atelier
 
 #### 页面其他构件
 
-- 传讯管：`MESSAGE TUBE // CHANNEL 07` 顶条 + 烟熏玻璃屏 + `ATTACH / PLAN / DEEPSEEK / SECTOR 07 / CTX / DISPATCH`。
+- 传讯管：`MESSAGE TUBE // CHANNEL 07` 顶条 + 烟熏玻璃屏 + `ATTACH / PLAN / DEEPSEEK / YESTERMORROW / CTX / DISPATCH`。
 - 作用域行：`SURVEY SCOPE` + 工作区 + 预设 + 会话选项（含分支）靠左成组，右侧收 `MESSAGE TUBE // CH 07`；选项组不能再吃一个 `margin-left: auto`，否则会和右侧说明文字平分空档、把分支推到轨道中央。
 - 工单：三张 `SURVEY THE LOWER LEVELS` / `OPEN THE ARCHIVE` / `RUN DIAGNOSTICS`。
 - 页脚：`ENTER TO DISPATCH · SHIFT+ENTER FOR A NEW LINE`，右侧 `AUX STABLE / 0.42 MPA / 03:17 LOCAL`。
@@ -369,7 +371,7 @@ dsh plugin --profile web remove @smalltailqwq/dsh-client-ui-skin-maid-atelier
 - 暗色会话态实测：正文 9.7:1 @p99（最坏像素 8.6:1）、次级 dim 5.6:1 @p99（最坏 4.9:1），均达 AA；mute/faint 3.2–3.9:1，只用于装饰角标，不单独承载状态。黄铜/铜绿不作为唯一状态指示。
 - 所有交互保留 `:focus-visible`：2px 琥珀外框 + 1px 深色内描边。
 - 亮/暗两套独立设计，不是 `filter: invert()`。
-- 背景为两张内联 WebP 底片：夜间巨构（1920×1080，约 70KB）用于浅色主题，黄昏列车（1672×941，约 114KB）用于暗色主题；构建时转 data URI，叠加 CSS/SVG 光效与噪点，无远程图片请求。
+- 背景为一张内联 WebP 底片：黄昏列车（1672×941，约 111KiB）用于明暗两种主题；构建时转 data URI，叠加 CSS/SVG 光效与噪点，无远程图片请求。
 - `backdrop-filter` 只用于传讯管屏幕、弹窗、菜单；移动端降级为不透明。
 - 大面积动画只改 `transform/opacity`；不做全屏 filter 动画。
 - 响应式：1120px 收窄侧栏，840px 隐藏侧栏、单列工单；输入口最小高度 44px。
@@ -384,7 +386,7 @@ dsh plugin --profile web remove @smalltailqwq/dsh-client-ui-skin-maid-atelier
 `ctx.theme.register()` 只能覆盖 `--dsw-alias-*` 颜色，无法实现背景巨构、铆接钢板、标题栏仪表、印章、状态动画，也不能持久化第三方主题 id。要替换 `maid-atelier` 这种完整皮肤，应沿用 DSH 的 **client-only skin 插件**：
 
 - `package.json` 声明 `dsh.client = { platform: 'web', inject: [] }`；
-- 导出 `./client`，在 `apply(ctx)` 中设置 `body[data-dsh-sector-07]`、注入 CSS、补 favicon/theme-color；
+- 导出 `./client`，在 `apply(ctx)` 中设置 `body[data-dsh-yestermorrow]`、注入 CSS、补 favicon/theme-color；
 - 用 `ctx.effect()` 注册清理；卸载时完全还原；
 - `skin.json` 的 `wiring.id` 与其它皮肤互斥；
 - 不注入服务、不发 Cordis 事件、不触达模型请求。
@@ -392,10 +394,10 @@ dsh plugin --profile web remove @smalltailqwq/dsh-client-ui-skin-maid-atelier
 ### 8.2 实际包结构
 
 ```text
-dsh-sector-07/
+dsh-yestermorrow/
 ├─ package.json                 # dsh.client = { platform: 'web', inject: [] }
 ├─ skin.json                    # 默认皮肤清单：id/bodyAttr/wiring/preview/tags
-├─ cordis.patch.yml             # insert ui-skin-sector-07
+├─ cordis.patch.yml             # insert ui-skin-yestermorrow
 ├─ tsconfig.json
 ├─ build/
 │  └─ build.mjs                 # esbuild: host ESM + client closure factory
@@ -405,11 +407,10 @@ dsh-sector-07/
 │     ├─ index.ts               # apply(): 作用域 + 样式 + chrome + 切换器 + 清理
 │     ├─ skins.ts               # 三套皮肤的名称/字牌/色板/favicon
 │     ├─ quotes.ts              # 22 条题词与出处
-│     ├─ theme.css              # 共用界面解剖，body[data-dsh-sector-07] 作用域
+│     ├─ theme.css              # 共用界面解剖，body[data-dsh-yestermorrow] 作用域
 │     ├─ skins/neon.css         # 霓虹夜行材质覆盖
 │     ├─ skins/sunset.css       # 落日海岸材质覆盖
 │     ├─ scene.html             # 照片背景 + 光效/HUD 叠层（内联注入）
-│     ├─ assets/hall.webp       # 1920×1080 夜间城市 + 巨构合成底片（构建时内联）
 │     ├─ assets/dusk.webp       # 1672×941 黄昏站台底片（构建时内联）
 │     ├─ assets/neon.webp       # 霓虹雨夜街道底片（构建时内联）
 │     ├─ assets/sunset.webp     # 落日海岸底片（构建时内联）
@@ -434,7 +435,7 @@ dsh-sector-07/
 ### 8.3 生命周期
 
 ```ts
-const ATTR = 'data-dsh-sector-07'
+const ATTR = 'data-dsh-yestermorrow'
 
 export function apply(ctx: ClientContext): void {
   // 先登记清理，再做任何 DOM/CSS 写入：后续初始化失败也能完全回退。
@@ -450,10 +451,10 @@ export function apply(ctx: ClientContext): void {
     restoreTitle()
     if (hadAttr) body.setAttribute(ATTR, previousAttr ?? '')
     else body.removeAttribute(ATTR)
-  }, 'ui-skin-sector-07: scope, styles and chrome')
+  }, 'ui-skin-yestermorrow: scope, styles and chrome')
 
   body.setAttribute(ATTR, '')
-  injectStyle()                 // style[data-plugin-css="sector-07/theme.css"]
+  injectStyle()                 // style[data-plugin-css="yestermorrow/theme.css"]
   injectScene()                 // fixed .aw-scene-host + 照片底片/HUD，aria-hidden
   injectFaviconAndThemeColor()
   syncChrome()                  // hero plate
@@ -468,7 +469,7 @@ export function apply(ctx: ClientContext): void {
 - **对话层**：用 `[data-chat-flow-kind='user'|'assistant']`、`[data-tool]`、`[data-testid='todo-panel']`、`[data-question]`、`[data-approval]` 着色；用户消息变成纸质投递单，助手/错误保留机器日志的左侧结构线。
 - **传讯管**：真实 composer 是 **contenteditable** + `[data-composer-placeholder]`，不是 textarea；样式同时覆盖 `[data-composer-input]`、`[data-composer-placeholder]` 和 textarea 兼容路径。
 - **标题投影**：`MutationObserver` 监听 `<title>`，把 `DeepSeek Harness` 投影成 `以太工造 · DeepSeek Harness`，会话标题保留为 `会话 — 以太工造`。
-- **互斥**：`skin.json.wiring.id = ui-skin-sector-07`；不注入服务、不发 Cordis 事件、不触达模型请求。
+- **互斥**：`skin.json.wiring.id = ui-skin-yestermorrow`；不注入服务、不发 Cordis 事件、不触达模型请求。
 
 约束：
 
@@ -481,7 +482,7 @@ export function apply(ctx: ClientContext): void {
 ### 8.4 Token 层
 
 ```css
-body[data-dsh-sector-07] {
+body[data-dsh-yestermorrow] {
   --dsw-alias-bg-base: #0b0806;
   --dsw-alias-bg-layer-1: #15100c;
   --dsw-alias-bg-layer-2: #1e1711;
@@ -507,7 +508,7 @@ body[data-dsh-sector-07] {
 }
 ```
 
-亮色模式给 `body[data-dsh-sector-07]:not([data-ds-dark-theme])` 一套对应值。
+亮色模式给 `body[data-dsh-yestermorrow]:not([data-ds-dark-theme])` 一套对应值。
 
 用户消息这张便签的“纸”不是固定的：霓虹与落日把同一块底板重画成背光玻璃。纸面墨色 `#241c13` 落到深色玻璃上就是黑字黑底（实测对比度 1.1:1）。因此这块底板的正文、链接、引用 chip 单独走四个 token，和材质一起换：
 
@@ -533,9 +534,9 @@ body[data-dsh-sector-07] {
   "tagline": "一座未完工的蒸汽巨构，仍在替不在的人运转",
   "taglineEn": "An unfinished steam megastructure, still running for the people who left",
   "accent": "#c79a4b",
-  "bodyAttr": "data-dsh-sector-07",
-  "package": "@zcm/dsh-client-ui-skin-sector-07",
-  "wiring": { "id": "ui-skin-sector-07", "bundleWired": false },
+  "bodyAttr": "data-dsh-yestermorrow",
+  "package": "@zcm/dsh-client-ui-skin-yestermorrow",
+  "wiring": { "id": "ui-skin-yestermorrow", "bundleWired": false },
   "preview": { "light": "preview/live-light.png", "dark": "preview/live-dark.png" },
   "tags": ["retrofuturism", "steampunk", "megastructure", "ruin", "industrial", "sepia"],
   "order": 6,
@@ -563,7 +564,7 @@ pnpm test
 
 ```bash
 # GitHub main
-dsh plugin --profile web add 'github:Evan1987/dsh-sector-07#main'
+dsh plugin --profile web add 'github:Evan1987/dsh-yestermorrow#main'
 
 # 或本地工作副本（先 pnpm build）
 dsh plugin --profile web add "$PWD"
@@ -622,6 +623,7 @@ v0.1 已交付。名称 `AETHERWORKS / 以太工造` 已确认，不再保留备
 - 本实现的文字、配色、UI 结构、SVG 光效与 HUD 叠层均为原创。
 - 例外：着陆页主标题引用 22 条经典台词与哲学名句（12 条影视台词 + 10 条中西哲学名句，逐条见 §5.3）。
 - 每条在牌面下方用中文落款（作者/作品/年份）与英文小字双重标注出处；引用仅为文字，不含剧照、角色形象、标识或字体文件。
-- 背景底片中的城市照片来自 Pexels（[photo 34945401](https://www.pexels.com/photo/34945401/)，Pexels License，可免费使用与修改，无需署名）；阶梯巨构、光效与 HUD 为原创 SVG，合成后裁切、调色并压缩为 WebP。
+- 已移除的阶梯巨构底片曾使用 Pexels 城市照片（[photo 34945401](https://www.pexels.com/photo/34945401/)，Pexels License）；不再作为当前运行时素材。
+- 当前霓虹与海岸图基于原有底图，经 AI 辅助改绘，分别加入悬浮交通与海上太空港；列车底图沿用已有素材。构建时使用压缩后的 WebP。
 - 不包含、不复用任何第三方封面、肖像、标识或字体文件。
 - 场景是原创合成，视觉语言参考《银翼杀手》等作品的夜间巨构/企业塔楼，但不包含任何电影剧照、角色或受版权保护的画面；不暗示与任何品牌、产品或具体项目的关联。

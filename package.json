@@ -1,7 +1,7 @@
 {
-  "name": "@zcm/dsh-client-ui-skin-sector-07",
-  "version": "0.1.0",
-  "description": "SECTOR 07 — three night-shift skins for the DeepSeek Harness web GUI: Aetherworks, Neon Drift and Sunset Coast",
+  "name": "@zcm/dsh-client-ui-skin-yestermorrow",
+  "version": "0.2.0",
+  "description": "YESTERMORROW / 昨日之明日 — retrofuturist skins for DeepSeek Harness: a dusk train, neon hover taxis and a Space Age coast",
   "author": {
     "name": "Evan1987",
     "url": "https://github.com/Evan1987"
@@ -46,11 +46,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Evan1987/dsh-sector-07.git"
+    "url": "git+https://github.com/Evan1987/dsh-yestermorrow.git"
   },
-  "homepage": "https://github.com/Evan1987/dsh-sector-07#readme",
+  "homepage": "https://github.com/Evan1987/dsh-yestermorrow#readme",
   "bugs": {
-    "url": "https://github.com/Evan1987/dsh-sector-07/issues"
+    "url": "https://github.com/Evan1987/dsh-yestermorrow/issues"
   },
   "publishConfig": {
     "access": "public"

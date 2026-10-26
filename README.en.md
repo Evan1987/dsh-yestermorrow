@@ -1,108 +1,110 @@
-# SECTOR 07
+# YESTERMORROW · 昨日之明日
 
 **English** · [简体中文](README.md)
 
-> Three night-shift skins for the DeepSeek Harness web GUI: **Aetherworks**, **Neon Drift** and **Sunset Coast**.
+> Yesterday's visions of tomorrow, in today's workspace.
 
-One package, three skins, one layout. Switching changes materials and lettering only: no layout changes, no page reload, no second plugin.
+A retrofuturist skin collection for **DeepSeek Harness Web GUI**. One plugin, three settings: a dusk train, neon rain and a sunset spaceport. Each keeps the materials and everyday life of an earlier era while imagining a future that never arrived.
 
-| Skin | id | Mood | Palette |
-| --- | --- | --- | --- |
-| **Aetherworks** | `aetherworks` | An unfinished steam megastructure, still running for the people who left | bone / brass / smoked black |
-| **Neon Drift** | `neon` | Rain, signs, a taxi waiting, and one ramen stall still open | cyan / magenta / deep blue |
-| **Sunset Coast** | `sunset` | A coastal road with no end, a six-o'clock sun, a pink past | coral / chrome / violet |
+Switching changes the visual materials, scenery and lettering without reloading the page or changing the conversation, draft or current quote.
 
-![Aetherworks](preview/live-dark.png)
+## Three skins
 
-More: [Aetherworks light](preview/live-light.png) · [Neon Drift](preview/neon-hero.png) · [Sunset Coast](preview/sunset-hero.png).
+### Aetherworks · 以太工造
 
-## Why SECTOR 07
+A dusk train approaches a distant future city. Brass, industrial instruments and warm carriage windows. Light and dark modes share the train photograph; light mode adds a survey-paper treatment.
 
-`SECTOR 07` already exists inside the first two skins: Aetherworks labels its sidebar `SURVEY // SECTOR 07`, and Neon Drift calls its street `NIGHT LINE // SECTOR 07`. Sunset Coast's `MILE 27` is the coastal stretch of the same night route. The three skins are three locations in one night shift, not three unrelated themes.
+![Latest Aetherworks home](preview/live-dark.png)
 
-Package: `@zcm/dsh-client-ui-skin-sector-07`.
+<details>
+<summary>Light mode</summary>
+
+![Aetherworks light home](preview/live-light.png)
+
+</details>
+
+### Neon Drift · 霓虹夜行
+
+Vintage hover taxis and elevated transit weave through a rainy neon street, with wet asphalt, pedestrians and a ramen shop still open. Cyan and magenta meet backlit glass. Dark only.
+
+![Latest Neon Drift home](preview/neon-hero.png)
+
+### Sunset Coast · 落日海岸
+
+Palms, chrome and a coral sunset. A Space Age offshore port, monorail and vintage spacecraft add a 1960s vision of tomorrow while keeping the coast open and peaceful. Dark only.
+
+![Latest Sunset Coast home](preview/sunset-hero.png)
+
+All three share 22 sourced film and philosophy quotes. Switching skins preserves the current quote; the round button beside it or the `R` key selects another.
 
 ## Install
 
-Requires DSH Web **0.2.1-rc.2** or a compatible version. Currently verified on the web GUI only.
-
-> **Keep only one skin bundle per profile.** This package already contains all three skins. Running it alongside `maid-atelier` or another skin bundle will stack two skins on the same DOM. Remove the old one first:
+Requires DSH Web **0.2.1-rc.2** or a compatible version.
 
 ```bash
-dsh plugin --profile web remove @smalltailqwq/dsh-client-ui-skin-maid-atelier
+dsh plugin --profile web add 'github:Evan1987/dsh-yestermorrow#main'
 ```
 
-Install from GitHub `main`:
+Restart DSH once after installing. Later skin switches apply immediately.
+
+<details>
+<summary>Migrating from this plugin's former sector-07 package</summary>
+
+Stop DSH, remove the old package, install the new one, then start DSH again:
 
 ```bash
-dsh plugin --profile web add 'github:Evan1987/dsh-sector-07#main'
+dsh plugin --profile web remove '@zcm/dsh-client-ui-skin-sector-07'
+dsh plugin --profile web add 'github:Evan1987/dsh-yestermorrow#main'
 ```
 
-Restart DSH once after installing. Later skin switches apply immediately; no restart needed.
+Do not enable both names together. Refreshing the browser does not clear the server's old module roster; a restart is required after renaming. The new plugin preserves your previously selected skin.
 
-Local development:
-
-```bash
-git clone https://github.com/Evan1987/dsh-sector-07.git
-cd dsh-sector-07
-pnpm install
-pnpm build
-dsh plugin --profile web add "$PWD"
-```
+</details>
 
 Uninstall:
 
 ```bash
-dsh plugin --profile web remove '@zcm/dsh-client-ui-skin-sector-07'
+dsh plugin --profile web remove '@zcm/dsh-client-ui-skin-yestermorrow'
 ```
 
-## Switch
+## Use
 
-Use the skin switcher at the bottom of the sidebar, or the keyboard:
+Open the skin switcher at the bottom of the sidebar, or use the keyboard:
 
-| Shortcut | Skin |
+| Shortcut | Action |
 | --- | --- |
 | `Alt+1` | Aetherworks |
 | `Alt+2` | Neon Drift |
 | `Alt+3` | Sunset Coast |
+| `R` | Change quote; ignored inside input fields |
 
-The choice is stored in `localStorage` as `sector-07:skin` and survives a refresh. Switching repaints the scene, lettering and favicon in place; the current page, conversation and draft stay untouched. For testing, you can also append `?skin=neon` or `?skin=sunset`.
+The selected skin is saved locally in the browser and survives a refresh. For testing, use `?skin=aetherworks`, `?skin=neon` or `?skin=sunset`.
 
-On the landing page, the round button next to the quote plate picks another line; bare `R` does the same. `R` inside an input or with `⌘/Ctrl/Alt` is ignored.
+Enable one skin plugin per DSH profile to avoid overlapping styles.
 
-## The three skins
-
-- **Aetherworks** — retrofuturism / steampunk / megastructure. Riveted steel, brass gauges, exposed trusses, a clock stopped at `03:17`, and a night plate of the central spire. Dark is the rainy spire; light is a survey-paper archive copy. The only skin with a light mode.
-- **Neon Drift** — a rain-soaked street at night. Cyan carries the structure; magenta marks only what is happening now. Dark only.
-- **Sunset Coast** — 19:42 on a coastal road: coral sun, chrome reflections, no end. Dark only.
-
-All three share the same pool of 22 quotes, each with its source noted. Switching skins keeps the current quote. Design notes for the default skin: [docs/aetherworks.md](docs/aetherworks.md) (Chinese).
-
-## Develop
+## Local development
 
 ```bash
+git clone https://github.com/Evan1987/dsh-yestermorrow.git
+cd dsh-yestermorrow
 pnpm install
 pnpm typecheck
-pnpm test        # builds, then runs 22 jsdom contract tests
-pnpm build       # emits lib/index.js + lib/client.js
+pnpm test
+pnpm build
+dsh plugin --profile web add "$PWD"
 ```
 
-- `src/client/index.ts` — scope, style injection, chrome, switcher, cleanup.
-- `src/client/skins.ts` — names, lettering, palettes, favicons for all three skins.
-- `src/client/theme.css` + `src/client/skins/*.css` — shared anatomy + per-skin materials.
-- `build/build.mjs` — esbuild host ESM and browser closure factory; CSS/HTML/WebP are inlined.
-- `lib/` is committed, so installing from GitHub does not build on the user's machine.
+- `src/client/index.ts`: lifecycle, switching, browser preferences and cleanup.
+- `src/client/skins.ts`: skin definitions; `quotes.ts`: shared quote pool.
+- `src/client/theme.css` and `src/client/skins/`: shared layout and skin materials.
+- `src/client/assets/`: the WebP backgrounds used by the plugin.
+- `build/build.mjs`: generates `lib/index.js` and `lib/client.js`. Built files are committed, so installing from GitHub needs no local build.
+- `tests/apply.test.mjs`: lifecycle, switching, preference migration, quotes and module registration regressions.
 
-CI runs `typecheck` and `test` on Node 22 + pnpm 11, and checks that a fresh build produces no `lib/` diff.
+CI runs type checks and tests on Node 22 + pnpm 11 and verifies that committed build output matches the source.
 
-## Boundaries
+## Boundaries and license
 
-- **Client-only**: the host half is a no-op; no services, no Cordis events, no model-request changes.
-- **No remote assets**: CSS, HTML, WebP and SVG are inlined into `lib/client.js`; no runtime image or font requests.
-- **Reversible**: uninstall removes its style, scene, hero, favicon, theme-color and title changes, and restores the body attribute.
-- **Mutually exclusive**: `skin.json` declares `wiring.id = ui-skin-sector-07`; do not enable another skin bundle in the same profile.
-- **No tracking**: no usage data, no network access.
+This client-only plugin does not modify model requests or collect usage data. CSS, WebP and SVG are inlined, with no remote image or font requests at runtime. Uninstall removes the injected interface nodes and styles.
 
-## License
-
-Code is MIT. Text, palettes, UI structure, SVG light effects and HUD overlays are original. The 22 quoted lines are text only, with sources noted; no stills, character art or font files are included. The city photograph is from Pexels ([photo 34945401](https://www.pexels.com/photo/34945401/), Pexels License). Full credits and boundaries: [docs/aetherworks.md §12](docs/aetherworks.md#12-许可与边界) (Chinese).
+Code is covered by the [MIT License](LICENSE). Neon and coast images are AI-assisted edits of the existing backgrounds; the train background is retained. Quotes are text only, with their sources noted; no film stills or font files are included. Detailed design history: [Aetherworks notes](docs/aetherworks.md) (Chinese).

@@ -454,8 +454,8 @@ body[data-dsh-skin] .aw-shaft-b {
  * session no longer swaps one world for another: the same photograph pans a
  * little and its lights go down for reading.
  *
- * Light theme never mounts it. It keeps the night plate and its bone-paper
- * scrim exactly as they were.
+ * Light theme uses the same photograph through the base plate with its
+ * bone-paper scrim; this overlay supplies the dark theme's exposure.
  */
 body[data-dsh-skin] .aw-plate-dusk {
   opacity: 0;
@@ -733,7 +733,7 @@ body[data-dsh-skin] [class*='logoRow'] button[class*='brand']::before {
 }
 
 body[data-dsh-skin] [class*='logoRow'] button[class*='brand']::after {
-  content: var(--aw-brand-sub, "SURVEY // SECTOR 07");
+  content: var(--aw-brand-sub, "SURVEY // YESTERMORROW");
   font: 500 9.6px/1 var(--aw-font-mono);
   letter-spacing: .22em;
   color: rgba(232, 197, 124, .82);

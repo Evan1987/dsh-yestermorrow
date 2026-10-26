@@ -1,5 +1,5 @@
 name: Bug report
-description: Something looks broken or unreadable in one of the SECTOR 07 skins.
+description: Something looks broken or unreadable in one of the YESTERMORROW skins.
 title: "[bug] "
 labels: ["bug"]
 body:
@@ -46,7 +46,7 @@ body:
     attributes:
       label: Install source
       description: GitHub main, a local clone, or a specific commit.
-      placeholder: github:Evan1987/dsh-sector-07#main
+      placeholder: github:Evan1987/dsh-yestermorrow#main
     validations:
       required: true
 

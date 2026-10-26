@@ -1,5 +1,5 @@
 /**
- * SECTOR 07 / 七号扇区 — client entry for the three-skin shelf.
+ * YESTERMORROW / 昨日之明日 — client entry for the three-skin shelf.
  *
  * The surface is still client-only: one body attribute scopes the token and
  * component layers, one owned <style> carries every stylesheet (each skin scoped
@@ -16,7 +16,6 @@ import themeCss from './theme.css'
 import neonCss from './skins/neon.css'
 import sunsetCss from './skins/sunset.css'
 import sceneHtml from './scene.html'
-import hallImage from './assets/hall.webp'
 import duskImage from './assets/dusk.webp'
 import neonPlotImage from './assets/neon.webp'
 import sunsetPlateImage from './assets/sunset.webp'
@@ -28,13 +27,13 @@ import {
 } from './skins'
 import { drawQuote, type SkinQuote } from './quotes'
 
-const ATTR = 'data-dsh-sector-07'
+const ATTR = 'data-dsh-yestermorrow'
 const SKIN_ATTR = 'data-dsh-skin'
 /** Set while a dark-only skin is mounted: the base sheet's light rules stand down. */
 const FORCED_DARK_ATTR = 'data-skin-forced-dark'
-const OWNER = 'sector-07'
-const STORAGE_KEY = 'sector-07:skin'
-const STYLE_KEY = 'sector-07/theme.css'
+const OWNER = 'yestermorrow'
+const STORAGE_KEY = 'yestermorrow:skin'
+const STYLE_KEY = 'yestermorrow/theme.css'
 
 /** The three sheets, in cascade order: anatomy, then each skin's materials. */
 const STYLESHEET = [themeCss, neonCss, sunsetCss].join('\n')
@@ -191,7 +190,13 @@ function readStoredSkin(): SkinSpec {
     /* a malformed location is not worth more than the stored choice */
   }
   try {
-    return skinById(window.localStorage.getItem(STORAGE_KEY))
+    const selected = window.localStorage.getItem(STORAGE_KEY)
+    if (selected !== null) return skinById(selected)
+    // Carry the user's choice across the package rename without mounting the old plugin.
+    const legacy = window.localStorage.getItem('sector-07:skin')
+    const skin = skinById(legacy)
+    if (legacy === skin.id) storeSkin(skin.id)
+    return skin
   } catch {
     return skinById(DEFAULT_SKIN_ID)
   }
@@ -276,7 +281,7 @@ export function apply(ctx: ClientContext): void {
     if (hadSkinAttr) body.setAttribute(SKIN_ATTR, previousSkinAttr ?? '')
     else body.removeAttribute(SKIN_ATTR)
     body.removeAttribute(FORCED_DARK_ATTR)
-  }, 'ui-skin-sector-07: scope, styles and chrome')
+  }, 'ui-skin-yestermorrow: scope, styles and chrome')
 
   body.setAttribute(ATTR, '')
   body.setAttribute(SKIN_ATTR, switchedTo.id)
@@ -290,7 +295,7 @@ export function apply(ctx: ClientContext): void {
   } else {
     const element = document.createElement('style')
     element.dataset.pluginCss = STYLE_KEY
-    element.dataset.plugin = '@zcm/dsh-client-ui-skin-sector-07'
+    element.dataset.plugin = '@zcm/dsh-client-ui-skin-yestermorrow'
     element.dataset.skinOwner = OWNER
     element.textContent = STYLESHEET
     document.head.append(element)
@@ -326,7 +331,7 @@ export function apply(ctx: ClientContext): void {
         ? [['night', neonPlotImage], ['dusk', neonPlotImage]]
         : switchedTo.id === 'sunset'
           ? [['night', sunsetPlateImage], ['dusk', sunsetPlateImage]]
-          : [['night', hallImage], ['dusk', duskImage]]
+          : [['night', duskImage], ['dusk', duskImage]]
     for (const [plate, image] of plates) {
       const node = scene.querySelector<HTMLElement>(`[data-aw-plate='${plate}']`)
       if (node !== null) node.style.backgroundImage = `url("${image}")`
@@ -685,5 +690,5 @@ export function apply(ctx: ClientContext): void {
   ctx.effect(() => () => {
     document.removeEventListener('pointerdown', onDocumentPointerDown, true)
     announceNode?.remove()
-  }, 'ui-skin-sector-07: switcher listeners')
+  }, 'ui-skin-yestermorrow: switcher listeners')
 }
