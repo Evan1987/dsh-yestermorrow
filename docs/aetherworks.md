@@ -43,13 +43,7 @@ dsh plugin --profile web add 'github:Evan1987/dsh-yestermorrow#main'
 
 装好后重启一次 DSH。本地开发时改为 clone 后 `pnpm install && pnpm build`，再 `dsh plugin --profile web add "$PWD"`。
 
-如果 profile 里仍启用 `maid-atelier` 等其他 skin bundle，请先移除：
-
-```bash
-dsh plugin --profile web remove @smalltailqwq/dsh-client-ui-skin-maid-atelier
-```
-
-所有皮肤都通过 body 属性作用域和 `ui-skin-*` wiring 互斥；不要同时保留两个 skin bundle。
+同一 DSH profile 建议只启用一个皮肤插件，避免样式相互覆盖。
 
 它不是“蒸汽朋克贴图”，而是把 DSH 的每个功能重新解释成巨构里的一个部件：
 
@@ -383,7 +377,7 @@ dsh plugin --profile web remove @smalltailqwq/dsh-client-ui-skin-maid-atelier
 
 ### 8.1 为什么是 client-only skin
 
-`ctx.theme.register()` 只能覆盖 `--dsw-alias-*` 颜色，无法实现背景巨构、铆接钢板、标题栏仪表、印章、状态动画，也不能持久化第三方主题 id。要替换 `maid-atelier` 这种完整皮肤，应沿用 DSH 的 **client-only skin 插件**：
+`ctx.theme.register()` 只能覆盖 `--dsw-alias-*` 颜色，无法实现背景巨构、铆接钢板、标题栏仪表、印章、状态动画，也不能持久化第三方主题 id。要实现完整的界面皮肤，应使用 DSH 的 **client-only skin 插件**：
 
 - `package.json` 声明 `dsh.client = { platform: 'web', inject: [] }`；
 - 导出 `./client`，在 `apply(ctx)` 中设置 `body[data-dsh-yestermorrow]`、注入 CSS、补 favicon/theme-color；
@@ -570,13 +564,9 @@ dsh plugin --profile web add 'github:Evan1987/dsh-yestermorrow#main'
 dsh plugin --profile web add "$PWD"
 ```
 
-装好后重启一次 DSH。DSH 会把包加入 `~/.dsh/profiles/web/package.json` 的 `dsh.profile.bundles`。若仍保留 `@smalltailqwq/dsh-client-ui-skin-maid-atelier`，请移除它：
+装好后重启一次 DSH。DSH 会把包加入 `~/.dsh/profiles/web/package.json` 的 `dsh.profile.bundles`。
 
-```bash
-dsh plugin --profile web remove @smalltailqwq/dsh-client-ui-skin-maid-atelier
-```
-
-两套 skin 的 `bodyAttr` 与 `wiring.id` 不同；同时启用会叠加两套皮肤，不建议。
+同一 DSH profile 建议只启用一个皮肤插件，避免样式相互覆盖。
 
 ---
 
@@ -591,7 +581,7 @@ dsh plugin --profile web remove @smalltailqwq/dsh-client-ui-skin-maid-atelier
 - [x] 重复激活/HMR 不重复注入：style 复用、scene/favicon 先清理再注入；remount 后 hero plate 自动补回。
 - [x] 不修改任何 DSH 服务、事件或模型请求；无远程资源（仅内联 WebP 与 SVG data URI）。
 - [x] `prefers-reduced-motion` 下关闭全部动画/过渡；无 >3Hz 闪烁。
-- [ ] 与 maid-atelier 在真实 profile 中的互斥切换尚未执行（需要用户确认后移除旧 skin）。
+- [ ] 与其他皮肤插件在真实 profile 中的切换尚未验证。
 - [x] 叙事标签不遮挡功能文案；当前默认开启，尚未提供关闭开关。
 
 ---

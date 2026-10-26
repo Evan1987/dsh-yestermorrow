@@ -47,20 +47,6 @@ dsh plugin --profile web add 'github:Evan1987/dsh-yestermorrow#main'
 
 Restart DSH once after installing. Later skin switches apply immediately.
 
-<details>
-<summary>Migrating from this plugin's former sector-07 package</summary>
-
-Stop DSH, remove the old package, install the new one, then start DSH again:
-
-```bash
-dsh plugin --profile web remove '@zcm/dsh-client-ui-skin-sector-07'
-dsh plugin --profile web add 'github:Evan1987/dsh-yestermorrow#main'
-```
-
-Do not enable both names together. Refreshing the browser does not clear the server's old module roster; a restart is required after renaming. The new plugin preserves your previously selected skin.
-
-</details>
-
 Uninstall:
 
 ```bash

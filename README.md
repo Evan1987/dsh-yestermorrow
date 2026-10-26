@@ -47,20 +47,6 @@ dsh plugin --profile web add 'github:Evan1987/dsh-yestermorrow#main'
 
 安装完成后重启一次 DSH。之后切换皮肤即时生效，无须重启。
 
-<details>
-<summary>从本插件的旧版 sector-07 迁移</summary>
-
-先停止 DSH，再移除旧版并安装新版，最后重新启动：
-
-```bash
-dsh plugin --profile web remove '@zcm/dsh-client-ui-skin-sector-07'
-dsh plugin --profile web add 'github:Evan1987/dsh-yestermorrow#main'
-```
-
-新旧包不要同时启用。仅刷新网页不会清除服务内存中的旧模块入口；改名后必须重启。新版会保留旧版保存的皮肤选择。
-
-</details>
-
 卸载本插件：
 
 ```bash
